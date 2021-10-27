@@ -1,0 +1,146 @@
+<?php
+
+/**
+ * Single Post type for Survey
+ */
+get_header();
+?>
+
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+
+
+	<div class="entry-content">
+
+		<div class="survey_questions_conatiner">
+			<?php
+			$survey_items = carbon_get_post_meta(get_the_ID(), 'survey_items');
+			// echo '<pre>';
+			// print_r($survey_items);
+			// echo '</pre>';
+
+			if (!empty($survey_items)) :
+				foreach ($survey_items as $survey_item) {
+					/**
+					 * Single Choice Questions
+					 */
+					if ($survey_item['select_survey_question_type'] == 'single_choice') {
+			?>
+						<div class="single_question"><?php echo $survey_item['single_question']; ?></div>
+						<?php
+						foreach ($survey_item['single_answers'] as $single_answer) {
+
+						?>
+							<div class="custom-control custom-radio">
+								<input type="radio" id="customRadio_<?php echo $single_answer['single_text_answers']; ?>" value="<?php echo $single_answer['single_text_answers']; ?>" name="<?php echo $survey_item['single_question']; ?>" class="custom-control-input">
+								<label class="custom-control-label" for="customRadio_<?php echo $single_answer['single_text_answers']; ?>"><?php echo $single_answer['single_text_answers']; ?></label>
+							</div>
+
+						<?php
+						}
+					}
+					/**
+					 * Muliple Choices Questions
+					 */
+					if ($survey_item['select_survey_question_type'] == 'multiple_choices') {
+						$multiple_question = $survey_item['multiple_question'];
+						?>
+						<div class="multiple_choices_question"><?php echo $multiple_question; ?></div>
+						<?php
+						foreach ($survey_item['multiple_answers'] as $multiple_text_answers) {
+							$available_multiple_answers = $multiple_text_answers['multiple_text_answers'];
+
+						?>
+							<div class="multiple_container" id="multiple_answers_container">
+								<div class="custom-control custom-radio">
+									<input type="checkbox" id="customCheckbox_<?php echo $available_multiple_answers; ?>" data-answer="<?php echo $available_multiple_answers; ?>" data-question="<?php echo $multiple_question; ?>" class="custom-control-input">
+									<label class="custom-control-label" for="customCheckbox_<?php echo $available_multiple_answers; ?>"><?php echo $available_multiple_answers; ?></label>
+								</div>
+							</div>
+						<?php
+						}
+					}
+					/**
+					 * Matrix Questions
+					 */
+					if ($survey_item['select_survey_question_type'] == 'matrix_question') {
+
+						$matrix_question_statement = $survey_item['matrix_statement'];
+						$matrix_answers_row_head = $survey_item['matrix_answers_array'];
+						$matrix_questions_row_head = $survey_item['matrix_questions_array'];
+						?>
+						<div class="matrix_statement"><?php echo $matrix_question_statement; ?></div>
+						<div class="matrix_table_container">
+							<table>
+								<thead>
+									<tr>
+										<th><?php echo __('Questions') ?></th>
+										<?php
+										foreach ($matrix_answers_row_head as $theadAnswer) {
+											$thAnswer = $theadAnswer['matrix_answer_text'];
+										?>
+
+											<th><?php echo $thAnswer; ?></th>
+										<?php } ?>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+									$length = count($matrix_questions_row_head);
+									for ($i = 0; $i < $length; $i++) {
+									?>
+										<tr>
+											<th><?php echo $matrix_questions_row_head[$i]['matrix_text_questions']; ?></th>
+											<?php
+											foreach ($matrix_answers_row_head as $answers) {
+												$theAnswers = $answers['matrix_answer_text'];
+											?>
+												<td>
+													<input type='radio' id="id_<?php echo $theAnswers ?>" class='radio_input' name="<?php echo $matrix_questions_row_head[$i]['matrix_text_questions']; ?>" value="<?php echo $theAnswers ?>" />
+												</td>
+											<?php
+											}
+											?>
+										</tr>
+									<?php
+									}
+									?>
+
+								</tbody>
+							</table>
+						</div>
+					<?php
+					}
+					/**
+					 * Textarea Questions
+					 */
+					if ($survey_item['select_survey_question_type'] == 'textarea') { ?>
+						<div class="textarea_container">
+							<div class="textarea_question survey_question">
+								<?php echo $survey_item['textarea_question']; ?>
+							</div>
+							<div class="survey_textarea_answer textarea_answer">
+								<textarea id="customText" name="<?php echo $survey_item['textarea_question']; ?>" rows="3" col="30"></textarea>
+							</div>
+
+						</div>
+
+			<?php
+
+					}
+				}
+			endif;
+			?>
+
+		</div>
+		<?php
+
+		?>
+	</div><!-- .entry-content -->
+
+</article><!-- #post-<?php the_ID(); ?> -->
+
+
+<?php
+
+get_footer();
