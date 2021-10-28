@@ -29,11 +29,10 @@ get_header();
 						<div class="single_question"><?php echo $survey_item['single_question']; ?></div>
 						<?php
 						foreach ($survey_item['single_answers'] as $single_answer) {
-
 						?>
-							<div class="custom-control custom-radio">
+							<div class="survey_single_question survey_custom_control">
 								<input type="radio" id="customRadio_<?php echo $single_answer['single_text_answers']; ?>" value="<?php echo $single_answer['single_text_answers']; ?>" name="<?php echo $survey_item['single_question']; ?>" class="custom-control-input">
-								<label class="custom-control-label" for="customRadio_<?php echo $single_answer['single_text_answers']; ?>"><?php echo $single_answer['single_text_answers']; ?></label>
+								<label class="survey_single_question_label" for="customRadio_<?php echo $single_answer['single_text_answers']; ?>"><?php echo $single_answer['single_text_answers']; ?></label>
 							</div>
 
 						<?php

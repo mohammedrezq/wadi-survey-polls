@@ -30,38 +30,34 @@ You should have received a copy of the GNU General Public License
 along with Survey. If not, see https://www.gnu.org/licenses/gpl-3.0.en.html.
  */
 
+ /**
+  * Define Paths
+  */
+
+define('PLUGIN_PATH', plugin_dir_path(__FILE__));
 
 /**
  * Register Task Post Type
  */
 
 
-define('PLUGIN_PATH', plugin_dir_path(__FILE__));
-
 require_once plugin_dir_path(__FILE__) . 'includes/posttypes.php';
 register_activation_hook(__FILE__, 'survey_rewrite_flush');
 
 /**
- * Register Task Logger Role
+ * Add in custom fields.
  */
-
-// require_once plugin_dir_path(__FILE__) . 'includes/roles.php';
-// register_activation_hook(__FILE__, 'taskbook_register_role');
-// register_deactivation_hook(__FILE__, 'taskbook_remove_role');
+require_once plugin_dir_path(__FILE__) . 'includes/carbon-functions.php';
 
 /**
- * Add in CMB2 for fun new fields.
+ * Add Shortcode
  */
-// require_once plugin_dir_path(__FILE__) . 'includes/survey-functions.php';
-require_once plugin_dir_path(__FILE__) . 'includes/carbon-functions.php';
 
 require_once plugin_dir_path(__FILE__) . 'includes/survey-shortcode.php';
 
-
-
-
-
-
+/**
+ * Disable Gutenberg on Survey Custom Post Type 
+ */
 add_filter('use_block_editor_for_post_type', 'survey_disable_gutenberg', 10, 2);
 function survey_disable_gutenberg($current_status, $post_type)
 {
@@ -70,50 +66,41 @@ function survey_disable_gutenberg($current_status, $post_type)
     return $current_status;
 }
 
+/**
+ * Add Shortcode to Survey Custom Post Type Column
+ */
+add_filter('manage_survey_posts_columns', 'shortcode_survey_columns_head');
 
-add_filter('manage_survey_posts_columns', 'wpso_custom_columns_head');
-function wpso_custom_columns_head($defaults)
+function shortcode_survey_columns_head($defaults)
 {
     $defaults['shortcode']  = 'Shortcode';
     return $defaults;
 }
 
-add_action('manage_survey_posts_custom_column', 'wpso_custom_columns_content', 10, 2);
-function wpso_custom_columns_content($column_name, $post_ID)
+add_action('manage_survey_posts_custom_column', 'survey_shortcode_column_head_content', 10, 2);
+function survey_shortcode_column_head_content($column_name, $post_ID)
 {
     if ('shortcode' === $column_name) {
         echo '[survey id="' . $post_ID . '"]';
     }
 }
-// add_filter('maange_survey_posts_columns', 'wpso_custom_columns_head');
-// function wpso_custom_columns_head($defaults) {
-//     $defaults['shortcode']  = 'Shortcode';
-//     return $defaults;
-// }
-
-// add_action('maange_survey_posts_custom_column', 'wpso_custom_columns_content', 10, 2);
-// function wpso_custom_columns_content( $column_name, $post_ID ) {
-//     if ( 'shortcode' === $column_name ) {
-//         echo '[survey id="' . $post_ID . '"]';
-//     }
-// }
 
 /* Filter the single_template with our custom function*/
-add_filter('single_template', 'my_custom_template');
+add_filter('single_template', 'survey_post_type_template');
 
-function my_custom_template($single)
+function survey_post_type_template($template)
 {
 
     global $post;
 
-    /* Checks for single template by post type */
+    /* Checks for survey template by post type */
     if ($post->post_type == 'survey') {
         if (file_exists(PLUGIN_PATH . 'single-survey.php')) {
             return PLUGIN_PATH . 'single-survey.php';
         }
     }
 
-    return $single;
+    return $template;
 }
 
 
