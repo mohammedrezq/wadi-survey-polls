@@ -10,7 +10,7 @@ function survey_cpt_init() {
         'singular_name'         => _x( 'Survey', 'Post type singular name', 'survey' ),
         'menu_name'             => _x( 'Survey', 'Admin Menu text', 'survey' ),
         'name_admin_bar'        => _x( 'Surve', 'Add New on Toolbar', 'survey' ),
-        'add_new'               => __( 'Add New', 'survey' ),
+        'add_new'               => __( 'Add Survey', 'survey' ),
         'add_new_item'          => __( 'Add New Survey', 'survey' ),
         'new_item'              => __( 'New Survey', 'survey' ),
         'edit_item'             => __( 'Edit Survey', 'survey' ),

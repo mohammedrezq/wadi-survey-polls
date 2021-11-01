@@ -212,7 +212,7 @@ function survey_register_demo_metabox() {
 		'desc' => esc_html__( 'field description (optional)', 'cmb2' ),
 		'id'   => 'survey_demo_email',
 		'type' => 'text_email',
-		'repeatable' => true,
+		// 'repeatable' => true,
 	) );
 
 	$cmb_demo->add_field( array(

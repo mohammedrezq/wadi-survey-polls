@@ -4,6 +4,9 @@
  * Single Post type for Survey
  */
 get_header();
+
+$the_post_id =  get_the_ID();
+$the_current_user_id = get_current_user_id();
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
@@ -11,13 +14,13 @@ get_header();
 
 
 	<div class="entry-content">
-
+	<form class="survey_container" data-survey-id="<?php echo $the_post_id; ?>" 
+		data-user-id="<?php echo $the_current_user_id; ?>"
+		data-post-type="<?php echo get_post_type($the_post_id); ?>"
+		>
 		<div class="survey_questions_conatiner">
 			<?php
 			$survey_items = carbon_get_post_meta(get_the_ID(), 'survey_items');
-			// echo '<pre>';
-			// print_r($survey_items);
-			// echo '</pre>';
 
 			if (!empty($survey_items)) :
 				foreach ($survey_items as $survey_item) {
@@ -29,11 +32,10 @@ get_header();
 						<div class="single_question"><?php echo $survey_item['single_question']; ?></div>
 						<?php
 						foreach ($survey_item['single_answers'] as $single_answer) {
-
 						?>
-							<div class="custom-control custom-radio">
+							<div class="survey_single_question survey_custom_control">
 								<input type="radio" id="customRadio_<?php echo $single_answer['single_text_answers']; ?>" value="<?php echo $single_answer['single_text_answers']; ?>" name="<?php echo $survey_item['single_question']; ?>" class="custom-control-input">
-								<label class="custom-control-label" for="customRadio_<?php echo $single_answer['single_text_answers']; ?>"><?php echo $single_answer['single_text_answers']; ?></label>
+								<label class="survey_single_question_label" for="customRadio_<?php echo $single_answer['single_text_answers']; ?>"><?php echo $single_answer['single_text_answers']; ?></label>
 							</div>
 
 						<?php
@@ -44,21 +46,35 @@ get_header();
 					 */
 					if ($survey_item['select_survey_question_type'] == 'multiple_choices') {
 						$multiple_question = $survey_item['multiple_question'];
+						/**
+						 * Cleaning Up the Question to be multiple container ID
+						 */
+						$multiple_question_cleanup = strip_tags($survey_item['multiple_question']);
+						$theQuestion =  preg_replace('/\s+/', '', $multiple_question_cleanup);
+						$theQuestionCleaned =  trim($theQuestion, " \t\n\r\0\x0B\xC2\xA0");
+						$theQuestionCleaned = preg_replace('/[^A-Za-z0-9\-]/', '', $theQuestionCleaned);
+						$theQuestionCleaned = preg_replace('/[?]/', '',$theQuestionCleaned);
+						// End of cleaning up the question to be multiple container ID
+						
+						
 						?>
-						<div class="multiple_choices_question"><?php echo $multiple_question; ?></div>
+						<div class="multiple_container" id="<?php echo $theQuestionCleaned ?>">
+							<div class="multiple_choices_question"><?php echo $multiple_question; ?></div>
+							<input type="hidden" class="multiple_choice_question_answers" name="<?php echo $multiple_question_cleanup; ?>" value="" />
 						<?php
 						foreach ($survey_item['multiple_answers'] as $multiple_text_answers) {
 							$available_multiple_answers = $multiple_text_answers['multiple_text_answers'];
+							$theAnswerCleanup = trim(preg_replace('/\s+/', '', $available_multiple_answers));
 
 						?>
-							<div class="multiple_container" id="multiple_answers_container">
 								<div class="custom-control custom-radio">
-									<input type="checkbox" id="customCheckbox_<?php echo $available_multiple_answers; ?>" data-answer="<?php echo $available_multiple_answers; ?>" data-question="<?php echo $multiple_question; ?>" class="custom-control-input">
+									<input type="checkbox" id="customCheckbox_<?php echo $available_multiple_answers; ?>" data-answer="<?php echo $available_multiple_answers; ?>" data-question="<?php echo $multiple_question_cleanup; ?>" class="custom-control-input">
 									<label class="custom-control-label" for="customCheckbox_<?php echo $available_multiple_answers; ?>"><?php echo $available_multiple_answers; ?></label>
 								</div>
-							</div>
+								<?php
+						}?>
+						</div>
 						<?php
-						}
 					}
 					/**
 					 * Matrix Questions
@@ -133,6 +149,8 @@ get_header();
 			?>
 
 		</div>
+		<button type="button" class="wadi_survey_submit">Submit</button>
+	</form>
 		<?php
 
 		?>
