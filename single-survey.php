@@ -21,6 +21,9 @@ $the_current_user_id = get_current_user_id();
 		<div class="survey_questions_conatiner">
 			<?php
 			$survey_items = carbon_get_post_meta(get_the_ID(), 'survey_items');
+			// echo '<pre>';
+			// print_r($survey_items);
+			// echo '</pre>';
 
 			if (!empty($survey_items)) :
 				foreach ($survey_items as $survey_item) {
@@ -149,7 +152,7 @@ $the_current_user_id = get_current_user_id();
 			?>
 
 		</div>
-		<button type="button" class="wadi_survey_submit">Submit</button>
+		<button type="submit" class="wadi_survey_submit">Submit</button>
 	</form>
 		<?php
 
