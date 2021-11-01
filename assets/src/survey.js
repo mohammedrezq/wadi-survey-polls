@@ -3,7 +3,8 @@ const survey = () => {
   const surveySubmit = document.querySelector(".wadi_survey_submit");
   if (surveyContainer !== null) {
   const gatherData = () => {
-    jQuery(".wadi_survey_submit").click(function () {
+    jQuery(".survey_container").submit(function (e) {
+      e.preventDefault();
       document.querySelectorAll(".multiple_container").forEach((container) => {
         let containerId = container.getAttribute("id");
         var answers = [];
@@ -20,6 +21,8 @@ const survey = () => {
       });
       console.log("Gathering Data");
       let form_data = jQuery('.survey_container').serializeArray();
+
+      console.log(form_data);
       const theData = JSON.stringify(form_data);
       let dataCollection = {
         user_id: surveyContainer.dataset.userId,

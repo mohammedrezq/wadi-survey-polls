@@ -11,8 +11,8 @@ use Carbon_Fields\Field;
     Container::make('post_meta', __('Survey Options', 'wqsp'))
     ->where( 'post_type', '=', 'survey')
     ->add_fields( array(
-        Field::make( 'checkbox', 'wadi_survey_multistep', __('Multiple Steps', 'wqsp') )
-        ->set_option_value('multistep')
+        Field::make( 'checkbox', 'wadi_survey_multiple_steps', __('Multiple Steps Survey', 'wqsp') )
+        ->set_option_value('yes')
     ) );
  }
 
@@ -48,17 +48,6 @@ use Carbon_Fields\Field;
             /**
              * Single Question Survey Item
              */
-            Field::make( 'checkbox', 'wadi_survey_single_question_required', __('Single Question Required', 'wqsp') )
-            ->set_help_text( __('Checking Single Question Required means that user cannot skip, and cannot submit without answering.', 'wqsp') )
-            ->set_option_value('yes')
-            ->set_conditional_logic( array(
-                'relation' => 'AND',
-                array(
-                    'field' => 'select_survey_question_type',
-                    'value' => 'single_choice',
-                    'compare' => '=',
-                )
-                )),
             Field::make( 'rich_text', 'single_question', 'Question' )
             ->set_conditional_logic( array(
                 'relation' => 'AND',
@@ -84,17 +73,6 @@ use Carbon_Fields\Field;
             /**
              * Multiple Answers Question Survey Item
              */
-            Field::make( 'checkbox', 'wadi_survey_multiple_question_required', __('Multiple Question Required', 'wqsp') )
-            ->set_help_text( __('Checking Multiple Question Required means that user cannot skip, and cannot submit without answering.', 'wqsp') )
-            ->set_option_value('yes')
-            ->set_conditional_logic( array(
-                'relation' => 'AND',
-                array(
-                    'field' => 'select_survey_question_type',
-                    'value' => 'multiple_choices',
-                    'compare' => '=',
-                )
-            )),
             Field::make( 'rich_text', 'multiple_question', __('Question', 'wqsp') )
             ->set_conditional_logic( array(
                 'relation' => 'AND',
@@ -120,17 +98,6 @@ use Carbon_Fields\Field;
             /**
              * Martix Questions Survey Item
              */
-            Field::make( 'checkbox', 'wadi_survey_matrix_question_required', __('Matrix Question Required', 'wqsp') )
-            ->set_help_text( __('Checking Matrix Question Required means that user cannot skip, and cannot submit without answering.', 'wqsp') )
-            ->set_option_value('yes')
-            ->set_conditional_logic( array(
-                'relation' => 'AND',
-                array(
-                    'field' => 'select_survey_question_type',
-                    'value' => 'matrix_question',
-                    'compare' => '=',
-                    )
-                )),
             Field::make( 'rich_text', 'matrix_statement', __('Statement', 'wqsp') )
             ->set_conditional_logic( array(
                 'relation' => 'AND',
@@ -180,17 +147,6 @@ use Carbon_Fields\Field;
             /**
              * Text Area Questions Survey Item
              */
-            Field::make( 'checkbox', 'wadi_survey_textarea_question_required', __('Textarea Question Required', 'wqsp') )
-            ->set_help_text( __('Checking Textarea Question Required means that user cannot skip, and cannot submit without answering.', 'wqsp') )
-            ->set_option_value('yes')
-            ->set_conditional_logic( array(
-                'relation' => 'AND',
-                array(
-                    'field' => 'select_survey_question_type',
-                    'value' => 'textarea',
-                    'compare' => '=',
-                    )
-                )),
             Field::make( 'rich_text', 'textarea_question', __('Textarea Question', 'wqsp') )
             ->set_conditional_logic( array(
                 'relation' => 'AND',
@@ -204,6 +160,121 @@ use Carbon_Fields\Field;
      ) );
  }
 
+
+
+
+// /**
+//  * Repeater Testing on Carbon Feilds
+//  */
+
+
+//  add_action('carbon_fields_register_fields', 'testing_conditional_select');
+//  function testing_conditional_select() {
+//      Container::make('post_meta', __('Survey Conditional Testing', 'survey'))
+//      ->where( 'post_type', '=', 'survey')
+//      ->add_fields( array(
+//         Field::make('complex', 'survey_element', 'Survey Item')
+//         ->add_fields(array(
+//          Field::make( 'select', 'select_survey_type', __('Survey Types') )
+//             ->set_options( array(
+//                 'matrix_question'   => 'Matrix Question',
+//                 'single_choice'     => 'Single Choice',
+//                 'multiple_choices'  => 'Multiple Choices',
+//                 'textarea'          => 'Textarea',
+//             ) ),
+//         Field::make( 'text', 'question_1', 'Question'),
+//         Field::make( 'radio_image', 'crb_background_image', __( 'Choose Background Image' ) )
+// 	        ->set_options( array(
+// 	        	'mountain' => 'https://source.unsplash.com/X1UTzW8e7Q4/800x600',
+// 	        	'temple' => 'https://source.unsplash.com/ioJVccFmWxE/800x600',
+// 	        	'road' => 'https://source.unsplash.com/5c8fczgvar0/800x600',
+// 	        ) ),
+//         Field::make( 'complex', 'crb_slides', 'Slides' )
+//         ->set_conditional_logic( array(
+//             'relation' => 'AND', // Optional, defaults to "AND"
+//             array(
+//                 'field' => 'select_survey_type',
+//                 'value' => 'single_choice', // Optional, defaults to "". Should be an array if "IN" or "NOT IN" operators are used.
+//                 'compare' => '=', // Optional, defaults to "=". Available operators: =, <, >, <=, >=, IN, NOT IN
+//             )
+//         ) )
+//         ->set_layout( 'tabbed-horizontal' )
+//         ->add_fields( array(
+//             Field::make( 'text', 'title', 'Title' ),
+//             Field::make( 'color', 'title_color', 'Title Color' ),
+//             Field::make( 'image', 'image', 'Image' ),
+//             Field::make( 'complex', 'crb_slides', 'Heading' )
+//             ->add_fields( array (
+//                 Field::make( 'text', 'heading', 'Heading' ),
+//                 Field::make( 'complex', 'testing', 'Testing Levels' )
+//                 ->add_fields( array (
+//                     Field::make( 'text', 'another_level', 'Another Level!' )
+//                 ) )
+//             ) )
+//         ) ),
+//         Field::make( 'text', 'question_2', 'Question 2')
+//         ->set_conditional_logic( array(
+//             'relation' => 'AND', // Optional, defaults to "AND"
+//             array(
+//                 'field' => 'select_survey_type',
+//                 'value' => 'multiple_choices', // Optional, defaults to "". Should be an array if "IN" or "NOT IN" operators are used.
+//                 'compare' => '=', // Optional, defaults to "=". Available operators: =, <, >, <=, >=, IN, NOT IN
+//             )
+//         ) )
+//         ))
+//      ) );
+//  }
+
+// add_action( 'carbon_fields_register_fields', 'crb_attach_post_meta' );
+// function crb_attach_post_meta() {
+//     Container::make( 'post_meta', __( 'Page Options', 'crb' ) )
+//         ->where( 'post_type', '=', 'survey' ) // only show our new fields on pages
+//         ->add_fields( array(
+//             Field::make( 'complex', 'crb_slides', 'Slides' )
+//                 ->set_layout( 'tabbed-horizontal' )
+//                 ->add_fields( array(
+//                     Field::make( 'text', 'title', 'Title' ),
+//                     Field::make( 'color', 'title_color', 'Title Color' ),
+//                     Field::make( 'image', 'image', 'Image' ),
+//                     Field::make( 'complex', 'crb_slides', 'Heading' )
+//                     ->add_fields( array (
+//                         Field::make( 'text', 'heading', 'Heading' ),
+//                         Field::make( 'complex', 'testing', 'Testing Levels' )
+//                         ->add_fields( array (
+//                             Field::make( 'text', 'another_level', 'Another Level!' )
+//                         ) )
+//                     ) )
+//                 ) ),
+//         ) );
+// }
+
+// add_action( 'carbon_fields_register_fields', 'crb_attach_theme_options' );
+// function crb_attach_theme_options() {
+//     Container::make( 'theme_options', __( 'Theme Options' ) )
+//         ->add_fields( array(
+//             Field::make( 'text', 'crb_text', 'Text Field' ),
+//             Field::make( 'text', 'crb_text_das', 'Text Field' ),
+//         ) );
+
+//         Container::make( 'post_meta', 'Custom Data' )
+//         ->where( 'post_type', '=', 'survey' )
+//         ->add_fields( array(
+//             Field::make( 'text', 'das', 'Text Field' ),
+//             Field::make( 'text', 'dasdas', 'Text Field' ),
+//         ) );
+
+//         Container::make( 'post_meta', __( 'User Settings' ) )
+//     ->where( 'post_type', '=', 'survey' )
+//     ->add_tab( __( 'Profile' ), array(
+//         Field::make( 'text', 'crb_first_name', __( 'First Name' ) ),
+//         Field::make( 'text', 'crb_last_name', __( 'Last Name' ) ),
+//         Field::make( 'text', 'crb_position', __( 'Position' ) ),
+//     ) )
+//     ->add_tab( __( 'Notification' ), array(
+//         Field::make( 'text', 'crb_email', __( 'Notification Email' ) ),
+//         Field::make( 'text', 'crb_phone', __( 'Phone Number' ) ),
+//     ) );
+// }
 
 add_action( 'after_setup_theme', 'crb_load' );
 function crb_load() {
