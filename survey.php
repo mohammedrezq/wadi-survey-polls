@@ -41,43 +41,43 @@ define('PLUGIN_PATH', plugin_dir_path(__FILE__));
  */
 
 
-require_once plugin_dir_path(__FILE__) . 'includes/posttypes.php';
+require_once PLUGIN_PATH . 'includes/posttypes.php';
 register_activation_hook(__FILE__, 'survey_rewrite_flush');
 
 /**
  * Add in custom fields.
  */
-require_once plugin_dir_path(__FILE__) . 'includes/survey-functions.php';
+require_once PLUGIN_PATH . 'includes/survey-functions.php';
 
 /**
  * Add Shortcode
  */
 
-require_once plugin_dir_path(__FILE__) . 'includes/survey-shortcode.php';
+require_once PLUGIN_PATH . 'includes/survey-shortcode.php';
 
 /**
  * Add Survey Database Table
  */
 
-require_once plugin_dir_path(__FILE__) . 'includes/survey-db.php';
+require_once PLUGIN_PATH . 'includes/survey-db.php';
 
 /**
  * Add Survey submenu page
  */
 
-require_once plugin_dir_path(__FILE__) . 'includes/survey-table.php';
+require_once PLUGIN_PATH . 'includes/survey-table.php';
 
 /**
  * Add Single Survey Submissions Page
  */
 
-// require_once plugin_dir_path(__FILE__) . 'includes/single-submissions-survey.php';
+// require_once PLUGIN_PATH . 'includes/single-submissions-survey.php';
 
 /**
  * Enqueue Survey Scripts and Styles
  */
 
-require_once plugin_dir_path(__FILE__) . 'includes/survey-enqueue.php';
+require_once PLUGIN_PATH . 'includes/survey-enqueue.php';
 
 /**
  * Disable Gutenberg on Survey Custom Post Type 
