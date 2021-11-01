@@ -35,12 +35,19 @@ if(multiStepContainer) {
       }
       if (n == (x.length - 1)) {
         // document.getElementById("nextBtn").innerHTML = "Submit";
-        document.getElementById("nextBtn").remove();
-        const submitButton = `<button type="submit" class="wadi_survey_submit">Submit</button>`;
-        jQuery('.multistep_naviation').append(submitButton);
+        const nextButton = jQuery("#nextBtn");
+        nextButton.html('Submit');
+        setTimeout(() => {
+          nextButton.removeAttr("type").attr("type", "submit");
+        }, 250);
+        console.log("THE NEXT BUTTON:",nextButton)
+        // const submitButton = `<button type="submit" class="wadi_survey_submit">Submit</button>`;
+        // jQuery('.multistep_naviation').append(nextButton);
     
-        // document.getElementById("nextBtn").classList.add("wadi_survey_submit");
+        nextButton.addClass("wadi_survey_submit");
       } else {
+        const nextButton = jQuery("#nextBtn");
+        nextButton.removeAttr("type").attr("type", "button");
         document.getElementById("nextBtn").innerHTML = "Next";
       }
       // ... and run a function that displays the correct step indicator:
