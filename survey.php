@@ -12,7 +12,7 @@
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Update URI:        https://example.com/my-plugin/
- * Text Domain:       survey
+ * Text Domain:       wqsp
  * Domain Path:       /languages
  */
 /*
@@ -47,13 +47,37 @@ register_activation_hook(__FILE__, 'survey_rewrite_flush');
 /**
  * Add in custom fields.
  */
-require_once plugin_dir_path(__FILE__) . 'includes/carbon-functions.php';
+require_once plugin_dir_path(__FILE__) . 'includes/survey-functions.php';
 
 /**
  * Add Shortcode
  */
 
 require_once plugin_dir_path(__FILE__) . 'includes/survey-shortcode.php';
+
+/**
+ * Add Survey Database Table
+ */
+
+require_once plugin_dir_path(__FILE__) . 'includes/survey-db.php';
+
+/**
+ * Add Survey submenu page
+ */
+
+require_once plugin_dir_path(__FILE__) . 'includes/survey-table.php';
+
+/**
+ * Add Single Survey Submissions Page
+ */
+
+// require_once plugin_dir_path(__FILE__) . 'includes/single-submissions-survey.php';
+
+/**
+ * Enqueue Survey Scripts and Styles
+ */
+
+require_once plugin_dir_path(__FILE__) . 'includes/survey-enqueue.php';
 
 /**
  * Disable Gutenberg on Survey Custom Post Type 

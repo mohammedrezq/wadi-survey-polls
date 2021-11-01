@@ -1,0 +1,92 @@
+<h1>Hello TEST Submission Survey</h1>
+
+<?php
+
+global $wpdb;
+$wpdb_table = $wpdb->prefix . 'wadi_survey_submissions';
+
+$survey_query = $wpdb->prepare("SELECT
+*
+FROM
+$wpdb_table");
+
+$query_results = $wpdb->get_results($survey_query, ARRAY_A);
+
+$survey_ids = $wpdb->prepare("SELECT
+        DISTINCT user_id, survey_id
+        FROM
+        $wpdb_table");
+
+$query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
+
+?>
+<div class="wrap" id="wadi_survey_submissions">
+    <div style="display:flex;justify-content:space-between;margin-bottom:30px;">
+        <h2>Users Survey Submissions</h2>
+    </div>
+
+    <table class="table" id="survey_table">
+        <thead>
+            <tr>
+                <th scope="col">User</th>
+                <th scope="col">Survey</th>
+                <th scope="col lg-col">Survey/Answers</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+
+            foreach ($query_survey_ids as $single_result) {
+                // User Data
+                $user_data = get_userdata($single_result['user_id']);
+                
+                // Quiz Data
+                $surveyId = $single_result['survey_id'];
+                $SurveyPermalink = get_edit_post_link($surveyId);
+
+            ?>
+                <tr>
+                    <td style="width: 25%"><a href="<?php echo get_edit_user_link($user_data->ID); ?>" target="_blank"><?php echo $user_data->display_name; ?></a></td>
+                    <td style="width: 25%">
+                        <a href='<?php echo site_url()."/wp-admin/edit.php?post_type=survey&page=single_survey&survey_id=$surveyId" ?>' target="_blank"><?php echo get_the_title($surveyId); ?></a>
+                    </td>
+                    <?php
+                    $theUserId = $single_result['user_id'];
+                    $theSurveyId = $single_result['survey_id'];
+
+                    $survey_answers = $wpdb->prepare(
+                        "SELECT DISTINCT
+                         questions_answers
+                         FROM
+                         $wpdb_table WHERE user_id=$theUserId AND survey_id=$theSurveyId ");
+
+                    $query_survey_answers = $wpdb->get_results($survey_answers, ARRAY_A);
+                    ?>
+
+                    </td>
+                    <td>
+                    <?php foreach ($query_survey_answers as $survey_item) {
+
+                        $surveyQArr=str_replace('\\','', $survey_item);
+
+                        foreach ($surveyQArr as $arr) {
+                        $v_new=json_decode($arr,true);
+
+                            foreach ($v_new as $key => $item) {
+
+                                echo "<strong>" . $item['name'] ."</strong>".'<br /><br />';
+                                echo $item['value'].'<br /><br />';
+                            }
+
+                            
+                        }
+                    }?>
+                </tr>
+            <?php
+            }
+            ?>
+        </tbody>
+    </table>
+
+
+</div>

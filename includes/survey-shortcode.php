@@ -36,7 +36,14 @@ function display_custom_post_type($atts)
         // wp_reset_postdata();
         ob_start();
 
+		$the_post_id =  get_the_ID();
+		$the_current_user_id = get_current_user_id();
+
             ?>
+			<form class="survey_container" data-survey-id="<?php echo $the_post_id; ?>" 
+		data-user-id="<?php echo $the_current_user_id; ?>"
+		data-post-type="<?php echo get_post_type($the_post_id); ?>"
+		>
         <div class='survey_questions_conatiner'>
             <?php
 			$survey_items = carbon_get_post_meta($attributes['id'], 'survey_items');
@@ -154,8 +161,10 @@ function display_custom_post_type($atts)
 					}
 				}
                 ?>
-                <div>
-            </div>
+		</div>
+
+			<button type="button" class="wadi_survey_submit">Submit</button>
+			</form>
                     <?php
 			endif;
 
