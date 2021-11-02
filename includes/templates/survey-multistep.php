@@ -4,7 +4,6 @@ $the_post_id =  get_the_ID();
 $the_current_user_id = get_current_user_id();
 ?>
 
-<h1>MultiStep Survey!</h1>
 <form  id="multistep_survey" class="survey_container" data-survey-id="<?php echo $the_post_id; ?>" 
 data-user-id="<?php echo $the_current_user_id; ?>"
 data-post-type="<?php echo get_post_type($the_post_id); ?>"

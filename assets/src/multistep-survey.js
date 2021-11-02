@@ -2,8 +2,6 @@ import './styles/multistep-survey.scss';
 
 const multiStepContainer = document.querySelector('#multistep_survey');
 
-// console.log(multiStepContainer);
-
 if(multiStepContainer) {
     
     /**
@@ -14,7 +12,6 @@ if(multiStepContainer) {
         for (let i = 0; i < allTabs.length; i++) {
           
           let newStep = `<span class="step"></span>`;
-        //   console.log(newStep)
           jQuery('.stepsConatiner').append(newStep);
         }
     }
@@ -22,7 +19,6 @@ if(multiStepContainer) {
     
     var currentTab = 0; // Current tab is set to be the first tab (0)
     showTab(currentTab); // Display the current tab
-    // console.log(currentTab)
     function showTab(n) {
       // This function will display the specified tab of the form ...
       var x = document.getElementsByClassName("tab");
@@ -30,26 +26,22 @@ if(multiStepContainer) {
       // ... and fix the Previous/Next buttons:
       if (n == 0) {
         document.getElementById("prevBtn").style.display = "none";
-      } else {
+      } else{
         document.getElementById("prevBtn").style.display = "inline";
       }
       if (n == (x.length - 1)) {
-        // document.getElementById("nextBtn").innerHTML = "Submit";
         const nextButton = jQuery("#nextBtn");
         nextButton.html('Submit');
         setTimeout(() => {
           nextButton.removeAttr("type").attr("type", "submit");
         }, 250);
-        console.log("THE NEXT BUTTON:",nextButton)
-        // const submitButton = `<button type="submit" class="wadi_survey_submit">Submit</button>`;
-        // jQuery('.multistep_naviation').append(nextButton);
-    
         nextButton.addClass("wadi_survey_submit");
       } else {
         const nextButton = jQuery("#nextBtn");
         nextButton.removeAttr("type").attr("type", "button");
         document.getElementById("nextBtn").innerHTML = "Next";
       }
+
       // ... and run a function that displays the correct step indicator:
       fixStepIndicator(n)
     }
@@ -57,7 +49,6 @@ if(multiStepContainer) {
     function nextPrev(n) {
       // This function will figure out which tab to display
       var x = document.getElementsByClassName("tab");
-    //   console.log(x);
       // Exit the function if any field in the current tab is invalid:
       if (n == 1 && !validateForm()) return false;
       // Hide the current tab:
@@ -65,10 +56,8 @@ if(multiStepContainer) {
       // Increase or decrease the current tab by 1:
       currentTab = currentTab + n;
       // if you have reached the end of the form... :
-    //   console.log(x.length)
       if (currentTab >= x.length) {
         //...the form gets submitted:
-        // document.querySelector(".survey_container").submit();
         survey()
         return false;
       }
@@ -124,18 +113,12 @@ if(multiStepContainer) {
     
       function gatherMultiQuestion(e) {
         document.querySelectorAll(".multiple_question_container").forEach((container) => {
-            // console.log(container);
             let containerId = container.getAttribute("id");
-            // console.log(containerId);
             var answers = [];
-    
-            console.log(containerId);
     
             jQuery('#' + containerId).find('input:checked').each(function() {
               answers.push(jQuery(this).attr('data-answer'));
-            //   console.log("The ANSWERS: ",answers)
             });
-            console.log(answers);
           answers = answers.filter(function( element ) {
             return element !== undefined;
          });
@@ -192,6 +175,9 @@ if(multiStepContainer) {
               data: data,
               datatype: "json",
               success: (response) => {
+                document.querySelector('#prevBtn').style.display = 'none';
+                document.querySelector('.wadi_survey_submit').style.display = 'none';
+                document.querySelector('.stepsConatiner').style.display = 'none';
                 console.log("THE RESPONSE: ", response);
               },
               error: (err) => {
@@ -210,11 +196,11 @@ if(multiStepContainer) {
       /**
        * Check if Survey Container Exists then run the script
        */
-    //   const surveyConatiner = document.querySelector(".survey_container");
+      const surveyConatiner = document.querySelector(".survey_container");
       
-    //   if (surveyConatiner) {
-    //     survey();
-    //   }
+      if (surveyConatiner) {
+        survey();
+      }
       
 
 }
