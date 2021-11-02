@@ -37,7 +37,20 @@ use Carbon_Fields\Field;
         ) ),
         Field::make( 'checkbox', 'wadi_survey_multiple_responses', __('Allow Multiple Responses', 'wqsp') )
         ->set_option_value('yes'),
-
+        Field::make( 'rich_text', 'wadi_survey_finishing_message', __( 'Finish Message' ) )
+        ->set_help_text('Survey finishing message sent after user finishing and submit the survey.')
+        ->set_default_value( 'Thank you for taking the survey.' ),
+        Field::make( 'rich_text', 'wadi_survey_already_taken_message', __( 'Message if user has already taken the exam' ) )
+        ->set_help_text('Survey finishing message sent after user finishing and submit the survey.')
+        ->set_default_value( 'You have already taken this survey.' )
+        ->set_conditional_logic( array(
+            'relation' => 'AND', // Optional, defaults to "AND"
+            array(
+                'field' => 'wadi_survey_multiple_responses',
+                'value' => false, // Optional, defaults to "". Should be an array if "IN" or "NOT IN" operators are used.
+                'compare' => '=', // Optional, defaults to "=". Available operators: =, <, >, <=, >=, IN, NOT IN
+            )
+        ) ),
     ) );
  }
 

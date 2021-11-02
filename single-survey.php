@@ -28,12 +28,33 @@ get_header();
 		 * If multistep checkbox is checked, make the survey into multistep page going next and prev through the survey questions  
 		 */
 
-		if($multistep_survey != TRUE) {
-			require_once PLUGIN_PATH . 'includes/templates/survey-single.php';
-		} else {
-			require_once PLUGIN_PATH . 'includes/templates/survey-multistep.php';
-		}
+		$allow_multiple_responses =  carbon_get_post_meta(get_the_ID(), 'wadi_survey_multiple_responses');
+		$the_current_user_id = get_current_user_id();
+		$the_current_post_id = get_the_ID();
+		$table_name = $wpdb->prefix . 'wadi_survey_submissions';
 		
+		global $wpdb;
+
+		$existedRow = $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT id FROM " . $table_name . "
+				WHERE user_id = %d AND survey_id = %d LIMIT 1",
+				$the_current_user_id,
+				$the_current_post_id
+			)
+		);
+		
+		if($allow_multiple_responses === TRUE) {
+			if($multistep_survey != TRUE) {
+				require_once PLUGIN_PATH . 'includes/templates/survey-single.php';
+			} else {
+				require_once PLUGIN_PATH . 'includes/templates/survey-multistep.php';
+			}
+		} else if (isset($existedRow)) {
+			?>
+			<p>This survey has been taken already, Go back to <a href="<?php echo get_home_url(); ?>">Homepage</a></p>
+			<?php
+		}
 		?>
 	</div><!-- .entry-content -->
 
