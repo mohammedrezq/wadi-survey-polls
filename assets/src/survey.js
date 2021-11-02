@@ -1,59 +1,71 @@
 const survey = () => {
   const surveyContainer = document.querySelector(".survey_container");
   const surveySubmit = document.querySelector(".wadi_survey_submit");
+  const redirectDiv = document.querySelector(".redirect_url");
+  const redirectUrl = redirectDiv.dataset.redirectUrl;
+  const redirectSetTimeout = redirectDiv.dataset.redirectTime;
+
   if (surveyContainer !== null) {
-  const gatherData = () => {
-    jQuery(".survey_container").submit(function (e) {
-      e.preventDefault();
-      document.querySelectorAll(".multiple_container").forEach((container) => {
-        let containerId = container.getAttribute("id");
-        var answers = [];
+    const gatherData = () => {
+      jQuery(".survey_container").submit(function (e) {
+        e.preventDefault();
+        document
+          .querySelectorAll(".multiple_container")
+          .forEach((container) => {
+            let containerId = container.getAttribute("id");
+            var answers = [];
 
-        jQuery('#' + containerId).find('input:checked').each(function() {
-          answers.push(jQuery(this).attr('data-answer'));
+            jQuery("#" + containerId)
+              .find("input:checked")
+              .each(function () {
+                answers.push(jQuery(this).attr("data-answer"));
+              });
+            console.log(answers);
+            answers = answers.filter(function (element) {
+              return element !== undefined;
+            });
+
+            jQuery("#" + containerId)
+              .find("input[type=hidden]")
+              .val(answers);
+          });
+        console.log("Gathering Data");
+        let form_data = jQuery(".survey_container").serializeArray();
+
+        console.log(form_data);
+        const theData = JSON.stringify(form_data);
+        let dataCollection = {
+          user_id: surveyContainer.dataset.userId,
+          post_type: surveyContainer.dataset.postType,
+          survey_id: surveyContainer.dataset.surveyId,
+          surveyData: theData,
+        };
+
+        const data = {
+          action: "getQuizData",
+          data: { ...dataCollection },
+        };
+        jQuery.ajax({
+          url: ajaxurl,
+          type: "POST",
+          data: data,
+          datatype: "json",
+          success: (response) => {
+            console.log("THE RESPONSE: ", response);
+            if (redirectUrl) {
+              setTimeout(() => {
+                window.location.href = `${redirectUrl}`;
+              }, redirectSetTimeout);
+            }
+          },
+          error: (err) => {
+            console.log(err);
+          },
         });
-        console.log(answers);
-      answers = answers.filter(function( element ) {
-        return element !== undefined;
-     });
-
-      jQuery('#' + containerId).find('input[type=hidden]').val(answers);
       });
-      console.log("Gathering Data");
-      let form_data = jQuery('.survey_container').serializeArray();
-
-      console.log(form_data);
-      const theData = JSON.stringify(form_data);
-      let dataCollection = {
-        user_id: surveyContainer.dataset.userId,
-        post_type: surveyContainer.dataset.postType,
-        survey_id: surveyContainer.dataset.surveyId,
-        surveyData: theData,
-      };
-
-      const data = {
-        action: "getQuizData",
-        data: { ...dataCollection },
-      };
-      jQuery.ajax({
-        url: ajaxurl,
-        type: "POST",
-        data: data,
-        datatype: "json",
-        success: (response) => {
-          console.log("THE RESPONSE: ", response);
-        },
-        error: (err) => {
-          console.log(err);
-        },
-      });
-
-
-    });
-  };
-  gatherData();
-}
-
+    };
+    gatherData();
+  }
 };
 
 /**

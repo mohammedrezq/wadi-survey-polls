@@ -24,6 +24,17 @@ use Carbon_Fields\Field;
                 'compare' => '=', // Optional, defaults to "=". Available operators: =, <, >, <=, >=, IN, NOT IN
             )
         ) ),
+        Field::make( 'text', 'wadi_survey_settimeout', __( 'Time Before Redirecting' ) )
+        ->set_help_text('Time in seconds before user gets redirected to specified URL, example: 1000 is 1 second')
+        ->set_default_value( '1000' )
+        ->set_conditional_logic( array(
+            'relation' => 'AND', // Optional, defaults to "AND"
+            array(
+                'field' => 'wadi_survey_redirect_to',
+                'value' => true, // Optional, defaults to "". Should be an array if "IN" or "NOT IN" operators are used.
+                'compare' => '=', // Optional, defaults to "=". Available operators: =, <, >, <=, >=, IN, NOT IN
+            )
+        ) ),
 
     ) );
  }

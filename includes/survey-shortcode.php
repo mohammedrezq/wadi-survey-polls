@@ -14,6 +14,10 @@ function display_custom_post_type($atts)
 	$the_post_id =  $attributes['id'];
 	$the_current_user_id = get_current_user_id();
 	$multistep_survey = carbon_get_post_meta($the_post_id, 'wadi_survey_multiple_steps');
+	$redirect_check =  carbon_get_post_meta($the_post_id, 'wadi_survey_redirect_to');
+	$redirect_url =  carbon_get_post_meta($the_post_id, 'wadi_survey_redirect_link');
+	$redirect_time =  carbon_get_post_meta($the_post_id, 'wadi_survey_settimeout');
+	
 
 	if($multistep_survey != TRUE) {
 
@@ -152,6 +156,7 @@ function display_custom_post_type($atts)
 
 		</div>
 		<button type="submit" class="wadi_survey_submit">Submit</button>
+		<input  class="redirect_url" type="hidden" data-redirect-time="<?php echo $redirect_time; ?>" data-redirect-url="<?php echo $redirect_url; ?>" />
 	</form>
 	<?php
 	} else {
@@ -304,9 +309,8 @@ function display_custom_post_type($atts)
 			<button type="button" id="nextBtn">Next</button>
 		  </div>
 		</div>
-		<div class="stepsConatiner" style="text-align:center;margin-top:40px;">
-		
-		  </div>
+		<input  class="redirect_url" type="hidden" data-redirect-time="<?php echo $redirect_time; ?>" data-redirect-url="<?php echo $redirect_url; ?>" />
+
 		</form>
 		<?php
 		/**

@@ -1,6 +1,8 @@
 <?php
 $the_post_id =  get_the_ID();
 $the_current_user_id = get_current_user_id();
+$redirect_url =  carbon_get_post_meta($the_post_id, 'wadi_survey_redirect_link');
+$redirect_time =  carbon_get_post_meta($the_post_id, 'wadi_survey_settimeout');
 ?>
 <form class="survey_container" data-survey-id="<?php echo $the_post_id; ?>" 
 data-user-id="<?php echo $the_current_user_id; ?>"
@@ -141,4 +143,5 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
 
 </div>
 <button type="submit" class="wadi_survey_submit">Submit</button>
+<input  class="redirect_url" type="hidden" data-redirect-time="<?php echo $redirect_time; ?>" data-redirect-url="<?php echo $redirect_url; ?>" />
 </form>
