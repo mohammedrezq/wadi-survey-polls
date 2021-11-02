@@ -93,7 +93,10 @@ if(multiStepContainer) {
     //   }
       // If the valid status is true, mark the step as finished and valid:
       if (valid) {
-        document.getElementsByClassName("step")[currentTab].className += " finish";
+        if(document.querySelector(".active")) {
+        document.querySelector(".step").classList.contains('.active') && document.querySelector(".step").classList.remove("finish");
+        }
+        document.getElementsByClassName("step")[currentTab].classList.add("finish");
       }
       return valid; // return the valid status
     }
@@ -104,26 +107,17 @@ if(multiStepContainer) {
       for (i = 0; i < x.length; i++) {
         x[i].className = x[i].className.replace(" active", "");
       }
-      //... and adds the "active" class to the current step:
-      x[n].className += " active";
+      x[n].classList.add("active");
     }
     
       const prevButton = document.querySelector('#prevBtn');
       const nextButton = document.querySelector('#nextBtn');
     
-    //   console.log(nextButton)
-    
       prevButton.addEventListener('click', function(e){
-        // console.log(e)
-        // console.log(currentTab)
-    
         nextPrev(-1);
         gatherMultiQuestion(e);
       })
       nextButton.addEventListener('click', function(e){
-        // console.log(e)
-        // console.log(currentTab)
-    
         nextPrev(1);
         gatherMultiQuestion(e)
       })
