@@ -12,7 +12,19 @@ use Carbon_Fields\Field;
     ->where( 'post_type', '=', 'survey')
     ->add_fields( array(
         Field::make( 'checkbox', 'wadi_survey_multiple_steps', __('Multiple Steps Survey', 'wqsp') )
-        ->set_option_value('yes')
+        ->set_option_value('yes'),
+        Field::make( 'checkbox', 'wadi_survey_redirect_to', __('Redirect After Survey Completed', 'wqsp') )
+        ->set_option_value('yes'),
+        Field::make( 'text', 'wadi_survey_redirect_link', __( 'Redirect Link' ) )
+        ->set_conditional_logic( array(
+            'relation' => 'AND', // Optional, defaults to "AND"
+            array(
+                'field' => 'wadi_survey_redirect_to',
+                'value' => true, // Optional, defaults to "". Should be an array if "IN" or "NOT IN" operators are used.
+                'compare' => '=', // Optional, defaults to "=". Available operators: =, <, >, <=, >=, IN, NOT IN
+            )
+        ) ),
+
     ) );
  }
 

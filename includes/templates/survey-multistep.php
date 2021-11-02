@@ -149,7 +149,7 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
     <button type="button" id="nextBtn">Next</button>
   </div>
 </div>
-<div class="stepsConatiner" style="text-align:center;margin-top:40px;">
+<!-- <div class="stepsConatiner" style="text-align:center;margin-top:40px;">
 
-  </div>
+  </div> -->
 </form>
