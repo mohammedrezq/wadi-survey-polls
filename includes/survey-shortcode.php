@@ -164,7 +164,7 @@ function display_custom_post_type($atts)
 		 * Start of Multistep Survey code
 		 */
 		?>
-		<form  id="multistep_survey" class="survey_container" data-survey-id="<?php echo $the_post_id; ?>" 
+		<form  id="multistep_survey" method="POST" action="" class="survey_multistep_container" data-survey-id="<?php echo $the_post_id; ?>" 
 		data-user-id="<?php echo $the_current_user_id; ?>"
 		data-post-type="<?php echo get_post_type($the_post_id); ?>"
 		>

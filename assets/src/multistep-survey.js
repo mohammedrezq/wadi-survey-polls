@@ -25,7 +25,7 @@ if(multiStepContainer) {
         setTimeout(() => {
           nextButton.removeAttr("type").attr("type", "submit");
         }, 250);
-        nextButton.addClass("wadi_survey_submit");
+        nextButton.addClass("wadi_survey_multisteps_submit");
       } else {
         const nextButton = jQuery("#nextBtn");
         nextButton.removeAttr("type").attr("type", "button");
@@ -44,7 +44,6 @@ if(multiStepContainer) {
       // if you have reached the end of the form... :
       if (currentTab >= x.length) {
         //...the form gets submitted:
-        survey()
         return false;
       }
       // Otherwise, display the correct tab:
@@ -82,12 +81,12 @@ if(multiStepContainer) {
     
     
     
-      function survey() {
-        const surveyContainer = document.querySelector(".survey_container");
-        const surveySubmit = document.querySelector(".wadi_survey_submit");
-        if (surveyContainer !== null) {
+      function surveyMultipleSteps() {
+        const surveymultiStepContainer = document.querySelector(".survey_multistep_container");
+        const surveySubmit = document.querySelector(".wadi_survey_multisteps_submit");
+        if (surveymultiStepContainer !== null) {
         const gatherData = () => {
-          jQuery(".survey_container").submit(function (e) {
+          jQuery(".survey_multistep_container").submit(function (e) {
             e.preventDefault();
             document.querySelectorAll(".multiple_question_container").forEach((container) => {
               let containerId = container.getAttribute("id");
@@ -106,14 +105,14 @@ if(multiStepContainer) {
             jQuery('#' + containerId).find('input[type=hidden]').val(answers);
             });
             console.log("Gathering Data");
-            let form_data = jQuery('.survey_container').serializeArray();
+            let form_data = jQuery('.survey_multistep_container').serializeArray();
       
             console.log(form_data);
             const theData = JSON.stringify(form_data);
             let dataCollection = {
-              user_id: surveyContainer.dataset.userId,
-              post_type: surveyContainer.dataset.postType,
-              survey_id: surveyContainer.dataset.surveyId,
+              user_id: surveymultiStepContainer.dataset.userId,
+              post_type: surveymultiStepContainer.dataset.postType,
+              survey_id: surveymultiStepContainer.dataset.surveyId,
               surveyData: theData,
             };
       
@@ -128,7 +127,7 @@ if(multiStepContainer) {
               datatype: "json",
               success: (response) => {
                 document.querySelector('#prevBtn').style.display = 'none';
-                document.querySelector('.wadi_survey_submit').style.display = 'none';
+                document.querySelector('.wadi_survey_multisteps_submit').style.display = 'none';
                 console.log("THE RESPONSE: ", response);
                 if(redirectUrl) {
                   setTimeout(()=> {
@@ -152,10 +151,10 @@ if(multiStepContainer) {
       /**
        * Check if Survey Container Exists then run the script
        */
-      const surveyConatiner = document.querySelector(".survey_container");
+      const surveyMultiSteps = document.querySelector("#multistep_survey");
       
-      if (surveyConatiner) {
-        survey();
+      if (surveyMultiSteps) {
+        surveyMultipleSteps();
       }
       
 

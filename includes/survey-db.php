@@ -54,9 +54,23 @@ function getQuizData()
 		)
 	);
 
-	if (!isset($existedRow)) {
+	
+	$allow_multiple_responses =  carbon_get_post_meta($data['survey_id'], 'wadi_survey_multiple_responses');
 
 
+	if (!isset($existedRow) && !isset($allow_multiple_responses)) {
+
+
+		$wpdb->insert(
+			$table_name,
+			array(
+				'time' => $survey_time,
+				'user_id' => $data['user_id'],
+				'survey_id' => $data['survey_id'],
+				'questions_answers' => $data['surveyData'],
+			)
+		);
+	} elseif($allow_multiple_responses === TRUE) {
 		$wpdb->insert(
 			$table_name,
 			array(

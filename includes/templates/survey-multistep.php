@@ -7,7 +7,7 @@ $redirect_url =  carbon_get_post_meta($the_post_id, 'wadi_survey_redirect_link')
 
 ?>
 
-<form  id="multistep_survey" class="survey_container" data-survey-id="<?php echo $the_post_id; ?>" 
+<form  id="multistep_survey" method="POST" action="" class="survey_multistep_container" data-survey-id="<?php echo $the_post_id; ?>" 
 data-user-id="<?php echo $the_current_user_id; ?>"
 data-post-type="<?php echo get_post_type($the_post_id); ?>"
 >

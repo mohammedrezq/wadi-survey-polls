@@ -35,6 +35,8 @@ use Carbon_Fields\Field;
                 'compare' => '=', // Optional, defaults to "=". Available operators: =, <, >, <=, >=, IN, NOT IN
             )
         ) ),
+        Field::make( 'checkbox', 'wadi_survey_multiple_responses', __('Allow Multiple Responses', 'wqsp') )
+        ->set_option_value('yes'),
 
     ) );
  }
