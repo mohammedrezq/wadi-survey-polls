@@ -5,6 +5,10 @@ function survey_scripts_init()
 {
     wp_enqueue_script('survey_script_front', plugins_url('assets/dist/survey.js', realpath(__DIR__)),  array('jquery'), time(), true);
     // wp_enqueue_script('survey_styles', plugins_url('assets/dist/main.js', realpath(__DIR__)),  array('jquery'), time(), true);
+    
+    wp_enqueue_script('survey_script_front_multistep', plugins_url('assets/dist/multistep-survey.js', realpath(__DIR__)),  array('jquery'), time(), true);
+    
+    wp_enqueue_style('survey_multistep_styles', plugins_url('assets/dist/multistep-survey.css', realpath(__DIR__)), false, time(), 'all');
 
     wp_localize_script('survey-js', 'my_ajax_object', array('ajaxurl' => admin_url('admin-ajax.php')));
 }
