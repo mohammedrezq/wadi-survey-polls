@@ -32,7 +32,10 @@ get_header();
 		$the_current_user_id = get_current_user_id();
 		$the_current_post_id = get_the_ID();
 		$table_name = $wpdb->prefix . 'wadi_survey_submissions';
-		
+
+		$survey_already_taken_message =  carbon_get_post_meta(get_the_ID(), 'wadi_survey_already_taken_message');
+
+
 		global $wpdb;
 
 		$existedRow = $wpdb->get_var(
@@ -44,17 +47,19 @@ get_header();
 			)
 		);
 		
-		if($allow_multiple_responses === TRUE) {
-			if($multistep_survey != TRUE) {
-				require_once PLUGIN_PATH . 'includes/templates/survey-single.php';
-			} else {
-				require_once PLUGIN_PATH . 'includes/templates/survey-multistep.php';
-			}
-		} else if (isset($existedRow)) {
+
+		if($allow_multiple_responses == true && $multistep_survey != TRUE) {
+			require_once PLUGIN_PATH . 'includes/templates/survey-single.php';
+		} else if ($allow_multiple_responses == true && $multistep_survey == TRUE) {
+			require_once PLUGIN_PATH . 'includes/templates/survey-multistep.php';
+		}
+		else if (isset($existedRow) && $allow_multiple_responses == false) {
 			?>
-			<p>This survey has been taken already, Go back to <a href="<?php echo get_home_url(); ?>">Homepage</a></p>
+			<p><?php echo $survey_already_taken_message; ?></p>
 			<?php
 		}
+
+
 		?>
 	</div><!-- .entry-content -->
 
