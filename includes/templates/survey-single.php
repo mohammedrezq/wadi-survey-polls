@@ -3,8 +3,11 @@ $the_post_id =  get_the_ID();
 $the_current_user_id = get_current_user_id();
 $redirect_url =  carbon_get_post_meta($the_post_id, 'wadi_survey_redirect_link');
 $redirect_time =  carbon_get_post_meta($the_post_id, 'wadi_survey_settimeout');
+$survey_finish_message =  carbon_get_post_meta($the_post_id, 'wadi_survey_finishing_message');
+$survey_already_taken_message =  carbon_get_post_meta($the_post_id, 'wadi_survey_already_taken_message');
+
 ?>
-<form class="survey_container" data-survey-id="<?php echo $the_post_id; ?>" 
+<form method="POST" class="survey_container" data-survey-id="<?php echo $the_post_id; ?>" 
 data-user-id="<?php echo $the_current_user_id; ?>"
 data-post-type="<?php echo get_post_type($the_post_id); ?>"
 >
@@ -143,5 +146,5 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
 
 </div>
 <button type="submit" class="wadi_survey_submit">Submit</button>
-<input  class="redirect_url" type="hidden" data-redirect-time="<?php echo $redirect_time; ?>" data-redirect-url="<?php echo $redirect_url; ?>" />
 </form>
+<input type="hidden" data-survey-finish-message='<?php echo $survey_finish_message; ?>'  data-survey-already-taken-message='<?php echo $survey_already_taken_message; ?>'  class="redirect_url" data-redirect-url='<?php echo $redirect_url; ?>' />

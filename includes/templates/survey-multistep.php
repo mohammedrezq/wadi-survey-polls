@@ -4,10 +4,13 @@ $the_post_id =  get_the_ID();
 $the_current_user_id = get_current_user_id();
 $redirect_check =  carbon_get_post_meta($the_post_id, 'wadi_survey_redirect_to');
 $redirect_url =  carbon_get_post_meta($the_post_id, 'wadi_survey_redirect_link');
+$survey_finish_message =  carbon_get_post_meta($the_post_id, 'wadi_survey_finishing_message');
+$survey_already_taken_message =  carbon_get_post_meta($the_post_id, 'wadi_survey_already_taken_message');
+
 
 ?>
 
-<form  id="multistep_survey" method="POST" action="" class="survey_multistep_container" data-survey-id="<?php echo $the_post_id; ?>" 
+<form  id="multistep_survey" method="POST" class="survey_multistep_container" data-survey-id="<?php echo $the_post_id; ?>" 
 data-user-id="<?php echo $the_current_user_id; ?>"
 data-post-type="<?php echo get_post_type($the_post_id); ?>"
 >
@@ -152,8 +155,5 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
     <button type="button" id="nextBtn">Next</button>
   </div>
 </div>
-<input  class="redirect_url" type="hidden" data-redirect-url="<?php echo $redirect_url; ?>" />
-<!-- <div class="stepsConatiner" style="text-align:center;margin-top:40px;">
-
-  </div> -->
 </form>
+<input type="hidden" data-survey-finish-message='<?php echo $survey_finish_message; ?>'  data-survey-already-taken-message='<?php echo $survey_already_taken_message; ?>'  class="redirect_url" data-redirect-url='<?php echo $redirect_url; ?>' />

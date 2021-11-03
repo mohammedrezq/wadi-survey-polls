@@ -4,6 +4,8 @@ const survey = () => {
   const redirectDiv = document.querySelector(".redirect_url");
   const redirectUrl = redirectDiv.dataset.redirectUrl;
   const redirectSetTimeout = redirectDiv.dataset.redirectTime;
+  const surveyFinishMessage = redirectDiv.dataset.surveyFinishMessage;
+  // const surveyAlreadyTaken = redirectDiv.dataset.surveyAlreadyTakenMessage;
 
   if (surveyContainer !== null) {
     const gatherData = () => {
@@ -52,6 +54,12 @@ const survey = () => {
           datatype: "json",
           success: (response) => {
             console.log("THE RESPONSE: ", response);
+            // surveyConatiner.innerHTML = "";
+            if(redirectDiv && surveyFinishMessage) {
+              jQuery('.survey_container').empty();
+              jQuery('.survey_container').append(surveyFinishMessage);
+            }
+            // surveyConatiner.innerHTML = surveyFinishMessage;
             if (redirectUrl) {
               setTimeout(() => {
                 window.location.href = `${redirectUrl}`;

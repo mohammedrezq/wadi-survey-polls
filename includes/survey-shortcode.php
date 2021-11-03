@@ -9,20 +9,38 @@ function display_custom_post_type($atts)
 		'id' => null,
 		// 'class' => 'fas fa-pen',
 	), $atts);
-
+	
 	ob_start();
+	global $wpdb;
 	$the_post_id =  $attributes['id'];
 	$the_current_user_id = get_current_user_id();
 	$multistep_survey = carbon_get_post_meta($the_post_id, 'wadi_survey_multiple_steps');
 	$redirect_check =  carbon_get_post_meta($the_post_id, 'wadi_survey_redirect_to');
 	$redirect_url =  carbon_get_post_meta($the_post_id, 'wadi_survey_redirect_link');
 	$redirect_time =  carbon_get_post_meta($the_post_id, 'wadi_survey_settimeout');
-	
+	$survey_finish_message =  carbon_get_post_meta($the_post_id, 'wadi_survey_finishing_message');
+	$survey_already_taken_message =  carbon_get_post_meta($the_post_id, 'wadi_survey_already_taken_message');
+	$allow_multiple_responses =  carbon_get_post_meta($the_post_id, 'wadi_survey_multiple_responses');
 
-	if($multistep_survey != TRUE) {
+
+	$table_name = $wpdb->prefix . 'wadi_survey_submissions';
+	$the_current_user_id = get_current_user_id();
+	$the_current_post_id = $the_post_id;
+
+	
+	$existedRow = $wpdb->get_var(
+		$wpdb->prepare(
+			"SELECT id FROM " . $table_name . "
+			WHERE user_id = %d AND survey_id = %d LIMIT 1",
+			$the_current_user_id,
+			$the_current_post_id
+		)
+	);
+
+	if($allow_multiple_responses == true && $multistep_survey != TRUE) {
 
 ?>
-	<form class="survey_container" data-survey-id="<?php echo $the_post_id; ?>" data-user-id="<?php echo $the_current_user_id; ?>" data-post-type="<?php echo get_post_type($the_post_id); ?>">
+	<form method="POST" class="survey_container" data-survey-id="<?php echo $the_post_id; ?>" data-user-id="<?php echo $the_current_user_id; ?>" data-post-type="<?php echo get_post_type($the_post_id); ?>">
 		<div class="survey_questions_conatiner">
 			<?php
 			$survey_items = carbon_get_post_meta($the_post_id, 'survey_items');
@@ -156,15 +174,15 @@ function display_custom_post_type($atts)
 
 		</div>
 		<button type="submit" class="wadi_survey_submit">Submit</button>
-		<input  class="redirect_url" type="hidden" data-redirect-time="<?php echo $redirect_time; ?>" data-redirect-url="<?php echo $redirect_url; ?>" />
 	</form>
+	<input type="hidden" data-survey-finish-message='<?php echo $survey_finish_message; ?>'  data-survey-already-taken-message='<?php echo $survey_already_taken_message; ?>'  class="redirect_url" data-redirect-url='<?php echo $redirect_url; ?>' />
 	<?php
-	} else {
+	}  else if ($allow_multiple_responses == true && $multistep_survey == TRUE) {
 		/**
 		 * Start of Multistep Survey code
 		 */
 		?>
-		<form  id="multistep_survey" method="POST" action="" class="survey_multistep_container" data-survey-id="<?php echo $the_post_id; ?>" 
+		<form  id="multistep_survey" method="POST" class="survey_multistep_container" data-survey-id="<?php echo $the_post_id; ?>" 
 		data-user-id="<?php echo $the_current_user_id; ?>"
 		data-post-type="<?php echo get_post_type($the_post_id); ?>"
 		>
@@ -309,13 +327,16 @@ function display_custom_post_type($atts)
 			<button type="button" id="nextBtn">Next</button>
 		  </div>
 		</div>
-		<input  class="redirect_url" type="hidden" data-redirect-time="<?php echo $redirect_time; ?>" data-redirect-url="<?php echo $redirect_url; ?>" />
-
 		</form>
+		<input type="hidden" data-survey-finish-message='<?php echo $survey_finish_message; ?>'  data-survey-already-taken-message='<?php echo $survey_already_taken_message; ?>'  class="redirect_url" data-redirect-url='<?php echo $redirect_url; ?>' />
 		<?php
 		/**
 		 * End of Multistep Survey Code for shortcode
 		 */
+	} else if (isset($existedRow) && $allow_multiple_responses == false) {
+		?>
+		<p><?php echo $survey_already_taken_message; ?></p>
+		<?php
 	}
 
 	return ob_get_clean();
