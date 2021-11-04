@@ -229,13 +229,14 @@ function survey_tabbed()
                 ->add_fields(array(
                     Field::make('select', 'select_survey_question_type', __('Survey Question Types', 'wqsp'))
                         ->set_options(array(
-                            ''                      => 'Select Question Type',
-                            'matrix_question'       => 'Matrix Question',
-                            'single_choice'         => 'Single Choice Question',
-                            'multiple_choices'      => 'Multiple Choices Question',
-                            'textarea'              => 'Open Ended Question',
-                            'rating_question'       => 'Rating Question',
-                            'dropdown_question'     => 'Dropdown Question',
+                            ''                          => 'Select Question Type',
+                            'matrix_question'           => 'Matrix Question',
+                            'single_choice'             => 'Single Choice Question',
+                            'multiple_choices'          => 'Multiple Choices Question',
+                            'textarea'                  => 'Open Ended Question',
+                            'rating_question'           => 'Rating Question',
+                            'dropdown_question'         => 'Dropdown Question',
+                            'radio_image_question'      => 'Image Selection Question',
                         )),
                     /**
                      * Single Question Survey Item
@@ -416,7 +417,10 @@ function survey_tabbed()
                                 'compare'    => '='
                             )
                         )),
-                        Field::make('rich_text', 'dropdown_question', __('Dropdown Question', 'wqsp'))
+                    /**
+                     * Dropdown Question
+                     */
+                    Field::make('rich_text', 'dropdown_question', __('Dropdown Question', 'wqsp'))
                         ->set_conditional_logic(array(
                             'relation' => 'AND',
                             array(
@@ -425,7 +429,7 @@ function survey_tabbed()
                                 'compare'    => '='
                             )
                         )),
-                        Field::make('complex', 'dropdown_answer', __('Dropdown Answers', 'wqsp'))
+                    Field::make('complex', 'dropdown_answer', __('Dropdown Answers', 'wqsp'))
                         ->set_conditional_logic(array(
                             'relation' => 'AND',
                             array(
@@ -437,6 +441,31 @@ function survey_tabbed()
                         ->set_layout('tabbed-vertical')
                         ->add_fields(array(
                             Field::make('text', 'dropdown_text_answers', __('Dropdown Answers', 'wqsp'))
+                        )),
+                    /**
+                     * Image Pick Question
+                     */
+                    Field::make('rich_text', 'image_pick_question', __('Image Picking Question', 'wqsp'))
+                        ->set_conditional_logic(array(
+                            'relation' => 'AND',
+                            array(
+                                'field'      => 'select_survey_question_type',
+                                'value'      => 'radio_image_question',
+                                'compare'    => '=',
+                            )
+                        )),
+                    Field::make('complex', 'images_answers', __('Images Answers', 'wqsp'))
+                        ->set_conditional_logic(array(
+                            'relation' => 'AND',
+                            array(
+                                'field'      => 'select_survey_question_type',
+                                'value'      => 'radio_image_question',
+                                'compare'    => '=',
+                            )
+                        ))
+                        ->set_layout('tabbed-vertical')
+                        ->add_fields(array(
+                            Field::make('image', 'image_radio_answer', __('Image Answer', 'wqsp'))
                         )),
                 ))
         ))

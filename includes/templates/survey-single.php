@@ -212,6 +212,43 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                 <?php
 
             }
+
+            if ($survey_item['select_survey_question_type'] == 'radio_image_question') {
+                $image_pick_question = $survey_item['image_pick_question'];
+                $imageQuestionCleanup = trim(preg_replace('/\s+/', '', $image_pick_question));
+                $theImageQuestionCleaned =  trim($imageQuestionCleanup, " \t\n\r\0\x0B\xC2\xA0");
+                $theImageQuestionCleaned = preg_replace('/[^A-Za-z0-9\-]/', '', $imageQuestionCleanup);
+                $theImageQuestionCleaned = preg_replace('/[?]/', '',$imageQuestionCleanup);
+                $images_answers = $survey_item['images_answers'];
+
+                
+                
+                ?>
+                <div class="image_question_radio_container">
+                    <div class="image_picking_question" id="<?php echo $theImageQuestionCleaned;?>">
+                        <?php echo $image_pick_question; ?>
+                    </div>
+                    <div class="images_answers_container">
+                        <ul class="image_question_answers">
+                            <?php
+                            foreach($images_answers as $image_answer) {
+                                ?>
+                                <li>
+                                    <input type="radio" name="<?php echo $image_pick_question; ?>" value="wadi_image_pick_<?php echo $image_answer['image_radio_answer']; ?>" id="<?php echo $image_answer['image_radio_answer']; ?>">
+                                    <label for="<?php echo $image_answer['image_radio_answer']; ?>"><?php echo wp_get_attachment_image($image_answer['image_radio_answer']); ?></label>
+                                </li>               
+                                <?php
+                                
+                            }
+                            ?>
+
+                        </ul>
+                    </div>
+                </div>
+
+
+                <?php
+            }
         }
     endif;
     ?>
