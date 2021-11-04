@@ -229,12 +229,13 @@ function survey_tabbed()
                 ->add_fields(array(
                     Field::make('select', 'select_survey_question_type', __('Survey Question Types', 'wqsp'))
                         ->set_options(array(
-                            ''                  => 'Select Question Type',
-                            'matrix_question'   => 'Matrix Question',
-                            'single_choice'     => 'Single Choice Question',
-                            'multiple_choices'  => 'Multiple Choices Question',
-                            'textarea'          => 'Open Ended Question',
-                            'rating_question'   => 'Rating Question',
+                            ''                      => 'Select Question Type',
+                            'matrix_question'       => 'Matrix Question',
+                            'single_choice'         => 'Single Choice Question',
+                            'multiple_choices'      => 'Multiple Choices Question',
+                            'textarea'              => 'Open Ended Question',
+                            'rating_question'       => 'Rating Question',
+                            'dropdown_question'     => 'Dropdown Question',
                         )),
                     /**
                      * Single Question Survey Item
@@ -273,7 +274,7 @@ function survey_tabbed()
                                 'compare'    => '=',
                             )
                         )),
-                    Field::make('complex', 'multiple_answers', __('Answers', 'wqsp'))
+                    Field::make('complex', 'multiple_answers', __('Multiple Question Answers', 'wqsp'))
                         ->set_conditional_logic(array(
                             'relation' => 'AND',
                             array(
@@ -284,7 +285,7 @@ function survey_tabbed()
                         ))
                         ->set_layout('tabbed-vertical')
                         ->add_fields(array(
-                            Field::make('text', 'multiple_text_answers', __('Answers', 'wqsp'))
+                            Field::make('text', 'multiple_text_answers', __('Multiple Question Answers', 'wqsp'))
                         )),
                     /**
                      * Martix Questions Survey Item
@@ -414,6 +415,28 @@ function survey_tabbed()
                                 'value'      => 'rating_question',
                                 'compare'    => '='
                             )
+                        )),
+                        Field::make('rich_text', 'dropdown_question', __('Dropdown Question', 'wqsp'))
+                        ->set_conditional_logic(array(
+                            'relation' => 'AND',
+                            array(
+                                'field'      => 'select_survey_question_type',
+                                'value'      => 'dropdown_question',
+                                'compare'    => '='
+                            )
+                        )),
+                        Field::make('complex', 'dropdown_answer', __('Dropdown Answers', 'wqsp'))
+                        ->set_conditional_logic(array(
+                            'relation' => 'AND',
+                            array(
+                                'field'      => 'select_survey_question_type',
+                                'value'      => 'dropdown_question',
+                                'compare'    => '=',
+                            )
+                        ))
+                        ->set_layout('tabbed-vertical')
+                        ->add_fields(array(
+                            Field::make('text', 'dropdown_text_answers', __('Dropdown Answers', 'wqsp'))
                         )),
                 ))
         ))
