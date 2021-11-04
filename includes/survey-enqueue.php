@@ -4,7 +4,8 @@ add_action('wp_enqueue_scripts', 'survey_scripts_init');
 function survey_scripts_init()
 {
     wp_enqueue_script('survey_script_front', plugins_url('assets/dist/survey.js', realpath(__DIR__)),  array('jquery'), time(), true);
-    // wp_enqueue_script('survey_styles', plugins_url('assets/dist/main.js', realpath(__DIR__)),  array('jquery'), time(), true);
+    
+    wp_enqueue_style('survey_styles', plugins_url('assets/dist/survey.css', realpath(__DIR__)),  false, time(), 'all');
     
     wp_enqueue_script('survey_script_front_multistep', plugins_url('assets/dist/multistep-survey.js', realpath(__DIR__)),  array('jquery'), time(), true);
     

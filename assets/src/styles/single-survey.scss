@@ -1,0 +1,63 @@
+.survey_container {
+  .survey_questions_conatiner {
+    /* Rating Scale Styling */
+
+    .rating_scale_answer_container {
+        .rating_scale_answer_text_container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-transform: uppercase;
+        }
+      .rating_scale_answers {
+        list-style-type: none;
+        margin: 25px 0 0 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        li {
+          float: left;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 0 5px 0 0;
+        //   width: 8%;
+          height: 60px;
+          position: relative;
+        }
+        label,
+        input {
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+
+          &[type="radio"] {
+            opacity: 0;
+            z-index: 100;
+            &:checked + label,
+            .Checked + label {
+              background: rgb(66, 66, 66);
+              color: white;
+            }
+          }
+        }
+        label {
+          padding: 5px;
+          border: 1px solid #ccc;
+          cursor: pointer;
+          z-index: 90;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &:hover {
+            background: #ddd;
+          }
+        }
+      }
+    }
+  }
+}

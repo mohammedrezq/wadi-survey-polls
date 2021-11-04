@@ -140,6 +140,43 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
     <?php
 
             }
+            if ($survey_item['select_survey_question_type'] == 'rating_question') {
+                ?>
+                <div class="rating_scale_container">
+
+                    <div class="rating_scale_question"><?php echo $survey_item['rating_question']; ?></div>
+                    <div class="rating_scale_answer_container" data-start-rating-scale-range="<?php echo $survey_item['rating_question_number_1']; ?>" data-end-rating-scale-range="<?php echo $survey_item['rating_question_number_2']; ?>">
+                        <div class="rating_scale_answer_text_container">
+                            <div class="rating_scale_question_starting">
+                                <?php echo $survey_item['rating_scale_question_starting'] ?>
+                            </div>
+                            <div class="rating_scale_question_ending">
+                                <?php echo $survey_item['rating_scale_question_ending'] ?>
+                            </div>
+                        </div>
+                        <?php
+                        $starting = $survey_item['rating_question_number_1'];
+                        $ending = $survey_item['rating_question_number_2'];
+                        ?>
+                        <ul class="rating_scale_answers">
+                        <?php
+                        for($i = $starting; $i<= $ending; $i++) {
+                            ?>
+                            <li class="rating_scale_item">
+                                <input type='radio' id="id_<?php echo $i ?>" class='radio_input' name="<?php echo $survey_item['rating_question']; ?>" value="<?php echo $i; ?>" />
+                                <label id="rating_scale_label" for="id_<?php echo $i ?>"><?php echo $i; ?></label>
+                            </li>
+                            <?php
+                        }
+    
+                        ?>
+                        </ul>
+    
+                    </div>
+                </div>
+                
+                <?php
+            }
         }
     endif;
     ?>

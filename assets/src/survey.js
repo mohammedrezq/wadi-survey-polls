@@ -1,3 +1,6 @@
+import './styles/single-survey.scss';
+
+import './range-scale';
 const survey = () => {
   const surveyContainer = document.querySelector(".survey_container");
   const surveySubmit = document.querySelector(".wadi_survey_submit");
