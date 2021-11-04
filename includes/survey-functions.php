@@ -363,11 +363,11 @@ function survey_tabbed()
                         )),
                     Field::make('text', 'rating_question_number_1', __('Rating Starting Range', 'wqsp'))
                         ->set_attribute('type', 'number')
-                        ->set_attribute('min', 0)
+                        ->set_attribute('min', '0')
                         ->set_required(true)
                         ->set_help_text(__('Set the starting number for rating question for instance 0', 'wqsp'))
-                        ->set_width(50)
-                        ->set_default_value(0)
+                        ->set_width('50')
+                        ->set_default_value('0')
                         ->set_conditional_logic(array(
                             'relation' => 'AND',
                             array(
@@ -378,11 +378,11 @@ function survey_tabbed()
                         )),
                     Field::make('text', 'rating_question_number_2', __('Rating Ending Range', 'wqsp'))
                         ->set_attribute('type', 'number')
-                        ->set_attribute('min', 0)
+                        ->set_attribute('min', '0')
                         ->set_required(true)
                         ->set_help_text(__('Set the ending number for rating question for instance 10, Please note that ending range should always be bigger than starting range.', 'wqsp'))
-                        ->set_width(50)
-                        ->set_default_value(10)
+                        ->set_width('50')
+                        ->set_default_value('10')
                         ->set_conditional_logic(array(
                             'relation' => 'AND',
                             array(

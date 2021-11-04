@@ -140,6 +140,9 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
     <?php
 
             }
+            /**
+             * Rating Scale Question
+             */
             if ($survey_item['select_survey_question_type'] == 'rating_question') {
                 ?>
                 <div class="rating_scale_container">
@@ -178,6 +181,10 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                 <?php
             }
 
+            /**
+             * Dropdown Question
+             */
+
             if ($survey_item['select_survey_question_type'] == 'dropdown_question') {
 
                 $dropdownQuestion = $survey_item['dropdown_question'];
@@ -212,6 +219,10 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                 <?php
 
             }
+
+            /**
+             * Radio Image Question (select radio image)
+             */
 
             if ($survey_item['select_survey_question_type'] == 'radio_image_question') {
                 $image_pick_question = $survey_item['image_pick_question'];
