@@ -47,7 +47,7 @@ function survey_cpt_init() {
 		'rest_base'          => 'surveys',
         'menu_position'      => null,
 		'menu_icon'          => 'dashicons-exerpt-view',
-        'supports'           => array( '' ),
+        'supports'           => array( 'title' ),
 		'map_meta_cap'       => true,
     );
 
