@@ -1,6 +1,15 @@
 <h1>Hello TEST Submission Survey</h1>
 
 <?php
+/**
+ * Check if String contains substring // https://stackoverflow.com/questions/66519169/call-to-undefined-function-str-contains-php
+ */
+if (!function_exists('str_contains')) {
+    function str_contains(string $haystack, string $needle): bool
+    {
+        return '' === $needle || false !== strpos($haystack, $needle);
+    }
+}
 
 global $wpdb;
 $wpdb_table = $wpdb->prefix . 'wadi_survey_submissions';
@@ -75,7 +84,12 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
                             foreach ($v_new as $key => $item) {
 
                                 echo "<strong>" . $item['name'] ."</strong>".'<br /><br />';
-                                echo $item['value'].'<br /><br />';
+                                if(str_contains($item['value'], 'wadi_image_pick_')){
+                                    $image_picked_id = str_replace('wadi_image_pick_', '', $item['value']);
+                                    echo wp_get_attachment_image($image_picked_id) . '<br /><br />' . wp_get_attachment_url($image_picked_id).'<br /><br />';
+                                } else {
+                                    echo $item['value'].'<br /><br />';
+                                }
                             }
 
                             
