@@ -177,6 +177,41 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                 
                 <?php
             }
+
+            if ($survey_item['select_survey_question_type'] == 'dropdown_question') {
+
+                $dropdownQuestion = $survey_item['dropdown_question'];
+                $theDropdownQuestionCleanup = trim(preg_replace('/\s+/', '', $dropdownQuestion));
+                $theQuestionCleaned =  trim($theDropdownQuestionCleanup, " \t\n\r\0\x0B\xC2\xA0");
+                $theQuestionCleaned = preg_replace('/[^A-Za-z0-9\-]/', '', $theDropdownQuestionCleanup);
+                $theQuestionCleaned = preg_replace('/[?]/', '',$theDropdownQuestionCleanup);
+                
+                ?>
+                <div class="dropdown_question_container">
+                    <div class="dropdown_question">
+                        <?php echo $survey_item['dropdown_question']; ?>
+                    </div>
+
+                        <div class="custom-control custom-select">
+                            <select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo $theQuestionCleaned; ?>">
+                            <option value=""><?php echo __('Select Option', 'wqsp') ?></option>
+
+                    <?php
+                    foreach($survey_item['dropdown_answer'] as $dropdownAnswer) {
+
+                        $dropdownAnswerAvailable = $dropdownAnswer['dropdown_text_answers'];
+                        $theDropdownAnswerCleanup = trim(preg_replace('/\s+/', '', $dropdownAnswerAvailable));               
+                        ?>
+                            <option value="<?php echo $dropdownAnswerAvailable; ?>"><?php echo $dropdownAnswerAvailable; ?></option>
+                        <?php
+                        }
+                        ?>
+                            </select>
+                        </div>
+                </div>
+                <?php
+
+            }
         }
     endif;
     ?>
