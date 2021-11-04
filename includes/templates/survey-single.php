@@ -194,18 +194,18 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
 
                         <div class="custom-control custom-select">
                             <select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo $theQuestionCleaned; ?>">
-                            <option value=""><?php echo __('Select Option', 'wqsp') ?></option>
+                                <option value=""><?php echo __('Select Option', 'wqsp') ?></option>
 
-                    <?php
-                    foreach($survey_item['dropdown_answer'] as $dropdownAnswer) {
-
-                        $dropdownAnswerAvailable = $dropdownAnswer['dropdown_text_answers'];
-                        $theDropdownAnswerCleanup = trim(preg_replace('/\s+/', '', $dropdownAnswerAvailable));               
-                        ?>
-                            <option value="<?php echo $dropdownAnswerAvailable; ?>"><?php echo $dropdownAnswerAvailable; ?></option>
                         <?php
-                        }
-                        ?>
+                        foreach($survey_item['dropdown_answer'] as $dropdownAnswer) {
+
+                            $dropdownAnswerAvailable = $dropdownAnswer['dropdown_text_answers'];
+                            $theDropdownAnswerCleanup = trim(preg_replace('/\s+/', '', $dropdownAnswerAvailable));               
+                            ?>
+                                <option value="<?php echo $dropdownAnswerAvailable; ?>"><?php echo $dropdownAnswerAvailable; ?></option>
+                            <?php
+                            }
+                            ?>
                             </select>
                         </div>
                 </div>
