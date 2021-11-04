@@ -168,6 +168,126 @@ function display_custom_post_type($atts)
 			<?php
 
 					}
+					/**
+            		 * Rating Scale Question
+            		 */
+            		if ($survey_item['select_survey_question_type'] == 'rating_question') {
+            		    ?>
+            		    <div class="rating_scale_container">
+					
+            		        <div class="rating_scale_question"><?php echo $survey_item['rating_question']; ?></div>
+            		        <div class="rating_scale_answer_container" data-start-rating-scale-range="<?php echo $survey_item['rating_question_number_1']; ?>" data-end-rating-scale-range="<?php echo $survey_item['rating_question_number_2']; ?>">
+            		            <div class="rating_scale_answer_text_container">
+            		                <div class="rating_scale_question_starting">
+            		                    <?php echo $survey_item['rating_scale_question_starting'] ?>
+            		                </div>
+            		                <div class="rating_scale_question_ending">
+            		                    <?php echo $survey_item['rating_scale_question_ending'] ?>
+            		                </div>
+            		            </div>
+            		            <?php
+            		            $starting = $survey_item['rating_question_number_1'];
+            		            $ending = $survey_item['rating_question_number_2'];
+            		            ?>
+            		            <ul class="rating_scale_answers">
+            		            <?php
+            		            for($i = $starting; $i<= $ending; $i++) {
+            		                ?>
+            		                <li class="rating_scale_item">
+            		                    <input type='radio' id="id_<?php echo $i ?>" class='radio_input' name="<?php echo $survey_item['rating_question']; ?>" value="<?php echo $i; ?>" />
+            		                    <label id="rating_scale_label" for="id_<?php echo $i ?>"><?php echo $i; ?></label>
+            		                </li>
+            		                <?php
+            		            }
+							
+            		            ?>
+            		            </ul>
+							
+            		        </div>
+            		    </div>
+							
+            		    <?php
+            		}
+				
+            		/**
+            		 * Dropdown Question
+            		 */
+				
+            		if ($survey_item['select_survey_question_type'] == 'dropdown_question') {
+					
+            		    $dropdownQuestion = $survey_item['dropdown_question'];
+            		    $theDropdownQuestionCleanup = trim(preg_replace('/\s+/', '', $dropdownQuestion));
+            		    $theQuestionCleaned =  trim($theDropdownQuestionCleanup, " \t\n\r\0\x0B\xC2\xA0");
+            		    $theQuestionCleaned = preg_replace('/[^A-Za-z0-9\-]/', '', $theDropdownQuestionCleanup);
+            		    $theQuestionCleaned = preg_replace('/[?]/', '',$theDropdownQuestionCleanup);
+					
+            		    ?>
+            		    <div class="dropdown_question_container">
+            		        <div class="dropdown_question">
+            		            <?php echo $survey_item['dropdown_question']; ?>
+            		        </div>
+					
+            		            <div class="custom-control custom-select">
+            		                <select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo $theQuestionCleaned; ?>">
+            		                    <option value=""><?php echo __('Select Option', 'wqsp') ?></option>
+					
+            		            <?php
+            		            foreach($survey_item['dropdown_answer'] as $dropdownAnswer) {
+								
+            		                $dropdownAnswerAvailable = $dropdownAnswer['dropdown_text_answers'];
+            		                $theDropdownAnswerCleanup = trim(preg_replace('/\s+/', '', $dropdownAnswerAvailable));               
+            		                ?>
+            		                    <option value="<?php echo $dropdownAnswerAvailable; ?>"><?php echo $dropdownAnswerAvailable; ?></option>
+            		                <?php
+            		                }
+            		                ?>
+            		                </select>
+            		            </div>
+            		    </div>
+            		    <?php
+
+            		}
+				
+            		/**
+            		 * Radio Image Question (select radio image)
+            		 */
+				
+            		if ($survey_item['select_survey_question_type'] == 'radio_image_question') {
+            		    $image_pick_question = $survey_item['image_pick_question'];
+            		    $imageQuestionCleanup = trim(preg_replace('/\s+/', '', $image_pick_question));
+            		    $theImageQuestionCleaned =  trim($imageQuestionCleanup, " \t\n\r\0\x0B\xC2\xA0");
+            		    $theImageQuestionCleaned = preg_replace('/[^A-Za-z0-9\-]/', '', $imageQuestionCleanup);
+            		    $theImageQuestionCleaned = preg_replace('/[?]/', '',$imageQuestionCleanup);
+            		    $images_answers = $survey_item['images_answers'];
+					
+					
+					
+            		    ?>
+            		    <div class="image_question_radio_container">
+            		        <div class="image_picking_question" id="<?php echo $theImageQuestionCleaned;?>">
+            		            <?php echo $image_pick_question; ?>
+            		        </div>
+            		        <div class="images_answers_container">
+            		            <ul class="image_question_answers">
+            		                <?php
+            		                foreach($images_answers as $image_answer) {
+            		                    ?>
+            		                    <li>
+            		                        <input type="radio" name="<?php echo $image_pick_question; ?>" value="wadi_image_pick_<?php echo $image_answer['image_radio_answer']; ?>" id="<?php echo $image_answer['image_radio_answer']; ?>">
+            		                        <label for="<?php echo $image_answer['image_radio_answer']; ?>"><?php echo wp_get_attachment_image($image_answer['image_radio_answer']); ?></label>
+            		                    </li>               
+            		                    <?php
+
+            		                }
+            		                ?>
+
+            		            </ul>
+            		        </div>
+            		    </div>
+								
+								
+            		    <?php
+            		}
 				}
 			endif;
 			?>
@@ -316,6 +436,126 @@ function display_custom_post_type($atts)
 			<?php
 		
 					}
+					/**
+            		 * Rating Scale Question
+            		 */
+            		if ($survey_item['select_survey_question_type'] == 'rating_question') {
+            		    ?>
+            		    <div class="rating_scale_container tab">
+					
+            		        <div class="rating_scale_question"><?php echo $survey_item['rating_question']; ?></div>
+            		        <div class="rating_scale_answer_container" data-start-rating-scale-range="<?php echo $survey_item['rating_question_number_1']; ?>" data-end-rating-scale-range="<?php echo $survey_item['rating_question_number_2']; ?>">
+            		            <div class="rating_scale_answer_text_container">
+            		                <div class="rating_scale_question_starting">
+            		                    <?php echo $survey_item['rating_scale_question_starting'] ?>
+            		                </div>
+            		                <div class="rating_scale_question_ending">
+            		                    <?php echo $survey_item['rating_scale_question_ending'] ?>
+            		                </div>
+            		            </div>
+            		            <?php
+            		            $starting = $survey_item['rating_question_number_1'];
+            		            $ending = $survey_item['rating_question_number_2'];
+            		            ?>
+            		            <ul class="rating_scale_answers">
+            		            <?php
+            		            for($i = $starting; $i<= $ending; $i++) {
+            		                ?>
+            		                <li class="rating_scale_item">
+            		                    <input type='radio' id="id_<?php echo $i ?>" class='radio_input' name="<?php echo $survey_item['rating_question']; ?>" value="<?php echo $i; ?>" />
+            		                    <label id="rating_scale_label" for="id_<?php echo $i ?>"><?php echo $i; ?></label>
+            		                </li>
+            		                <?php
+            		            }
+							
+            		            ?>
+            		            </ul>
+							
+            		        </div>
+            		    </div>
+							
+            		    <?php
+            		}
+				
+            		/**
+            		 * Dropdown Question
+            		 */
+				
+            		if ($survey_item['select_survey_question_type'] == 'dropdown_question') {
+					
+            		    $dropdownQuestion = $survey_item['dropdown_question'];
+            		    $theDropdownQuestionCleanup = trim(preg_replace('/\s+/', '', $dropdownQuestion));
+            		    $theQuestionCleaned =  trim($theDropdownQuestionCleanup, " \t\n\r\0\x0B\xC2\xA0");
+            		    $theQuestionCleaned = preg_replace('/[^A-Za-z0-9\-]/', '', $theDropdownQuestionCleanup);
+            		    $theQuestionCleaned = preg_replace('/[?]/', '',$theDropdownQuestionCleanup);
+					
+            		    ?>
+            		    <div class="dropdown_question_container tab">
+            		        <div class="dropdown_question">
+            		            <?php echo $survey_item['dropdown_question']; ?>
+            		        </div>
+					
+            		            <div class="custom-control custom-select">
+            		                <select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo $theQuestionCleaned; ?>">
+            		                    <option value=""><?php echo __('Select Option', 'wqsp') ?></option>
+					
+            		            <?php
+            		            foreach($survey_item['dropdown_answer'] as $dropdownAnswer) {
+								
+            		                $dropdownAnswerAvailable = $dropdownAnswer['dropdown_text_answers'];
+            		                $theDropdownAnswerCleanup = trim(preg_replace('/\s+/', '', $dropdownAnswerAvailable));               
+            		                ?>
+            		                    <option value="<?php echo $dropdownAnswerAvailable; ?>"><?php echo $dropdownAnswerAvailable; ?></option>
+            		                <?php
+            		                }
+            		                ?>
+            		                </select>
+            		            </div>
+            		    </div>
+            		    <?php
+		
+            		}
+				
+            		/**
+            		 * Radio Image Question (select radio image)
+            		 */
+				
+            		if ($survey_item['select_survey_question_type'] == 'radio_image_question') {
+            		    $image_pick_question = $survey_item['image_pick_question'];
+            		    $imageQuestionCleanup = trim(preg_replace('/\s+/', '', $image_pick_question));
+            		    $theImageQuestionCleaned =  trim($imageQuestionCleanup, " \t\n\r\0\x0B\xC2\xA0");
+            		    $theImageQuestionCleaned = preg_replace('/[^A-Za-z0-9\-]/', '', $imageQuestionCleanup);
+            		    $theImageQuestionCleaned = preg_replace('/[?]/', '',$imageQuestionCleanup);
+            		    $images_answers = $survey_item['images_answers'];
+					
+					
+					
+            		    ?>
+            		    <div class="image_question_radio_container tab">
+            		        <div class="image_picking_question" id="<?php echo $theImageQuestionCleaned;?>">
+            		            <?php echo $image_pick_question; ?>
+            		        </div>
+            		        <div class="images_answers_container">
+            		            <ul class="image_question_answers">
+            		                <?php
+            		                foreach($images_answers as $image_answer) {
+            		                    ?>
+            		                    <li>
+            		                        <input type="radio" name="<?php echo $image_pick_question; ?>" value="wadi_image_pick_<?php echo $image_answer['image_radio_answer']; ?>" id="<?php echo $image_answer['image_radio_answer']; ?>">
+            		                        <label for="<?php echo $image_answer['image_radio_answer']; ?>"><?php echo wp_get_attachment_image($image_answer['image_radio_answer']); ?></label>
+            		                    </li>               
+            		                    <?php
+		
+            		                }
+            		                ?>
+		
+            		            </ul>
+            		        </div>
+            		    </div>
+								
+								
+            		    <?php
+            		}
 				}
 			endif;
 			?>
