@@ -41,13 +41,13 @@ define('PLUGIN_PATH', plugin_dir_path(__FILE__));
  */
 
 
-require_once PLUGIN_PATH . 'includes/posttypes.php';
+require_once PLUGIN_PATH . 'includes/class-posttypes.php';
 register_activation_hook(__FILE__, 'survey_rewrite_flush');
 
 /**
  * Add in custom fields.
  */
-require_once PLUGIN_PATH . 'includes/survey-functions.php';
+require_once PLUGIN_PATH . 'includes/class-survey-backend.php';
 
 /**
  * Add Shortcode
@@ -59,13 +59,13 @@ require_once PLUGIN_PATH . 'includes/survey-shortcode.php';
  * Add Survey Database Table
  */
 
-require_once PLUGIN_PATH . 'includes/survey-db.php';
+require_once PLUGIN_PATH . 'includes/class-survey-db.php';
 
 /**
  * Add Survey submenu page
  */
 
-require_once PLUGIN_PATH . 'includes/survey-table.php';
+require_once PLUGIN_PATH . 'includes/class-wadi-admin-menus.php';
 
 /**
  * Add Single Survey Submissions Page
@@ -74,10 +74,10 @@ require_once PLUGIN_PATH . 'includes/survey-table.php';
 // require_once PLUGIN_PATH . 'includes/single-submissions-survey.php';
 
 /**
- * Enqueue Survey Scripts and Styles
+ * Enqueue Wadi Survey Scripts and Styles
  */
 
-require_once PLUGIN_PATH . 'includes/survey-enqueue.php';
+require_once PLUGIN_PATH . 'includes/class-wadi-survey-enqueue.php';
 
 /**
  * Disable Gutenberg on Survey Custom Post Type 
@@ -104,8 +104,40 @@ function shortcode_survey_columns_head($defaults)
 add_action('manage_wadi-survey_posts_custom_column', 'survey_shortcode_column_head_content', 10, 2);
 function survey_shortcode_column_head_content($column_name, $post_ID)
 {
+
+
+    /**
+     * Shortcode in Survey Post Type 
+     * 
+     * Script to copy shortcode on click
+     */
     if ('shortcode' === $column_name) {
-        echo '[wadi-survey id="' . $post_ID . '"]';
+        echo '<script type="text/javascript">
+        /* Get the text field */
+
+        window.addEventListener("DOMContentLoaded", (event) => {
+            function wadi_survey_copy_shortcode() {
+    
+                var copyText = document.querySelectorAll(".wadi_survey_shortcode");
+    
+                var copyTextArr = Array.from(copyText);
+    
+                copyTextArr.map(elem => {
+                    elem.addEventListener("click", function(e){
+                        e.target.setSelectionRange(0, e.target.value.length);
+                        navigator.clipboard.writeText(e.target.value);
+                    })
+                
+                })
+    
+            };
+            wadi_survey_copy_shortcode();
+        });
+        
+        </script>
+        ';
+
+        echo '<input class="wadi_survey_shortcode" type="text" readonly="" value="[wadi-survey id=&quot;' . $post_ID . '&quot;]">';
     }
 }
 
@@ -132,7 +164,7 @@ add_filter( 'single_template', 'override_single_template' );
 function override_single_template( $single_template ){
     global $post;
 
-    $file = dirname(__FILE__) .'/single-'. $post->post_type .'.php';
+    $file = PLUGIN_PATH .'/single-'. $post->post_type .'.php';
 
     if( file_exists( $file ) ) $single_template = $file;
 
