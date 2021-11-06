@@ -81,9 +81,10 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
                         foreach ($surveyQArr as $arr) {
                         $v_new=json_decode($arr,true);
 
-                            foreach ($v_new as $key => $item) {
+                        foreach ($v_new as $key => $item) {
 
-                                echo "<strong>" . $item['name'] ."</strong>".'<br /><br />';
+                            echo "<strong>" . $item['name'] ."</strong>".'<br /><br />';
+                            if(isset($item['value'])){
                                 if(str_contains($item['value'], 'wadi_image_pick_')){
                                     $image_picked_id = str_replace('wadi_image_pick_', '', $item['value']);
                                     echo wp_get_attachment_image($image_picked_id) . '<br /><br />' . wp_get_attachment_url($image_picked_id).'<br /><br />';
@@ -91,6 +92,7 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
                                     echo $item['value'].'<br /><br />';
                                 }
                             }
+                        }
 
                             
                         }
