@@ -1,6 +1,6 @@
 <?php
 
-add_shortcode('survey', 'display_custom_post_type');
+add_shortcode('wadi-survey', 'display_custom_post_type');
 
 function display_custom_post_type($atts)
 {

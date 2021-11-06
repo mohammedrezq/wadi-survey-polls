@@ -222,7 +222,7 @@ function survey_tabbed()
         'singular_name' => 'Survey Item',
     );
     Container::make('post_meta', __('Survey Settings', 'wqsp'))
-        ->where('post_type', '=', 'survey')
+        ->where('post_type', '=', 'wadi-survey')
         ->add_tab(__('Survey Form Building'), array(
             Field::make('complex', 'survey_items', 'Survey Items')
                 ->setup_labels($survey_item_label)

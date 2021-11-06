@@ -39,7 +39,7 @@ function survey_cpt_init() {
         'show_ui'            => true,
         'show_in_menu'       => true,
         'query_var'          => true,
-        'rewrite'            => array( 'slug' => 'survey' ),
+        'rewrite'            => array( 'slug' => 'wadi-survey' ),
         'capability_type'    => 'post',
         'has_archive'        => true,
         'hierarchical'       => false,
@@ -51,7 +51,7 @@ function survey_cpt_init() {
 		'map_meta_cap'       => true,
     );
 
-    register_post_type( 'survey', $args );
+    register_post_type( 'wadi-survey', $args );
 }
 
 add_action( 'init', 'survey_cpt_init' );

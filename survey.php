@@ -86,14 +86,14 @@ add_filter('use_block_editor_for_post_type', 'survey_disable_gutenberg', 10, 2);
 function survey_disable_gutenberg($current_status, $post_type)
 {
     // Use your post type key instead of 'product'
-    if ($post_type === 'survey') return false;
+    if ($post_type === 'wadi-survey') return false;
     return $current_status;
 }
 
 /**
  * Add Shortcode to Survey Custom Post Type Column
  */
-add_filter('manage_survey_posts_columns', 'shortcode_survey_columns_head');
+add_filter('manage_wadi-survey_posts_columns', 'shortcode_survey_columns_head');
 
 function shortcode_survey_columns_head($defaults)
 {
@@ -101,31 +101,42 @@ function shortcode_survey_columns_head($defaults)
     return $defaults;
 }
 
-add_action('manage_survey_posts_custom_column', 'survey_shortcode_column_head_content', 10, 2);
+add_action('manage_wadi-survey_posts_custom_column', 'survey_shortcode_column_head_content', 10, 2);
 function survey_shortcode_column_head_content($column_name, $post_ID)
 {
     if ('shortcode' === $column_name) {
-        echo '[survey id="' . $post_ID . '"]';
+        echo '[wadi-survey id="' . $post_ID . '"]';
     }
 }
 
 /* Filter the single_template with our custom function*/
-add_filter('single_template', 'survey_post_type_template');
+// add_filter('single_template', 'survey_post_type_template');
 
-function survey_post_type_template($template)
-{
+// function survey_post_type_template($template)
+// {
 
+//     global $post;
+
+//     /* Checks for survey template by post type */
+//     if ($post->post_type == 'wadi-survey') {
+//         if (file_exists(PLUGIN_PATH . '/single-wadi-survey.php')) {
+//             return PLUGIN_PATH . '/single-wadi-survey.php';
+//         }
+//     }
+
+//     return $template;
+// }
+
+
+add_filter( 'single_template', 'override_single_template' );
+function override_single_template( $single_template ){
     global $post;
 
-    /* Checks for survey template by post type */
-    if ($post->post_type == 'survey') {
-        if (file_exists(PLUGIN_PATH . 'single-survey.php')) {
-            return PLUGIN_PATH . 'single-survey.php';
-        }
-    }
+    $file = dirname(__FILE__) .'/single-'. $post->post_type .'.php';
 
-    return $template;
+    if( file_exists( $file ) ) $single_template = $file;
+
+    return $single_template;
 }
-
 
 

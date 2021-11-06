@@ -15,7 +15,7 @@ function wadi_survey_submissions_callback()
 
 function register_survery_submissions_menu() {
     add_submenu_page(
-        'edit.php?post_type=survey',
+        'edit.php?post_type=wadi-survey',
         esc_html__('Survey Submissions', 'survey'),
         esc_html__('Survey Submissions', 'survey'),
         'manage_options',

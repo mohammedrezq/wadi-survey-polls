@@ -20,7 +20,7 @@ function survey_scripts_init()
 
 function survey_backend_init($hook)
 {
-    if ('survey_page_survey_submissions' != $hook) {
+    if ('wadi-survey_page_survey_submissions' != $hook) {
         return;
     }
     wp_enqueue_style('survey_styles', plugins_url('assets/dist/main.css', realpath(__DIR__)), false, time(), 'all');
@@ -34,7 +34,8 @@ add_action('admin_enqueue_scripts', 'survey_backend_init');
 
 function survey_backend_init_single($hook)
 {
-    if ('survey_page_single_survey' != $hook) {
+  
+    if ('wadi-survey_page_single_survey' != $hook) {
         return;
     }
     
@@ -48,9 +49,9 @@ function survey_backend_init_single($hook)
         'https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css',
         array(),
     );
-    wp_enqueue_script( 'jquery_kotw', 'https://code.jquery.com/jquery-3.5.1.js', array(), '3.5.1', true );
-    wp_enqueue_script( 'jquery_datatable_kotw', 'https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js', array('jquery_kotw'), '1.10.25', true );
-    wp_enqueue_script( 'datatable_bootstrap_kotw', 'https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js', array('jquery_kotw'), '1.10.25', true );
+    wp_enqueue_script( 'jquery_wadi', 'https://code.jquery.com/jquery-3.5.1.js', array(), '3.5.1', true );
+    wp_enqueue_script( 'jquery_datatable_wadi', 'https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js', array('jquery'), '1.10.25', true );
+    wp_enqueue_script( 'datatable_bootstrap_wadi', 'https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js', array('jquery'), '1.10.25', true );
     wp_enqueue_style('survey_styles', plugins_url('assets/dist/main.css', realpath(__DIR__)), false, time(), 'all');
     wp_enqueue_script('survey_js_backend', plugins_url('assets/dist/main.js', realpath(__DIR__)), array('jquery'), time(), true);
 }

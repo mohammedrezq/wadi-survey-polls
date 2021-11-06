@@ -57,7 +57,7 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
                 <tr>
                     <td style="width: 25%"><a href="<?php echo get_edit_user_link($user_data->ID); ?>" target="_blank"><?php echo $user_data->display_name; ?></a></td>
                     <td style="width: 25%">
-                        <a href='<?php echo site_url()."/wp-admin/edit.php?post_type=survey&page=single_survey&survey_id=$surveyId" ?>' target="_blank"><?php echo get_the_title($surveyId); ?></a>
+                        <a href='<?php echo site_url()."/wp-admin/edit.php?post_type=wadi-survey&page=single_survey&survey_id=$surveyId" ?>' target="_blank"><?php echo get_the_title($surveyId); ?></a>
                     </td>
                     <?php
                     $theUserId = $single_result['user_id'];
