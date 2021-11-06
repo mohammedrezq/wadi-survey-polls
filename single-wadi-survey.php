@@ -48,13 +48,13 @@ get_header();
 		);
 
 		if(!isset($existedRow)) { // Check if row exist in database
-			require_once PLUGIN_PATH . 'includes/templates/survey-single.php';
+			require_once PLUGIN_PATH . 'templates/survey-single.php';
 		} else if (!isset($existedRow) && $multistep_survey == TRUE) { // check if row exists in the database and multistep survey is active
-			require_once PLUGIN_PATH . 'includes/templates/survey-multistep.php';
+			require_once PLUGIN_PATH . 'templates/survey-multistep.php';
 		} else if($allow_multiple_responses == true && $multistep_survey != TRUE) { // check if multi responses is active (return single page survey template)
-			require_once PLUGIN_PATH . 'includes/templates/survey-single.php';
+			require_once PLUGIN_PATH . 'templates/survey-single.php';
 		} else if ($allow_multiple_responses == true && $multistep_survey == TRUE) { // check if multi responses is active and multistep is active (return mulitstep page survey template)
-			require_once PLUGIN_PATH . 'includes/templates/survey-multistep.php';
+			require_once PLUGIN_PATH . 'templates/survey-multistep.php';
 		}
 		else if (isset($existedRow) && $allow_multiple_responses == false) { // check if multi response is not active and check if row already exists in db it will return a message (The survey already taken context)
 			?>
