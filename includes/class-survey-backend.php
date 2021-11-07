@@ -331,6 +331,7 @@ class SurveyBackend
     public function survey_backend_load()
     {
         require_once('vendor/autoload.php');
+        define( 'Carbon_Fields\URL', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'vendor/htmlburger/carbon-fields/' );
         \Carbon_Fields\Carbon_Fields::boot();
     }
 }
