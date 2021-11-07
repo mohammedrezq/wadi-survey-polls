@@ -42,7 +42,7 @@ define('PLUGIN_PATH', plugin_dir_path(__FILE__));
 
 
 require_once PLUGIN_PATH . 'includes/class-posttypes.php';
-register_activation_hook(__FILE__, 'survey_rewrite_flush');
+register_activation_hook(__FILE__, 'wadi_rewrite_flush');
 
 /**
  * Add in custom fields.
