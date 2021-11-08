@@ -7,6 +7,8 @@ class WadiPosttypes
     {
 
         add_action('init', array($this, 'cpt_init'));
+        register_activation_hook(__FILE__, array($this, 'wadi_rewrite_flush'));
+
     }
 
     /**
@@ -46,7 +48,7 @@ class WadiPosttypes
         $args = array(
             'labels'             => $labels,
             'public'             => true,
-            'publicly_queryable' => false,
+            'publicly_queryable' => true,
             'show_ui'            => true,
             'show_in_menu'       => true,
             'query_var'          => true,
@@ -97,7 +99,7 @@ class WadiPosttypes
         $poll_args = array(
             'labels'             => $poll_labels,
             'public'             => true,
-            'publicly_queryable' => false,
+            'publicly_queryable' => true,
             'show_ui'            => true,
             'show_in_menu'       => 'edit.php?post_type=wadi-survey',
             'query_var'          => true,
