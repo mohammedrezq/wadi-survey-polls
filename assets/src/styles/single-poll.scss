@@ -1,62 +1,131 @@
 .poll_container {
-    
-    .poll_questions_conatiner {
-        .poll_rating_scale_answer_container {
-            .rating_scale_answer_text_container {
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                text-transform: uppercase;
-            }
-          .rating_scale_answers {
-            list-style-type: none;
-            margin: 25px 0 0 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            li {
-              float: left;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              margin: 0 5px 0 0;
-            //   width: 8%;
-              height: 60px;
-              position: relative;
-            }
-            label,
-            input {
-              display: block;
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              bottom: 0;
-    
-              &[type="radio"] {
-                opacity: 0;
-                z-index: 100;
-                &:checked + label,
-                .Checked + label {
-                  background: rgb(66, 66, 66);
-                  color: white;
-                }
-              }
-            }
-            label {
-              padding: 5px;
-              border: 1px solid #ccc;
-              cursor: pointer;
-              z-index: 90;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              &:hover {
-                background: #ddd;
-              }
+  .poll_questions_conatiner {
+    /* Poll Styling Rating Scale Question Container*/
+    .poll_rating_scale_answer_container {
+      .rating_scale_answer_text_container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        text-transform: uppercase;
+      }
+      .rating_scale_answers {
+        list-style-type: none;
+        margin: 25px 0 0 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        li {
+          float: left;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin: 0 5px 0 0;
+          //   width: 8%;
+          height: 60px;
+          position: relative;
+        }
+        label,
+        input {
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+
+          &[type="radio"] {
+            opacity: 0;
+            z-index: 100;
+            &:checked + label,
+            .Checked + label {
+              background: rgb(66, 66, 66);
+              color: white;
             }
           }
         }
+        label {
+          padding: 5px;
+          border: 1px solid #ccc;
+          cursor: pointer;
+          z-index: 90;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          &:hover {
+            background: #ddd;
+          }
+        }
+      }
     }
+
+    /* Poll Styling for Image Picking Question */
+
+    /* Radio Image Question*/
+
+    .poll_image_question_answers {
+      list-style-type: none;
+
+      li {
+        display: inline-block;
+      }
+
+      input[type="radio"] {
+        display: none;
+      }
+
+      label {
+        border: 1px solid #fff;
+        padding: 10px;
+        display: block;
+        position: relative;
+        margin: 10px;
+        cursor: pointer;
+      }
+
+      label:before {
+        background-color: white;
+        color: white;
+        content: " ";
+        display: block;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        width: 34px;
+        height: 34px;
+        text-align: center;
+        line-height: 28px;
+        transition-duration: 0.4s;
+        transform: scale(0);
+      }
+
+      label img {
+        height: 100px;
+        width: 100px;
+        transition-duration: 0.2s;
+        transform-origin: 50% 50%;
+      }
+
+      :checked + label {
+        border-color: #ddd;
+      }
+
+      :checked + label:before {
+        background-color: #006dff;
+        content: "✓";
+        font-size: 1.3rem;
+        top: -7px;
+        transform: scale(1);
+        z-index: 10000;
+      }
+
+      :checked + label img {
+        transform: scale(0.9);
+        box-shadow: 0 0 5px #333;
+        z-index: -1;
+      }
+    }
+  }
 }
