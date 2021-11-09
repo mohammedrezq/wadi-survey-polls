@@ -119,7 +119,7 @@ if(multiStepContainer) {
             };
       
             const data = {
-              action: "getQuizData",
+              action: "getSurveyData",
               data: { ...dataCollection },
             };
             jQuery.ajax({

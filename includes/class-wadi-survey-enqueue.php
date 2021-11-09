@@ -28,6 +28,13 @@ class WadiEnqueue {
         wp_enqueue_style('survey_multistep_styles', plugins_url('assets/dist/multistep-survey.css', realpath(__DIR__)), false, time(), 'all');
     
         wp_localize_script('survey-js', 'my_ajax_object', array('ajaxurl' => admin_url('admin-ajax.php')));
+    
+        // Poll
+        wp_enqueue_script('poll_script_front', plugins_url('assets/dist/poll.js', realpath(__DIR__)),  array('jquery'), time(), true);
+        
+        wp_enqueue_style('poll_styles', plugins_url('assets/dist/poll.css', realpath(__DIR__)),  false, time(), 'all');
+        
+    
     }
     
     /**

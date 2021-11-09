@@ -401,9 +401,9 @@ class SurveyBackend
                             ))
                             ->set_layout('tabbed-vertical')
                             ->add_fields(array(
-                                Field::make('text', 'multiple_text_answers', __('Multiple Question Answers', 'wqsp'))
+                                Field::make('text', 'poll_multiple_text_answers', __('Multiple Question Answers', 'wqsp'))
                             )),
-                            /**
+                        /**
                          * Rating Questions Poll Item
                          */
                         Field::make('text', 'rating_question', __('Rating Question', 'wqsp'))
