@@ -328,13 +328,17 @@ class SurveyBackend
             ));
     }
 
+    /**
+     * Polls backend
+     */
+
     public function poll_forms()
     {
 
-        $poll_item_label = array(
-            'plural_name' => 'Poll Items',
-            'singular_name' => 'Poll Item',
-        );
+        // $poll_item_label = array(
+        //     'plural_name' => 'Poll Items',
+        //     'singular_name' => 'Poll Item',
+        // );
         Container::make('post_meta', __('Poll Form'))
             ->where('post_type', '=', 'wadi-poll')
             ->add_tab(__('Poll Form Building'), array(
@@ -352,7 +356,7 @@ class SurveyBackend
                     /**
                      * Poll Single Answer Question
                      */
-                    Field::make('rich_text', 'single_question', 'Question')
+                    Field::make('rich_text', 'poll_single_question', 'Question')
                             ->set_conditional_logic(array(
                                 'relation' => 'AND',
                                 array(
@@ -361,7 +365,7 @@ class SurveyBackend
                                     'compare'   => '=',
                                 )
                             )),
-                        Field::make('complex', 'single_answers', __('Answers', 'wqsp'))
+                        Field::make('complex', 'poll_single_answers', __('Answers', 'wqsp'))
                             ->set_conditional_logic(array(
                                 'relation' => 'AND',
                                 array(
@@ -386,7 +390,7 @@ class SurveyBackend
                                     'compare'    => '=',
                                 )
                             )),
-                        Field::make('complex', 'multiple_answers', __('Multiple Question Answers', 'wqsp'))
+                        Field::make('complex', 'poll_multiple_answers', __('Multiple Question Answers', 'wqsp'))
                             ->set_conditional_logic(array(
                                 'relation' => 'AND',
                                 array(

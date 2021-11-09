@@ -49,10 +49,16 @@ require_once PLUGIN_PATH . 'includes/class-posttypes.php';
 require_once PLUGIN_PATH . 'includes/class-wadi-backend.php';
 
 /**
- * Add Shortcode
+ * Add Survey Shortcode
  */
 
 require_once PLUGIN_PATH . 'includes/survey-shortcode.php';
+
+/**
+ * Add Poll Shortcode
+ */
+
+require_once PLUGIN_PATH . 'includes/poll-shortcode.php';
 
 /**
  * Add Survey Database Table
@@ -229,11 +235,6 @@ function override_single_template( $single_template ){
     global $post;
 
     $file = PLUGIN_PATH .'single-'. $post->post_type .'.php';
-
-    echo '<pre>';
-    print_r($file);
-    echo '</pre>';
-    
 
     if( file_exists( $file ) ) $single_template = $file;
 
