@@ -47,7 +47,7 @@ const survey = () => {
         };
 
         const data = {
-          action: "getQuizData",
+          action: "getSurveyData",
           data: { ...dataCollection },
         };
         jQuery.ajax({

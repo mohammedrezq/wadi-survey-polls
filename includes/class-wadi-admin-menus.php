@@ -5,6 +5,7 @@ class WadiAdminMenus
 
     public function __construct()
     {
+        add_action('admin_menu', array($this, 'add_new_poll_admin_submenu'));
         add_action('admin_menu', array($this, 'register_survery_submissions_menu'));
         add_action('admin_menu', array($this, 'register_survery_submissions_menu_single'));
     }
@@ -30,7 +31,7 @@ class WadiAdminMenus
             'manage_options',
             'survey_submissions',
             array($this, 'wadi_survey_submissions_callback'),
-            10
+            110
         );
     }
 
@@ -55,8 +56,17 @@ class WadiAdminMenus
             'manage_options',
             'single_survey',
             array($this, 'wadi_survey_submissions_callback_single'),
-            10
+            100
         );
+    }
+
+    /**
+     * Add New Poll Post Type
+     */
+
+    public function add_new_poll_admin_submenu()
+    {
+        add_submenu_page('edit.php?post_type=wadi-survey', 'Add New Poll', 'Add Poll', 'manage_options', 'post-new.php?post_type=wadi-poll', '', 10);
     }
 }
 

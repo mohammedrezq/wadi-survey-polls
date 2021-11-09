@@ -16,7 +16,7 @@ const mainAssets = path.resolve(
 	`${ assetsFolder }`
 );
 const entry = {
-    'test': [__dirname + `/${ assetsFolder }/src/test.js`],
+    'poll': [__dirname + `/${ assetsFolder }/src/poll.js`],
     'main': [__dirname + `/${ assetsFolder }/src/index.js`],
     'survey': [__dirname + `/${ assetsFolder }/src/survey.js`],
     'multistep-survey': [__dirname + `/${ assetsFolder }/src/multistep-survey.js`],
