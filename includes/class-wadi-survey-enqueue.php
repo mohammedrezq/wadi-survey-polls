@@ -57,7 +57,7 @@ class WadiEnqueue {
     function survey_backend_init_single($hook)
     {
       
-        if ('wadi-survey_page_single_survey' != $hook) {
+        if ('admin_page_single_survey' != $hook) {
             return;
         }
         

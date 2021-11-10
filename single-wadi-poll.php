@@ -133,6 +133,44 @@ $the_current_user_id = get_current_user_id();
                 <?php
                 }
 
+                /**
+                 * Poll Radio Image Question (select radio image)
+                 */
+                if ($poll_question_type === 'poll_radio_image_question') {
+                    
+                    // Poll Image Radio Question
+                    $image_pick_question = carbon_get_post_meta(get_the_ID(), 'poll_image_pick_question');
+                    $imageQuestionCleanup = trim(preg_replace('/\s+/', '', $image_pick_question));
+                    $theImageQuestionCleaned =  trim($imageQuestionCleanup, " \t\n\r\0\x0B\xC2\xA0");
+                    $theImageQuestionCleaned = preg_replace('/[^A-Za-z0-9\-]/', '', $imageQuestionCleanup);
+                    $theImageQuestionCleaned = preg_replace('/[?]/', '',$imageQuestionCleanup);
+                    // Poll Image Radio Question Answers
+                    $images_answers = carbon_get_post_meta(get_the_ID(), 'poll_images_answers');
+
+                    ?>
+                <div class="poll_image_question_radio_container">
+                    <div class="poll_image_picking_question" id="<?php echo $theImageQuestionCleaned;?>">
+                        <?php echo $image_pick_question; ?>
+                    </div>
+                    <div class="poll_images_answers_container">
+                        <ul class="poll_image_question_answers">
+                            <?php
+                            foreach($images_answers as $image_answer) {
+                                ?>
+                                <li>
+                                    <input type="radio" name="<?php echo $image_pick_question; ?>" value="poll_wadi_image_pick_<?php echo $image_answer['poll_image_radio_answer']; ?>" id="<?php echo $image_answer['poll_image_radio_answer']; ?>">
+                                    <label for="<?php echo $image_answer['poll_image_radio_answer']; ?>"><?php echo wp_get_attachment_image($image_answer['poll_image_radio_answer']); ?></label>
+                                </li>               
+                                <?php
+                                
+                            }
+                            ?>
+
+                        </ul>
+                    </div>
+                </div>
+                <?php
+                }
 
 
 

@@ -353,124 +353,149 @@ class SurveyBackend
                         'poll_dropdown_question'         => 'Dropdown Question',
                         'poll_radio_image_question'      => 'Image Selection Question',
                     )),
-                    /**
-                     * Poll Single Answer Question
-                     */
-                    Field::make('rich_text', 'poll_single_question', 'Question')
-                            ->set_conditional_logic(array(
-                                'relation' => 'AND',
-                                array(
-                                    'field'     => 'select_poll_question_type',
-                                    'value'     => 'poll_single_choice',
-                                    'compare'   => '=',
-                                )
-                            )),
-                        Field::make('complex', 'poll_single_answers', __('Answers', 'wqsp'))
-                            ->set_conditional_logic(array(
-                                'relation' => 'AND',
-                                array(
-                                    'field'      => 'select_poll_question_type',
-                                    'value'      => 'poll_single_choice',
-                                    'compare'    => '=',
-                                )
-                            ))
-                            ->set_layout('tabbed-vertical')
-                            ->add_fields(array(
-                                Field::make('text', 'poll_single_text_answers', __('Answers', 'wqsp'))
-                            )),
-                            /**
-                             * Poll Multi Answers Question
-                             */
-                            Field::make('rich_text', 'multiple_question', __('Question', 'wqsp'))
-                            ->set_conditional_logic(array(
-                                'relation' => 'AND',
-                                array(
-                                    'field'      => 'select_poll_question_type',
-                                    'value'      => 'poll_multiple_choices',
-                                    'compare'    => '=',
-                                )
-                            )),
-                        Field::make('complex', 'poll_multiple_answers', __('Multiple Question Answers', 'wqsp'))
-                            ->set_conditional_logic(array(
-                                'relation' => 'AND',
-                                array(
-                                    'field'      => 'select_poll_question_type',
-                                    'value'      => 'poll_multiple_choices',
-                                    'compare'    => '=',
-                                )
-                            ))
-                            ->set_layout('tabbed-vertical')
-                            ->add_fields(array(
-                                Field::make('text', 'poll_multiple_text_answers', __('Multiple Question Answers', 'wqsp'))
-                            )),
-                        /**
-                         * Rating Questions Poll Item
-                         */
-                        Field::make('text', 'rating_question', __('Rating Question', 'wqsp'))
-                        ->set_conditional_logic(array(
-                            'relation' => 'AND',
-                            array(
-                                'field'      => 'select_poll_question_type',
-                                'value'      => 'poll_rating_question',
-                                'compare'    => '='
-                            )
-                        )),
-                    Field::make('text', 'rating_question_number_1', __('Rating Starting Range', 'wqsp'))
-                        ->set_attribute('type', 'number')
-                        ->set_attribute('min', '0')
-                        ->set_required(true)
-                        ->set_help_text(__('Set the starting number for rating question for instance 0', 'wqsp'))
-                        ->set_width('50')
-                        ->set_default_value('0')
-                        ->set_conditional_logic(array(
-                            'relation' => 'AND',
-                            array(
-                                'field'      => 'select_poll_question_type',
-                                'value'      => 'poll_rating_question',
-                                'compare'    => '='
-                            )
-                        )),
-                    Field::make('text', 'rating_question_number_2', __('Rating Ending Range', 'wqsp'))
-                        ->set_attribute('type', 'number')
-                        ->set_attribute('min', '0')
-                        ->set_required(true)
-                        ->set_help_text(__('Set the ending number for rating question for instance 10, Please note that ending range should always be bigger than starting range.', 'wqsp'))
-                        ->set_width('50')
-                        ->set_default_value('10')
-                        ->set_conditional_logic(array(
-                            'relation' => 'AND',
-                            array(
-                                'field'      => 'select_poll_question_type',
-                                'value'      => 'poll_rating_question',
-                                'compare'    => '='
-                            )
-                        )),
-                    Field::make('text', 'rating_scale_question_starting', __('Rating scale starting text', 'wqsp'))
-                        // ->set_attribute('type', 'number')
-                        ->set_help_text(__('Set rating scale starting text ', 'wqsp'))
-                        ->set_width(50)
-                        ->set_default_value(__('Not likely at all', 'wqsp'))
-                        ->set_conditional_logic(array(
-                            'relation' => 'AND',
-                            array(
-                                'field'      => 'select_poll_question_type',
-                                'value'      => 'poll_rating_question',
-                                'compare'    => '='
-                            )
-                        )),
-                    Field::make('text', 'rating_scale_question_ending', __('Rating scale ending text', 'wqsp'))
-                        // ->set_attribute('type', 'number')
-                        ->set_help_text(__('Set rating scale ending text ', 'wqsp'))
-                        ->set_width(50)
-                        ->set_default_value(__('Extremely Likely', 'wqsp'))
-                        ->set_conditional_logic(array(
-                            'relation' => 'AND',
-                            array(
-                                'field'      => 'select_poll_question_type',
-                                'value'      => 'poll_rating_question',
-                                'compare'    => '='
-                            )
-                        )),
+                /**
+                 * Poll Single Answer Question
+                 */
+                Field::make('rich_text', 'poll_single_question', 'Question')
+                    ->set_conditional_logic(array(
+                        'relation' => 'AND',
+                        array(
+                            'field'     => 'select_poll_question_type',
+                            'value'     => 'poll_single_choice',
+                            'compare'   => '=',
+                        )
+                    )),
+                Field::make('complex', 'poll_single_answers', __('Answers', 'wqsp'))
+                    ->set_conditional_logic(array(
+                        'relation' => 'AND',
+                        array(
+                            'field'      => 'select_poll_question_type',
+                            'value'      => 'poll_single_choice',
+                            'compare'    => '=',
+                        )
+                    ))
+                    ->set_layout('tabbed-vertical')
+                    ->add_fields(array(
+                        Field::make('text', 'poll_single_text_answers', __('Answers', 'wqsp'))
+                    )),
+                /**
+                 * Poll Multi Answers Question
+                 */
+                Field::make('rich_text', 'multiple_question', __('Question', 'wqsp'))
+                    ->set_conditional_logic(array(
+                        'relation' => 'AND',
+                        array(
+                            'field'      => 'select_poll_question_type',
+                            'value'      => 'poll_multiple_choices',
+                            'compare'    => '=',
+                        )
+                    )),
+                Field::make('complex', 'poll_multiple_answers', __('Multiple Question Answers', 'wqsp'))
+                    ->set_conditional_logic(array(
+                        'relation' => 'AND',
+                        array(
+                            'field'      => 'select_poll_question_type',
+                            'value'      => 'poll_multiple_choices',
+                            'compare'    => '=',
+                        )
+                    ))
+                    ->set_layout('tabbed-vertical')
+                    ->add_fields(array(
+                        Field::make('text', 'poll_multiple_text_answers', __('Multiple Question Answers', 'wqsp'))
+                    )),
+                /**
+                 * Rating Questions Poll Item
+                 */
+                Field::make('text', 'rating_question', __('Rating Question', 'wqsp'))
+                    ->set_conditional_logic(array(
+                        'relation' => 'AND',
+                        array(
+                            'field'      => 'select_poll_question_type',
+                            'value'      => 'poll_rating_question',
+                            'compare'    => '='
+                        )
+                    )),
+                Field::make('text', 'rating_question_number_1', __('Rating Starting Range', 'wqsp'))
+                    ->set_attribute('type', 'number')
+                    ->set_attribute('min', '0')
+                    ->set_required(true)
+                    ->set_help_text(__('Set the starting number for rating question for instance 0', 'wqsp'))
+                    ->set_width('50')
+                    ->set_default_value('0')
+                    ->set_conditional_logic(array(
+                        'relation' => 'AND',
+                        array(
+                            'field'      => 'select_poll_question_type',
+                            'value'      => 'poll_rating_question',
+                            'compare'    => '='
+                        )
+                    )),
+                Field::make('text', 'rating_question_number_2', __('Rating Ending Range', 'wqsp'))
+                    ->set_attribute('type', 'number')
+                    ->set_attribute('min', '0')
+                    ->set_required(true)
+                    ->set_help_text(__('Set the ending number for rating question for instance 10, Please note that ending range should always be bigger than starting range.', 'wqsp'))
+                    ->set_width('50')
+                    ->set_default_value('10')
+                    ->set_conditional_logic(array(
+                        'relation' => 'AND',
+                        array(
+                            'field'      => 'select_poll_question_type',
+                            'value'      => 'poll_rating_question',
+                            'compare'    => '='
+                        )
+                    )),
+                Field::make('text', 'rating_scale_question_starting', __('Rating scale starting text', 'wqsp'))
+                    // ->set_attribute('type', 'number')
+                    ->set_help_text(__('Set rating scale starting text ', 'wqsp'))
+                    ->set_width(50)
+                    ->set_default_value(__('Not likely at all', 'wqsp'))
+                    ->set_conditional_logic(array(
+                        'relation' => 'AND',
+                        array(
+                            'field'      => 'select_poll_question_type',
+                            'value'      => 'poll_rating_question',
+                            'compare'    => '='
+                        )
+                    )),
+                Field::make('text', 'rating_scale_question_ending', __('Rating scale ending text', 'wqsp'))
+                    // ->set_attribute('type', 'number')
+                    ->set_help_text(__('Set rating scale ending text ', 'wqsp'))
+                    ->set_width(50)
+                    ->set_default_value(__('Extremely Likely', 'wqsp'))
+                    ->set_conditional_logic(array(
+                        'relation' => 'AND',
+                        array(
+                            'field'      => 'select_poll_question_type',
+                            'value'      => 'poll_rating_question',
+                            'compare'    => '='
+                        )
+                    )),
+                /**
+                 * Image Pick Question
+                 */
+                Field::make('rich_text', 'poll_image_pick_question', __('Poll Image Picking Question', 'wqsp'))
+                    ->set_conditional_logic(array(
+                        'relation' => 'AND',
+                        array(
+                            'field'      => 'select_poll_question_type',
+                            'value'      => 'poll_radio_image_question',
+                            'compare'    => '=',
+                        )
+                    )),
+                Field::make('complex', 'poll_images_answers', __('Poll Images Answers', 'wqsp'))
+                    ->set_conditional_logic(array(
+                        'relation' => 'AND',
+                        array(
+                            'field'      => 'select_poll_question_type',
+                            'value'      => 'poll_radio_image_question',
+                            'compare'    => '=',
+                        )
+                    ))
+                    ->set_layout('tabbed-vertical')
+                    ->add_fields(array(
+                        Field::make('image', 'poll_image_radio_answer', __('Poll Image Answer', 'wqsp'))
+                    )),
             ));
     }
 
