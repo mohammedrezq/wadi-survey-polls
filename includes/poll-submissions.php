@@ -68,7 +68,7 @@ $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
                             <?php
                     } ?>
                     <td style="width: 25%">
-                        <a href='<?php echo site_url()."/wp-admin/admin.php?page=single_survey&survey_id=$pollId" ?>' target="_blank"><?php echo get_the_title($pollId); ?></a>
+                        <a href='<?php echo site_url()."/wp-admin/admin.php?page=single_poll&poll_id=$pollId" ?>' target="_blank"><?php echo get_the_title($pollId); ?></a>
                     </td>
                     <?php
                     $theUserId = $single_result['user_id'];

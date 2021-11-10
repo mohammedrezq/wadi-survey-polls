@@ -9,56 +9,56 @@ if (!function_exists('str_contains')) {
     }
 }
 
-if(!empty( $_GET['survey_id']) ) {
+if(!empty( $_GET['poll_id']) ) {
 
     global $wpdb;
-$wpdb_table = $wpdb->prefix . 'wadi_survey_submissions';
+$wpdb_table = $wpdb->prefix . 'wadi_poll_submissions';
 
-$surveyID = $_GET['survey_id'];
+$pollID = $_GET['poll_id'];
 
 
-$survey_query = $wpdb->prepare("SELECT
+$poll_query = $wpdb->prepare("SELECT
 *
 FROM
-$wpdb_table WHERE survey_id=$surveyID");
+$wpdb_table WHERE poll_id=$pollID");
 
 
-$query_results = $wpdb->get_results($survey_query, ARRAY_A);
+$query_results = $wpdb->get_results($poll_query, ARRAY_A);
 
 
 
-$survey_ids = $wpdb->prepare("SELECT
-        DISTINCT user_id, survey_id
+$poll_ids = $wpdb->prepare("SELECT
+        DISTINCT user_id, poll_id
         FROM
-        $wpdb_table WHERE survey_id=$surveyID");
+        $wpdb_table WHERE poll_id=$pollID");
 
-$query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
+$query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
 
 
 // Testing DataTables Bootstrap
 ?>
 <div style="display:flex;justify-content:space-between;margin-bottom:30px;">
-        <h2>Survey Submissions</h2>
-        <button id="export_btn" class="button-primary" data-survey="<?php echo $surveyID; ?>">Export to CSV</button>
+        <h2>Poll Submissions</h2>
+        <button id="export_btn" class="button-primary" data-poll="<?php echo $pollID; ?>">Export to CSV</button>
     </div>
-<table id="single_survey_table" class="table table-striped table-bordered wadi_survey_table">
+<table id="single_poll_table" class="table table-striped table-bordered wadi_poll_table">
     <thead>
         <tr>
             <th>
                 User ID
             </th>
             <th>
-                Survey
+                Poll
             </th>
             
                 <?php
 
-                foreach ($query_results[0] as $survey_item) {
+                foreach ($query_results[0] as $poll_item) {
 
-                    $surveyQArr=str_replace('\\','', $survey_item);
+                    $pollQArr=str_replace('\\','', $poll_item);
 
                     
-                    $v_new=json_decode($surveyQArr,true);
+                    $v_new=json_decode($pollQArr,true);
 
                     if(isset($v_new) && is_array($v_new) || is_object($v_new)) {
                         foreach ($v_new as $item) {
@@ -80,23 +80,23 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
         $answers_query = $wpdb->prepare("SELECT
         questions_answers, user_id
         FROM
-        $wpdb_table WHERE survey_id=$surveyID");
+        $wpdb_table WHERE poll_id=$pollID");
 
         $answers_query_results = $wpdb->get_results($answers_query, ARRAY_A);
 
-        $query_results = $wpdb->get_results($survey_query, ARRAY_A);
+        $query_results = $wpdb->get_results($poll_query, ARRAY_A);
 
-    foreach ($query_survey_ids as $single_result) {
+    foreach ($query_poll_ids as $single_result) {
         $user_data = get_userdata($single_result['user_id']);
-        $surveyId = $single_result['survey_id'];
-        $SurveyPermalink = get_edit_post_link($surveyId);
+        $pollId = $single_result['poll_id'];
+        $PollPermalink = get_edit_post_link($pollId);
         ?>
 
 <?php
 
             }        
-            foreach ($answers_query_results as $survey_item) { 
-                $user_data = get_userdata($survey_item['user_id']);
+            foreach ($answers_query_results as $poll_item) { 
+                $user_data = get_userdata($poll_item['user_id']);
                 ?>
                 <tr>
                     <?php
@@ -104,23 +104,22 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
                         ?>
                         <td><a href="<?php echo get_edit_user_link($user_data->ID); ?>" target="_blank"><?php echo $user_data->display_name; ?></a></td>
                         <?php
-                    } else {
+                    } 
+                    else {
                         ?>
                         <td><span>Visitor</span></td>
                             <?php
-                    } ?> 
+                    } 
+                    ?>  
                     <td>
-                    <a href='<?php echo $SurveyPermalink; ?>' target="_blank"><?php echo get_the_title($surveyId); ?></a>
+                    <a href='<?php echo $PollPermalink; ?>' target="_blank"><?php echo get_the_title($pollId); ?></a>
                     </td>
                     <?php
 
-                $surveyQArr=str_replace('\\','', $survey_item);
-
-
-
+                $pollQArr=str_replace('\\','', $poll_item);
                 
 
-                foreach ($surveyQArr as $arr) {
+                foreach ($pollQArr as $arr) {
 
 
                 $v_new=json_decode($arr,true);
@@ -129,8 +128,8 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
                         foreach ($v_new as $key => $item) {
                             
                             echo "<td class='answer_th'>";
-                            if(str_contains($item['value'], 'wadi_image_pick_')){
-                                $image_picked_id = str_replace('wadi_image_pick_', '', $item['value']);
+                            if(str_contains($item['value'], 'poll_wadi_image_pick_')){
+                                $image_picked_id = str_replace('poll_wadi_image_pick_', '', $item['value']);
                                 echo wp_get_attachment_image($image_picked_id) . '<br /><br />' . wp_get_attachment_url($image_picked_id).'<br /><br />';
                             } else {
                                 echo $item['value'];
