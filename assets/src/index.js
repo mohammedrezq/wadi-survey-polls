@@ -2,7 +2,7 @@ import './styles/main.scss';
 
 const surveySingle = () => {
 
-    const surveySinglePage = document.querySelector(".wadi-survey_page_single_survey");
+    const surveySinglePage = document.querySelector(".admin_page_single_survey");
 
     if (surveySinglePage) {
             jQuery('#single_survey_table').DataTable({
