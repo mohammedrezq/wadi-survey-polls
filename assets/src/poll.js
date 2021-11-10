@@ -2,6 +2,8 @@ import './styles/single-poll.scss';
 
 import './poll-range-scale';
 
+console.log("POLL SCRIPT");
+
 const pollAjax = () => {
   const pollContainer = document.querySelector(".poll_container");
 //   const surveySubmit = document.querySelector(".wadi_survey_submit");
