@@ -16,6 +16,8 @@ class WadiAdminMenus
          * Single Survey Table Cannot access directly from submenu (but you can from the survey table in survey submissions)
          */
         add_action('admin_menu', array($this, 'register_survery_submissions_menu_single'));
+
+        add_action('admin_menu', array($this, 'register_poll_submissions_menu_single'));
     }
 
     /**
@@ -142,6 +144,34 @@ class WadiAdminMenus
             'poll_submissions',
             array($this, 'wadi_poll_submissions_callback'),
             200
+        );
+    }
+
+
+
+    
+    /**
+     * Add Survey Submission Submenu
+     */
+
+    public function wadi_poll_submissions_callback_single()
+    {
+        if (file_exists(plugin_dir_path(__FILE__) . 'single-submissions-poll.php')) {
+            include_once plugin_dir_path(__FILE__) . 'single-submissions-poll.php';
+        }
+    }
+
+
+    public function register_poll_submissions_menu_single()
+    {
+        add_submenu_page(
+            null,
+            esc_html__('Single Poll Submissions', 'survey'),
+            esc_html__('Single Poll Submissions', 'survey'),
+            'manage_options',
+            'single_poll',
+            array($this, 'wadi_poll_submissions_callback_single'),
+            100
         );
     }
 }
