@@ -173,32 +173,32 @@ class WadiSurveyDB
 		);
 
 
-		// $allow_multiple_responses =  carbon_get_post_meta($data['survey_id'], 'wadi_survey_multiple_responses');
+		$allow_multiple_responses_poll =  carbon_get_post_meta($data['poll_id'], 'wadi_poll_multiple_responses');
+		
+
+		if (!isset($existedRow) && $allow_multiple_responses_poll != TRUE) {
 
 
-		// if (!isset($existedRow) && $allow_multiple_responses != TRUE) {
-
-
-		$wpdb->insert(
-			$table_name,
-			array(
-				'time' => $poll_time,
-				'user_id' => $data['user_id'],
-				'poll_id' => $data['poll_id'],
-				'questions_answers' => $data['pollData'],
-			)
-		);
-		// } elseif ($allow_multiple_responses == TRUE) {
-		// 	$wpdb->insert(
-		// 		$table_name,
-		// 		array(
-		// 			'time' => $survey_time,
-		// 			'user_id' => $data['user_id'],
-		// 			'survey_id' => $data['survey_id'],
-		// 			'questions_answers' => $data['surveyData'],
-		// 		)
-		// 	);
-		// }
+			$wpdb->insert(
+				$table_name,
+				array(
+					'time' => $poll_time,
+					'user_id' => $data['user_id'],
+					'poll_id' => $data['poll_id'],
+					'questions_answers' => $data['pollData'],
+				)
+			);
+		} elseif ($allow_multiple_responses_poll == TRUE) {
+			$wpdb->insert(
+				$table_name,
+				array(
+					'time' => $poll_time,
+					'user_id' => $data['user_id'],
+					'poll_id' => $data['poll_id'],
+					'questions_answers' => $data['pollData'],
+				)
+			);
+		}
 
 		wp_die();
 	}
