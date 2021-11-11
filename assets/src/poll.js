@@ -5,11 +5,12 @@ import './poll-range-scale';
 const pollAjax = () => {
   const pollContainer = document.querySelector(".poll_container");
 //   const surveySubmit = document.querySelector(".wadi_survey_submit");
-//   const redirectDiv = document.querySelector(".redirect_url");
-//   const redirectUrl = redirectDiv.dataset.redirectUrl;
-//   const redirectSetTimeout = redirectDiv.dataset.redirectTime;
-//   const surveyFinishMessage = redirectDiv.dataset.surveyFinishMessage;
-  // const surveyAlreadyTaken = redirectDiv.dataset.surveyAlreadyTakenMessage;
+  const pollHiddenInputDiv = document.querySelector(".poll_redirect_url");
+  console.log(pollHiddenInputDiv);
+  const pollRedirectUrl = pollHiddenInputDiv.dataset.pollRedirectUrl;
+  const pollRedirectSetTimeout = pollHiddenInputDiv.dataset.pollRedirectTime;
+  const pollFinishMessage = pollHiddenInputDiv.dataset.pollFinishMessage;
+  const pollAlreadyTaken = pollHiddenInputDiv.dataset.pollAlreadyTakenMessage;
 
   if (pollContainer !== null) {
     const gatherPollData = () => {
@@ -61,16 +62,16 @@ const pollAjax = () => {
             // surveyConatiner.innerHTML = "";
 
 
-            // if(redirectDiv && surveyFinishMessage) {
-            //   jQuery('.survey_container').empty();
-            //   jQuery('.survey_container').append(surveyFinishMessage);
-            // }
-            // surveyConatiner.innerHTML = surveyFinishMessage;
-            // if (redirectUrl) {
-            //   setTimeout(() => {
-            //     window.location.href = `${redirectUrl}`;
-            //   }, redirectSetTimeout);
-            // }
+            if(pollHiddenInputDiv && pollFinishMessage) {
+              jQuery('.survey_container').empty();
+              jQuery('.survey_container').append(pollFinishMessage);
+            }
+            pollContainer.innerHTML = pollFinishMessage;
+            if (pollRedirectUrl) {
+              setTimeout(() => {
+                window.location.href = `${pollRedirectUrl}`;
+              }, pollRedirectSetTimeout);
+            }
 
 
           },

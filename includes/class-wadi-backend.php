@@ -348,9 +348,6 @@ class SurveyBackend
                         'poll_single_choice'             => 'Single Choice Question',
                         'poll_multiple_choices'          => 'Multiple Choices Question',
                         'poll_rating_question'           => 'Rating Question',
-                        'poll_matrix_question'           => 'Matrix Question',
-                        'poll_textarea'                  => 'Open Ended Question',
-                        'poll_dropdown_question'         => 'Dropdown Question',
                         'poll_radio_image_question'      => 'Image Selection Question',
                     )),
                 /**
@@ -495,6 +492,46 @@ class SurveyBackend
                     ->set_layout('tabbed-vertical')
                     ->add_fields(array(
                         Field::make('image', 'poll_image_radio_answer', __('Poll Image Answer', 'wqsp'))
+                    )),
+            ))
+            ->add_tab(__('Poll Options'), array(
+                Field::make('checkbox', 'wadi_poll_redirect_to', __('Redirect After Poll Completed', 'wqsp'))
+                    ->set_option_value('yes'),
+                Field::make('text', 'wadi_poll_redirect_link', __('Redirect Link'))
+                    ->set_conditional_logic(array(
+                        'relation' => 'AND', // Optional, defaults to "AND"
+                        array(
+                            'field' => 'wadi_poll_redirect_to',
+                            'value' => true, // Optional, defaults to "". Should be an array if "IN" or "NOT IN" operators are used.
+                            'compare' => '=', // Optional, defaults to "=". Available operators: =, <, >, <=, >=, IN, NOT IN
+                        )
+                    )),
+                Field::make('text', 'wadi_poll_settimeout', __('Time Before Redirecting From Poll'))
+                    ->set_help_text('Time in seconds before user gets redirected to specified URL, example: 1000 is 1 second')
+                    ->set_default_value('1000')
+                    ->set_conditional_logic(array(
+                        'relation' => 'AND', // Optional, defaults to "AND"
+                        array(
+                            'field' => 'wadi_poll_redirect_to',
+                            'value' => true, // Optional, defaults to "". Should be an array if "IN" or "NOT IN" operators are used.
+                            'compare' => '=', // Optional, defaults to "=". Available operators: =, <, >, <=, >=, IN, NOT IN
+                        )
+                    )),
+                Field::make('checkbox', 'wadi_poll_multiple_responses', __('Allow Poll Multiple Responses', 'wqsp'))
+                    ->set_option_value('yes'),
+                Field::make('text', 'wadi_poll_finishing_message', __('Poll Finish Message'))
+                    ->set_help_text('Poll finishing message sent after user finishes and submit the poll.')
+                    ->set_default_value('Thank you for taking the poll.'),
+                Field::make('text', 'wadi_poll_already_taken_message', __('Message if user has already taken the poll'))
+                    ->set_help_text('Poll finishing message sent after user finishing and submit the poll.')
+                    ->set_default_value('You have already taken this poll.')
+                    ->set_conditional_logic(array(
+                        'relation' => 'AND', // Optional, defaults to "AND"
+                        array(
+                            'field' => 'wadi_poll_multiple_responses',
+                            'value' => false, // Optional, defaults to "". Should be an array if "IN" or "NOT IN" operators are used.
+                            'compare' => '=', // Optional, defaults to "=". Available operators: =, <, >, <=, >=, IN, NOT IN
+                        )
                     )),
             ));
     }
