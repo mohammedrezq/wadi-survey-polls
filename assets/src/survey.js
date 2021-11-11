@@ -8,6 +8,7 @@ const survey = () => {
   const redirectUrl = redirectDiv.dataset.redirectUrl;
   const redirectSetTimeout = redirectDiv.dataset.redirectTime;
   const surveyFinishMessage = redirectDiv.dataset.surveyFinishMessage;
+  console.log(redirectSetTimeout);
   // const surveyAlreadyTaken = redirectDiv.dataset.surveyAlreadyTakenMessage;
 
   if (surveyContainer !== null) {
@@ -63,6 +64,7 @@ const survey = () => {
               jQuery('.survey_container').append(surveyFinishMessage);
             }
             // surveyConatiner.innerHTML = surveyFinishMessage;
+            console.log(redirectSetTimeout);
             if (redirectUrl) {
               setTimeout(() => {
                 window.location.href = `${redirectUrl}`;

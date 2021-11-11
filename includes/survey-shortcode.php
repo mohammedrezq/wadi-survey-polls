@@ -294,7 +294,8 @@ function display_custom_post_type($atts)
 			</div>
 			<button type="submit" class="wadi_survey_submit">Submit</button>
 		</form>
-		<input type="hidden" data-survey-finish-message='<?php echo $survey_finish_message; ?>' data-survey-already-taken-message='<?php echo $survey_already_taken_message; ?>' class="redirect_url" data-redirect-url='<?php echo $redirect_url; ?>' />
+		<input type="hidden" data-survey-finish-message='<?php echo $survey_finish_message; ?>' 
+		data-redirect-time="<?php echo $redirect_time; ?>" data-survey-already-taken-message='<?php echo $survey_already_taken_message; ?>' class="redirect_url" data-redirect-url='<?php echo $redirect_url; ?>' />
 	<?php
 	} else if (!isset($existedRow) && $multistep_survey == TRUE) {
 
@@ -565,7 +566,8 @@ function display_custom_post_type($atts)
 				</div>
 			</div>
 		</form>
-		<input type="hidden" data-survey-finish-message='<?php echo $survey_finish_message; ?>' data-survey-already-taken-message='<?php echo $survey_already_taken_message; ?>' class="redirect_url" data-redirect-url='<?php echo $redirect_url; ?>' />
+		<input type="hidden" data-survey-finish-message='<?php echo $survey_finish_message; ?>' 
+		data-redirect-time="<?php echo $redirect_time; ?>" data-survey-already-taken-message='<?php echo $survey_already_taken_message; ?>' class="redirect_url" data-redirect-url='<?php echo $redirect_url; ?>' />
 	<?php
 		/**
 		 * End of Multistep Survey Code for shortcode
@@ -828,7 +830,8 @@ function display_custom_post_type($atts)
 			</div>
 			<button type="submit" class="wadi_survey_submit">Submit</button>
 		</form>
-		<input type="hidden" data-survey-finish-message='<?php echo $survey_finish_message; ?>' data-survey-already-taken-message='<?php echo $survey_already_taken_message; ?>' class="redirect_url" data-redirect-url='<?php echo $redirect_url; ?>' />
+		<input type="hidden" data-survey-finish-message='<?php echo $survey_finish_message; ?>' 
+		data-redirect-time="<?php echo $redirect_time; ?>" data-survey-already-taken-message='<?php echo $survey_already_taken_message; ?>' class="redirect_url" data-redirect-url='<?php echo $redirect_url; ?>' />
 	<?php
 	} else if ($allow_multiple_responses == true && $multistep_survey == TRUE) {
 		/**
@@ -1098,7 +1101,8 @@ function display_custom_post_type($atts)
 				</div>
 			</div>
 		</form>
-		<input type="hidden" data-survey-finish-message='<?php echo $survey_finish_message; ?>' data-survey-already-taken-message='<?php echo $survey_already_taken_message; ?>' class="redirect_url" data-redirect-url='<?php echo $redirect_url; ?>' />
+		<input type="hidden" data-survey-finish-message='<?php echo $survey_finish_message; ?>' 
+		data-redirect-time="<?php echo $redirect_time; ?>" data-survey-already-taken-message='<?php echo $survey_already_taken_message; ?>' class="redirect_url" data-redirect-url='<?php echo $redirect_url; ?>' />
 	<?php
 		/**
 		 * End of Multistep Survey Code for shortcode
