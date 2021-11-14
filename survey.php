@@ -138,10 +138,16 @@ require_once PLUGIN_PATH . 'includes/class-wadi-survey-enqueue.php';
 
 
 /**
- * Add Single Survey Survey CSV Export
+ * Add Single Survey CSV Export
  */
 
 require_once PLUGIN_PATH . 'includes/survey-csv.php';
+
+/**
+ * Add Single Poll CSV Export
+ */
+
+require_once PLUGIN_PATH . 'includes/poll-csv.php';
 
 /**
  * Disable Gutenberg on Survey Custom Post Type
