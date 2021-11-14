@@ -12,7 +12,7 @@
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Update URI:        https://example.com/my-plugin/
- * Text Domain:       wqsp
+ * Text Domain:       wadi-survey
  * Domain Path:       /languages
  */
 /*
@@ -29,6 +29,57 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Survey. If not, see https://www.gnu.org/licenses/gpl-3.0.en.html.
  */
+
+if (! defined('ABSPATH')) {
+    exit;
+}
+
+if ( ! function_exists( 'ws_fs' ) ) {
+    // Create a helper function for easy SDK access.
+    function ws_fs() {
+        global $ws_fs;
+
+        if ( ! isset( $ws_fs ) ) {
+            // Activate multisite network integration.
+            if ( ! defined( 'WP_FS__PRODUCT_9304_MULTISITE' ) ) {
+                define( 'WP_FS__PRODUCT_9304_MULTISITE', true );
+            }
+
+            // Include Freemius SDK.
+            require_once dirname(__FILE__) . '/freemius/start.php';
+
+            $ws_fs = fs_dynamic_init( array(
+                'id'                  => '9304',
+                'slug'                => 'wadi-survey',
+                'type'                => 'plugin',
+                'public_key'          => 'pk_81546581cee0f44b8175e04b18816',
+                'is_premium'          => true,
+                // If your plugin is a serviceware, set this option to false.
+                'has_premium_version' => true,
+                'has_addons'          => false,
+                'has_paid_plans'      => true,
+                'trial'               => array(
+                    'days'               => 14,
+                    'is_require_payment' => true,
+                ),
+                'has_affiliation'     => 'selected',
+                'menu'                => array(
+                    'first-path'     => 'survey-admin.php',
+                ),
+                // Set the SDK to work in a sandbox mode (for development & testing).
+                // IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
+                'secret_key'          => 'sk_3yV{a7t>G5-7Um#&@8X<$.IGB-hXU',
+            ) );
+        }
+
+        return $ws_fs;
+    }
+
+    // Init Freemius.
+    ws_fs();
+    // Signal that SDK was initiated.
+    do_action( 'ws_fs_loaded' );
+}
 
  /**
   * Define Paths
@@ -84,14 +135,24 @@ require_once PLUGIN_PATH . 'includes/class-wadi-admin-menus.php';
 
 require_once PLUGIN_PATH . 'includes/class-wadi-survey-enqueue.php';
 
+
+
 /**
- * Disable Gutenberg on Survey Custom Post Type 
+ * Add Single Survey Survey CSV Export
+ */
+
+require_once PLUGIN_PATH . 'includes/survey-csv.php';
+
+/**
+ * Disable Gutenberg on Survey Custom Post Type
  */
 add_filter('use_block_editor_for_post_type', 'survey_disable_gutenberg', 10, 2);
 function survey_disable_gutenberg($current_status, $post_type)
 {
     // Use your post type key instead of 'product'
-    if ($post_type === 'wadi-survey') return false;
+    if ($post_type === 'wadi-survey') {
+        return false;
+    }
     return $current_status;
 }
 
@@ -112,8 +173,8 @@ function survey_shortcode_column_head_content($column_name, $post_ID)
 
 
     /**
-     * Shortcode in Survey Post Type 
-     * 
+     * Shortcode in Survey Post Type
+     *
      * Script to copy shortcode on click
      */
     if ('shortcode' === $column_name) {
@@ -149,13 +210,15 @@ function survey_shortcode_column_head_content($column_name, $post_ID)
 
 
 /**
- * Disable Gutenberg on Poll Custom Post Type 
+ * Disable Gutenberg on Poll Custom Post Type
  */
 add_filter('use_block_editor_for_post_type', 'poll_disable_gutenberg', 10, 2);
 function poll_disable_gutenberg($current_status, $post_type)
 {
     // Use your post type key instead of 'product'
-    if ($post_type === 'wadi-poll') return false;
+    if ($post_type === 'wadi-poll') {
+        return false;
+    }
     return $current_status;
 }
 
@@ -177,8 +240,8 @@ function poll_shortcode_column_head_content($column_name, $post_ID)
 
 
     /**
-     * Shortcode in Poll Post Type 
-     * 
+     * Shortcode in Poll Post Type
+     *
      * Script to copy shortcode on click
      */
     if ('shortcode' === $column_name) {
@@ -230,15 +293,16 @@ function poll_shortcode_column_head_content($column_name, $post_ID)
 // }
 
 
-add_filter( 'single_template', 'override_single_template' );
-function override_single_template( $single_template ){
+add_filter('single_template', 'override_single_template');
+function override_single_template($single_template)
+{
     global $post;
 
     $file = PLUGIN_PATH .'single-'. $post->post_type .'.php';
 
-    if( file_exists( $file ) ) $single_template = $file;
+    if (file_exists($file)) {
+        $single_template = $file;
+    }
 
     return $single_template;
 }
-
-

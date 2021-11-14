@@ -18,6 +18,11 @@ class WadiAdminMenus
         add_action('admin_menu', array($this, 'register_survery_submissions_menu_single'));
 
         add_action('admin_menu', array($this, 'register_poll_submissions_menu_single'));
+
+        // Freemius 
+
+        add_action('admin_menu', array($this, 'register_freemius_upgrade_page'));
+        add_action('admin_menu', array($this, 'register_freemius_settings_page'));
     }
 
     /**
@@ -31,7 +36,7 @@ class WadiAdminMenus
     {
 
         add_menu_page(
-            __('Wadi Survey', 'survey'),
+            __('Wadi Survey', 'wadi-survey'),
             'Wadi Survey',
             'manage_options',
             'survey-admin.php',
@@ -47,7 +52,7 @@ class WadiAdminMenus
      */
     // public function my_custom_menu_page()
     // {
-    //     esc_html_e('<h1>Admin Page Test</h1>', 'survey');  
+    //     esc_html_e('<h1>Admin Page Test</h1>', 'wadi-survey');  
     // }
 
     /**
@@ -66,8 +71,8 @@ class WadiAdminMenus
     {
         add_submenu_page(
             'survey-admin.php',
-            esc_html__('Survey Submissions', 'survey'),
-            esc_html__('Survey Submissions', 'survey'),
+            esc_html__('Survey Submissions', 'wadi-survey'),
+            esc_html__('Survey Submissions', 'wadi-survey'),
             'manage_options',
             'survey_submissions',
             array($this, 'wadi_survey_submissions_callback'),
@@ -91,8 +96,8 @@ class WadiAdminMenus
     {
         add_submenu_page(
             null,
-            esc_html__('Single Survey Submissions', 'survey'),
-            esc_html__('Single Survey Submissions', 'survey'),
+            esc_html__('Single Survey Submissions', 'wadi-survey'),
+            esc_html__('Single Survey Submissions', 'wadi-survey'),
             'manage_options',
             'single_survey',
             array($this, 'wadi_survey_submissions_callback_single'),
@@ -138,8 +143,8 @@ class WadiAdminMenus
     {
         add_submenu_page(
             'survey-admin.php',
-            esc_html__('Poll Submissions', 'survey'),
-            esc_html__('Poll Submissions', 'survey'),
+            esc_html__('Poll Submissions', 'wadi-survey'),
+            esc_html__('Poll Submissions', 'wadi-survey'),
             'manage_options',
             'poll_submissions',
             array($this, 'wadi_poll_submissions_callback'),
@@ -166,12 +171,46 @@ class WadiAdminMenus
     {
         add_submenu_page(
             null,
-            esc_html__('Single Poll Submissions', 'survey'),
-            esc_html__('Single Poll Submissions', 'survey'),
+            esc_html__('Single Poll Submissions', 'wadi-survey'),
+            esc_html__('Single Poll Submissions', 'wadi-survey'),
             'manage_options',
             'single_poll',
             array($this, 'wadi_poll_submissions_callback_single'),
             100
+        );
+    }
+
+    // public function wadi_survey_upgrade() {
+    //     if ( ws_fs()->is_not_paying() ) {
+    //        return ws_fs()->get_upgrade_url();
+    //     }
+    // }
+
+    // Freemius Upgrade
+    public function register_freemius_upgrade_page()
+    {
+        add_submenu_page(
+            'survey-admin.php',
+            esc_html__('Upgrade', 'wadi-survey'),
+            esc_html__('Upgrade', 'wadi-survey'),
+            'manage_options',
+            'admin.php?page=wadi-survey-pricing',
+            '',
+            200
+        );
+    }
+
+    // Freemius settings
+    public function register_freemius_settings_page()
+    {
+        add_submenu_page(
+            'survey-admin.php',
+            esc_html__('Settings', 'wadi-survey'),
+            esc_html__('Settings', 'wadi-survey'),
+            'manage_options',
+            'admin.php?page=wadi-survey-account',
+            '',
+            0
         );
     }
 }

@@ -36,13 +36,13 @@ class SurveyBackend
             'plural_name' => 'Survey Items',
             'singular_name' => 'Survey Item',
         );
-        Container::make('post_meta', __('Survey Settings', 'wqsp'))
+        Container::make('post_meta', __('Survey Settings', 'wadi-survey'))
             ->where('post_type', '=', 'wadi-survey')
             ->add_tab(__('Survey Form Building'), array(
                 Field::make('complex', 'survey_items', 'Survey Items')
                     ->setup_labels($survey_item_label)
                     ->add_fields(array(
-                        Field::make('select', 'select_survey_question_type', __('Survey Question Types', 'wqsp'))
+                        Field::make('select', 'select_survey_question_type', __('Survey Question Types', 'wadi-survey'))
                             ->set_options(array(
                                 ''                          => 'Select Question Type',
                                 'matrix_question'           => 'Matrix Question',
@@ -65,7 +65,7 @@ class SurveyBackend
                                     'compare'   => '=',
                                 )
                             )),
-                        Field::make('complex', 'single_answers', __('Answers', 'wqsp'))
+                        Field::make('complex', 'single_answers', __('Answers', 'wadi-survey'))
                             ->set_conditional_logic(array(
                                 'relation' => 'AND',
                                 array(
@@ -76,12 +76,12 @@ class SurveyBackend
                             ))
                             ->set_layout('tabbed-vertical')
                             ->add_fields(array(
-                                Field::make('text', 'single_text_answers', __('Answers', 'wqsp'))
+                                Field::make('text', 'single_text_answers', __('Answers', 'wadi-survey'))
                             )),
                         /**
                          * Multiple Answers Question Survey Item
                          */
-                        Field::make('rich_text', 'multiple_question', __('Question', 'wqsp'))
+                        Field::make('rich_text', 'multiple_question', __('Question', 'wadi-survey'))
                             ->set_conditional_logic(array(
                                 'relation' => 'AND',
                                 array(
@@ -90,7 +90,7 @@ class SurveyBackend
                                     'compare'    => '=',
                                 )
                             )),
-                        Field::make('complex', 'multiple_answers', __('Multiple Question Answers', 'wqsp'))
+                        Field::make('complex', 'multiple_answers', __('Multiple Question Answers', 'wadi-survey'))
                             ->set_conditional_logic(array(
                                 'relation' => 'AND',
                                 array(
@@ -101,12 +101,12 @@ class SurveyBackend
                             ))
                             ->set_layout('tabbed-vertical')
                             ->add_fields(array(
-                                Field::make('text', 'multiple_text_answers', __('Multiple Question Answers', 'wqsp'))
+                                Field::make('text', 'multiple_text_answers', __('Multiple Question Answers', 'wadi-survey'))
                             )),
                         /**
                          * Martix Questions Survey Item
                          */
-                        Field::make('rich_text', 'matrix_statement', __('Statement', 'wqsp'))
+                        Field::make('rich_text', 'matrix_statement', __('Statement', 'wadi-survey'))
                             ->set_conditional_logic(array(
                                 'relation' => 'AND',
                                 array(
@@ -115,7 +115,7 @@ class SurveyBackend
                                     'compare'    => '=',
                                 )
                             )),
-                        Field::make('complex', 'matrix_questions_array', __('Questions Column', 'wqsp'))
+                        Field::make('complex', 'matrix_questions_array', __('Questions Column', 'wadi-survey'))
                             ->set_conditional_logic(array(
                                 'relation' => 'AND',
                                 array(
@@ -126,18 +126,18 @@ class SurveyBackend
                             ))
                             ->set_layout('tabbed-vertical')
                             ->add_fields(array(
-                                Field::make('text', 'matrix_text_questions', __('Question Field', 'wqsp')),
+                                Field::make('text', 'matrix_text_questions', __('Question Field', 'wadi-survey')),
                             ))
                             ->set_header_template('
                                <% if (matrix_text_questions) { %>
                                    Question: <%- matrix_text_questions %>
                                <% } %>
                            '),
-                        Field::make('complex', 'matrix_answers_array', __('Answers Rows', 'wqsp'))
+                        Field::make('complex', 'matrix_answers_array', __('Answers Rows', 'wadi-survey'))
                             ->setup_labels($label_answers)
                             ->set_layout('tabbed-horizontal')
                             ->add_fields(array(
-                                Field::make('text', 'matrix_answer_text', __('Answers', 'wqsp'))
+                                Field::make('text', 'matrix_answer_text', __('Answers', 'wadi-survey'))
                             ))
                             ->set_header_template('
                                 <% if (matrix_answer_text) { %>
@@ -155,7 +155,7 @@ class SurveyBackend
                         /**
                          * Text Area Questions Survey Item
                          */
-                        Field::make('rich_text', 'textarea_question', __('Textarea Question', 'wqsp'))
+                        Field::make('rich_text', 'textarea_question', __('Textarea Question', 'wadi-survey'))
                             ->set_conditional_logic(array(
                                 'relation' => 'AND',
                                 array(
@@ -167,7 +167,7 @@ class SurveyBackend
                         /**
                          * Rating Questions Survey Item
                          */
-                        Field::make('text', 'rating_question', __('Rating Question', 'wqsp'))
+                        Field::make('text', 'rating_question', __('Rating Question', 'wadi-survey'))
                             ->set_conditional_logic(array(
                                 'relation' => 'AND',
                                 array(
@@ -176,11 +176,11 @@ class SurveyBackend
                                     'compare'    => '='
                                 )
                             )),
-                        Field::make('text', 'rating_question_number_1', __('Rating Starting Range', 'wqsp'))
+                        Field::make('text', 'rating_question_number_1', __('Rating Starting Range', 'wadi-survey'))
                             ->set_attribute('type', 'number')
                             ->set_attribute('min', '0')
                             ->set_required(true)
-                            ->set_help_text(__('Set the starting number for rating question for instance 0', 'wqsp'))
+                            ->set_help_text(__('Set the starting number for rating question for instance 0', 'wadi-survey'))
                             ->set_width('50')
                             ->set_default_value('0')
                             ->set_conditional_logic(array(
@@ -191,11 +191,11 @@ class SurveyBackend
                                     'compare'    => '='
                                 )
                             )),
-                        Field::make('text', 'rating_question_number_2', __('Rating Ending Range', 'wqsp'))
+                        Field::make('text', 'rating_question_number_2', __('Rating Ending Range', 'wadi-survey'))
                             ->set_attribute('type', 'number')
                             ->set_attribute('min', '0')
                             ->set_required(true)
-                            ->set_help_text(__('Set the ending number for rating question for instance 10, Please note that ending range should always be bigger than starting range.', 'wqsp'))
+                            ->set_help_text(__('Set the ending number for rating question for instance 10, Please note that ending range should always be bigger than starting range.', 'wadi-survey'))
                             ->set_width('50')
                             ->set_default_value('10')
                             ->set_conditional_logic(array(
@@ -206,11 +206,11 @@ class SurveyBackend
                                     'compare'    => '='
                                 )
                             )),
-                        Field::make('text', 'rating_scale_question_starting', __('Rating scale starting text', 'wqsp'))
+                        Field::make('text', 'rating_scale_question_starting', __('Rating scale starting text', 'wadi-survey'))
                             // ->set_attribute('type', 'number')
-                            ->set_help_text(__('Set rating scale starting text ', 'wqsp'))
+                            ->set_help_text(__('Set rating scale starting text ', 'wadi-survey'))
                             ->set_width(50)
-                            ->set_default_value(__('Not likely at all', 'wqsp'))
+                            ->set_default_value(__('Not likely at all', 'wadi-survey'))
                             ->set_conditional_logic(array(
                                 'relation' => 'AND',
                                 array(
@@ -219,11 +219,11 @@ class SurveyBackend
                                     'compare'    => '='
                                 )
                             )),
-                        Field::make('text', 'rating_scale_question_ending', __('Rating scale ending text', 'wqsp'))
+                        Field::make('text', 'rating_scale_question_ending', __('Rating scale ending text', 'wadi-survey'))
                             // ->set_attribute('type', 'number')
-                            ->set_help_text(__('Set rating scale ending text ', 'wqsp'))
+                            ->set_help_text(__('Set rating scale ending text ', 'wadi-survey'))
                             ->set_width(50)
-                            ->set_default_value(__('Extremely Likely', 'wqsp'))
+                            ->set_default_value(__('Extremely Likely', 'wadi-survey'))
                             ->set_conditional_logic(array(
                                 'relation' => 'AND',
                                 array(
@@ -235,7 +235,7 @@ class SurveyBackend
                         /**
                          * Dropdown Question
                          */
-                        Field::make('rich_text', 'dropdown_question', __('Dropdown Question', 'wqsp'))
+                        Field::make('rich_text', 'dropdown_question', __('Dropdown Question', 'wadi-survey'))
                             ->set_conditional_logic(array(
                                 'relation' => 'AND',
                                 array(
@@ -244,7 +244,7 @@ class SurveyBackend
                                     'compare'    => '='
                                 )
                             )),
-                        Field::make('complex', 'dropdown_answer', __('Dropdown Answers', 'wqsp'))
+                        Field::make('complex', 'dropdown_answer', __('Dropdown Answers', 'wadi-survey'))
                             ->set_conditional_logic(array(
                                 'relation' => 'AND',
                                 array(
@@ -255,12 +255,12 @@ class SurveyBackend
                             ))
                             ->set_layout('tabbed-vertical')
                             ->add_fields(array(
-                                Field::make('text', 'dropdown_text_answers', __('Dropdown Answers', 'wqsp'))
+                                Field::make('text', 'dropdown_text_answers', __('Dropdown Answers', 'wadi-survey'))
                             )),
                         /**
                          * Image Pick Question
                          */
-                        Field::make('rich_text', 'image_pick_question', __('Image Picking Question', 'wqsp'))
+                        Field::make('rich_text', 'image_pick_question', __('Image Picking Question', 'wadi-survey'))
                             ->set_conditional_logic(array(
                                 'relation' => 'AND',
                                 array(
@@ -269,7 +269,7 @@ class SurveyBackend
                                     'compare'    => '=',
                                 )
                             )),
-                        Field::make('complex', 'images_answers', __('Images Answers', 'wqsp'))
+                        Field::make('complex', 'images_answers', __('Images Answers', 'wadi-survey'))
                             ->set_conditional_logic(array(
                                 'relation' => 'AND',
                                 array(
@@ -280,14 +280,14 @@ class SurveyBackend
                             ))
                             ->set_layout('tabbed-vertical')
                             ->add_fields(array(
-                                Field::make('image', 'image_radio_answer', __('Image Answer', 'wqsp'))
+                                Field::make('image', 'image_radio_answer', __('Image Answer', 'wadi-survey'))
                             )),
                     ))
             ))
             ->add_tab(__('Survey Options'), array(
-                Field::make('checkbox', 'wadi_survey_multiple_steps', __('Multiple Steps Survey', 'wqsp'))
+                Field::make('checkbox', 'wadi_survey_multiple_steps', __('Multiple Steps Survey', 'wadi-survey'))
                     ->set_option_value('yes'),
-                Field::make('checkbox', 'wadi_survey_redirect_to', __('Redirect After Survey Completed', 'wqsp'))
+                Field::make('checkbox', 'wadi_survey_redirect_to', __('Redirect After Survey Completed', 'wadi-survey'))
                     ->set_option_value('yes'),
                 Field::make('text', 'wadi_survey_redirect_link', __('Redirect Link'))
                     ->set_conditional_logic(array(
@@ -309,7 +309,7 @@ class SurveyBackend
                             'compare' => '=', // Optional, defaults to "=". Available operators: =, <, >, <=, >=, IN, NOT IN
                         )
                     )),
-                Field::make('checkbox', 'wadi_survey_multiple_responses', __('Allow Multiple Responses', 'wqsp'))
+                Field::make('checkbox', 'wadi_survey_multiple_responses', __('Allow Multiple Responses', 'wadi-survey'))
                     ->set_option_value('yes'),
                 Field::make('text', 'wadi_survey_finishing_message', __('Finish Message'))
                     ->set_help_text('Survey finishing message sent after user finishing and submit the survey.')
@@ -342,7 +342,7 @@ class SurveyBackend
         Container::make('post_meta', __('Poll Form'))
             ->where('post_type', '=', 'wadi-poll')
             ->add_tab(__('Poll Form Building'), array(
-                Field::make('select', 'select_poll_question_type', __('Poll Question Types', 'wqsp'))
+                Field::make('select', 'select_poll_question_type', __('Poll Question Types', 'wadi-survey'))
                     ->set_options(array(
                         ''                               => 'Select Question Type',
                         'poll_single_choice'             => 'Single Choice Question',
@@ -362,7 +362,7 @@ class SurveyBackend
                             'compare'   => '=',
                         )
                     )),
-                Field::make('complex', 'poll_single_answers', __('Answers', 'wqsp'))
+                Field::make('complex', 'poll_single_answers', __('Answers', 'wadi-survey'))
                     ->set_conditional_logic(array(
                         'relation' => 'AND',
                         array(
@@ -373,12 +373,12 @@ class SurveyBackend
                     ))
                     ->set_layout('tabbed-vertical')
                     ->add_fields(array(
-                        Field::make('text', 'poll_single_text_answers', __('Answers', 'wqsp'))
+                        Field::make('text', 'poll_single_text_answers', __('Answers', 'wadi-survey'))
                     )),
                 /**
                  * Poll Multi Answers Question
                  */
-                Field::make('rich_text', 'multiple_question', __('Question', 'wqsp'))
+                Field::make('rich_text', 'multiple_question', __('Question', 'wadi-survey'))
                     ->set_conditional_logic(array(
                         'relation' => 'AND',
                         array(
@@ -387,7 +387,7 @@ class SurveyBackend
                             'compare'    => '=',
                         )
                     )),
-                Field::make('complex', 'poll_multiple_answers', __('Multiple Question Answers', 'wqsp'))
+                Field::make('complex', 'poll_multiple_answers', __('Multiple Question Answers', 'wadi-survey'))
                     ->set_conditional_logic(array(
                         'relation' => 'AND',
                         array(
@@ -398,12 +398,12 @@ class SurveyBackend
                     ))
                     ->set_layout('tabbed-vertical')
                     ->add_fields(array(
-                        Field::make('text', 'poll_multiple_text_answers', __('Multiple Question Answers', 'wqsp'))
+                        Field::make('text', 'poll_multiple_text_answers', __('Multiple Question Answers', 'wadi-survey'))
                     )),
                 /**
                  * Rating Questions Poll Item
                  */
-                Field::make('text', 'rating_question', __('Rating Question', 'wqsp'))
+                Field::make('text', 'rating_question', __('Rating Question', 'wadi-survey'))
                     ->set_conditional_logic(array(
                         'relation' => 'AND',
                         array(
@@ -412,11 +412,11 @@ class SurveyBackend
                             'compare'    => '='
                         )
                     )),
-                Field::make('text', 'rating_question_number_1', __('Rating Starting Range', 'wqsp'))
+                Field::make('text', 'rating_question_number_1', __('Rating Starting Range', 'wadi-survey'))
                     ->set_attribute('type', 'number')
                     ->set_attribute('min', '0')
                     ->set_required(true)
-                    ->set_help_text(__('Set the starting number for rating question for instance 0', 'wqsp'))
+                    ->set_help_text(__('Set the starting number for rating question for instance 0', 'wadi-survey'))
                     ->set_width('50')
                     ->set_default_value('0')
                     ->set_conditional_logic(array(
@@ -427,11 +427,11 @@ class SurveyBackend
                             'compare'    => '='
                         )
                     )),
-                Field::make('text', 'rating_question_number_2', __('Rating Ending Range', 'wqsp'))
+                Field::make('text', 'rating_question_number_2', __('Rating Ending Range', 'wadi-survey'))
                     ->set_attribute('type', 'number')
                     ->set_attribute('min', '0')
                     ->set_required(true)
-                    ->set_help_text(__('Set the ending number for rating question for instance 10, Please note that ending range should always be bigger than starting range.', 'wqsp'))
+                    ->set_help_text(__('Set the ending number for rating question for instance 10, Please note that ending range should always be bigger than starting range.', 'wadi-survey'))
                     ->set_width('50')
                     ->set_default_value('10')
                     ->set_conditional_logic(array(
@@ -442,11 +442,11 @@ class SurveyBackend
                             'compare'    => '='
                         )
                     )),
-                Field::make('text', 'rating_scale_question_starting', __('Rating scale starting text', 'wqsp'))
+                Field::make('text', 'rating_scale_question_starting', __('Rating scale starting text', 'wadi-survey'))
                     // ->set_attribute('type', 'number')
-                    ->set_help_text(__('Set rating scale starting text ', 'wqsp'))
+                    ->set_help_text(__('Set rating scale starting text ', 'wadi-survey'))
                     ->set_width(50)
-                    ->set_default_value(__('Not likely at all', 'wqsp'))
+                    ->set_default_value(__('Not likely at all', 'wadi-survey'))
                     ->set_conditional_logic(array(
                         'relation' => 'AND',
                         array(
@@ -455,11 +455,11 @@ class SurveyBackend
                             'compare'    => '='
                         )
                     )),
-                Field::make('text', 'rating_scale_question_ending', __('Rating scale ending text', 'wqsp'))
+                Field::make('text', 'rating_scale_question_ending', __('Rating scale ending text', 'wadi-survey'))
                     // ->set_attribute('type', 'number')
-                    ->set_help_text(__('Set rating scale ending text ', 'wqsp'))
+                    ->set_help_text(__('Set rating scale ending text ', 'wadi-survey'))
                     ->set_width(50)
-                    ->set_default_value(__('Extremely Likely', 'wqsp'))
+                    ->set_default_value(__('Extremely Likely', 'wadi-survey'))
                     ->set_conditional_logic(array(
                         'relation' => 'AND',
                         array(
@@ -471,7 +471,7 @@ class SurveyBackend
                 /**
                  * Image Pick Question
                  */
-                Field::make('rich_text', 'poll_image_pick_question', __('Poll Image Picking Question', 'wqsp'))
+                Field::make('rich_text', 'poll_image_pick_question', __('Poll Image Picking Question', 'wadi-survey'))
                     ->set_conditional_logic(array(
                         'relation' => 'AND',
                         array(
@@ -480,7 +480,7 @@ class SurveyBackend
                             'compare'    => '=',
                         )
                     )),
-                Field::make('complex', 'poll_images_answers', __('Poll Images Answers', 'wqsp'))
+                Field::make('complex', 'poll_images_answers', __('Poll Images Answers', 'wadi-survey'))
                     ->set_conditional_logic(array(
                         'relation' => 'AND',
                         array(
@@ -491,11 +491,11 @@ class SurveyBackend
                     ))
                     ->set_layout('tabbed-vertical')
                     ->add_fields(array(
-                        Field::make('image', 'poll_image_radio_answer', __('Poll Image Answer', 'wqsp'))
+                        Field::make('image', 'poll_image_radio_answer', __('Poll Image Answer', 'wadi-survey'))
                     )),
             ))
             ->add_tab(__('Poll Options'), array(
-                Field::make('checkbox', 'wadi_poll_redirect_to', __('Redirect After Poll Completed', 'wqsp'))
+                Field::make('checkbox', 'wadi_poll_redirect_to', __('Redirect After Poll Completed', 'wadi-survey'))
                     ->set_option_value('yes'),
                 Field::make('text', 'wadi_poll_redirect_link', __('Redirect Link'))
                     ->set_conditional_logic(array(
@@ -517,7 +517,7 @@ class SurveyBackend
                             'compare' => '=', // Optional, defaults to "=". Available operators: =, <, >, <=, >=, IN, NOT IN
                         )
                     )),
-                Field::make('checkbox', 'wadi_poll_multiple_responses', __('Allow Poll Multiple Responses', 'wqsp'))
+                Field::make('checkbox', 'wadi_poll_multiple_responses', __('Allow Poll Multiple Responses', 'wadi-survey'))
                     ->set_option_value('yes'),
                 Field::make('text', 'wadi_poll_finishing_message', __('Poll Finish Message'))
                     ->set_help_text('Poll finishing message sent after user finishes and submit the poll.')
