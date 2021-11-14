@@ -47,7 +47,7 @@ get_header();
 			)
 		);
 
-		if(!isset($existedRow)) { // Check if row exist in database
+		if(!isset($existedRow)  && $multistep_survey != TRUE ) { // Check if row exist in database
 			require_once PLUGIN_PATH . 'templates/survey-single.php';
 		} else if (!isset($existedRow) && $multistep_survey == TRUE) { // check if row exists in the database and multistep survey is active
 			require_once PLUGIN_PATH . 'templates/survey-multistep.php';

@@ -2,53 +2,92 @@
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
-  td,
-  th {
-    border: 1px solid #ddd;
-    padding: 8px;
+  font-size: 1.1rem;
+  overflow-x: scroll;
+
+  td {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-bottom: 2px solid rgb(190, 190, 190);
   }
 
-  & tr:nth-child(even) {
-    background-color: #f2f2f2;
+  thead {
+    height: 50px;
+
+    td,
+    th {
+      border: 1px solid #ddd;
+      padding: 8px;
+      font-size: 18px;
+      min-width: 140px;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+  & tr {
+    background-color: #ffffff;
   }
 
   & tr:hover {
-    background-color: #ddd;
+    background-color: rgb(245, 243, 243);
   }
 
   th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #04aa6d;
+    background-color: #525252;
     color: white;
   }
 }
 
-#single_poll_table {
-  font-family: Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-  td,
-  th {
-    border: 1px solid #ddd;
-    padding: 8px;
+.admin_page_single_poll {
+  
+  .row {
+    margin-right: 0;
+    margin-left: 0;
   }
 
-  & tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
+  #single_poll_table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    overflow-x: scroll;
 
-  & tr:hover {
-    background-color: #ddd;
-  }
+    thead {
+      height: 50px;
+      td,
+      th {
+        border: 1px solid #ccc;
+        padding: 8px;
+        font-size: 18px;
+        min-width: 120px;
+        text-align: center;
+        vertical-align: middle;
+      }
+    }
 
-  th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #04aa6d;
-    color: white;
+    td,
+    th {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+
+    & tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    & tr:hover {
+      background-color: #ddd;
+    }
+
+    th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #525252;
+      color: white;
+    }
   }
 }
 
