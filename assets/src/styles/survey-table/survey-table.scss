@@ -1,59 +1,90 @@
+/* Submissions Survey Table */
+
 #survey_table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
-     td, th {
-      border: 1px solid #ddd;
-      padding: 8px;
+    font-size: 1.1rem;
+    overflow-x: scroll;
+
+    td {
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-bottom: 2px solid rgb(190, 190, 190);
     }
 
-    & tr:nth-child(even){
-        background-color: #f2f2f2;
+    thead {
+      height: 50px;
+
+      td, th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        font-size: 18px;
+        min-width: 140px;
+        text-align: center;
+        vertical-align: middle;
+      }
+    }
+    & tr{
+        background-color: #ffffff;
     }
 
-    & tr:hover {background-color: #ddd;}
+    & tr:hover {background-color: rgb(245, 243, 243);}
 
     th {
         padding-top: 12px;
         padding-bottom: 12px;
         text-align: left;
-        background-color: #04AA6D;
+        background-color: #135e96;
         color: white;
       }
   }
   
+/* Single Survey Table (Datatable) */
   
-#single_survey_table {
+.admin_page_single_survey {
+  
+  .row {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  
+  #single_survey_table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
-     td, th {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
+    overflow-x: scroll;
 
-    & tr:nth-child(even){
-        background-color: #f2f2f2;
-    }
-
-    & tr:hover {background-color: #ddd;}
-
-    th {
-        padding-top: 12px;
-        padding-bottom: 12px;
-        text-align: left;
-        background-color: #04AA6D;
-        color: white;
+      thead {
+        height: 50px;
+        td, th {
+          border: 1px solid #ccc;
+          padding: 8px;
+          font-size: 18px;
+          min-width: 120px;
+          text-align: center;
+          vertical-align: middle;
+        }
       }
-  }
   
+      td, th {
+        border: 1px solid #ccc;
+        padding: 8px;
+      }
   
+      & tr:nth-child(even){
+          background-color: #f2f2f2;
+      }
   
+      & tr:hover {background-color: #ddd;}
   
-//   #customers th {
-//     padding-top: 12px;
-//     padding-bottom: 12px;
-//     text-align: left;
-//     background-color: #04AA6D;
-//     color: white;
-//   }
+      th {
+          padding-top: 12px;
+          padding-bottom: 12px;
+          text-align: left;
+          background-color: #135e96;
+          color: white;
+        }
+    }
+    
+}
