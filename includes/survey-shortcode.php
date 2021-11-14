@@ -228,7 +228,7 @@ function display_custom_post_type($atts)
 
 								<div class="custom-control custom-select">
 									<select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo $theQuestionCleaned; ?>">
-										<option value=""><?php echo __('Select Option', 'wqsp') ?></option>
+										<option value=""><?php echo __('Select Option', 'wadi-survey') ?></option>
 
 										<?php
 										foreach ($survey_item['dropdown_answer'] as $dropdownAnswer) {
@@ -495,7 +495,7 @@ function display_custom_post_type($atts)
 
 							<div class="custom-control custom-select">
 								<select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo $theQuestionCleaned; ?>">
-									<option value=""><?php echo __('Select Option', 'wqsp') ?></option>
+									<option value=""><?php echo __('Select Option', 'wadi-survey') ?></option>
 
 									<?php
 									foreach ($survey_item['dropdown_answer'] as $dropdownAnswer) {
@@ -764,7 +764,7 @@ function display_custom_post_type($atts)
 
 								<div class="custom-control custom-select">
 									<select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo $theQuestionCleaned; ?>">
-										<option value=""><?php echo __('Select Option', 'wqsp') ?></option>
+										<option value=""><?php echo __('Select Option', 'wadi-survey') ?></option>
 
 										<?php
 										foreach ($survey_item['dropdown_answer'] as $dropdownAnswer) {
@@ -1030,7 +1030,7 @@ function display_custom_post_type($atts)
 
 							<div class="custom-control custom-select">
 								<select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo $theQuestionCleaned; ?>">
-									<option value=""><?php echo __('Select Option', 'wqsp') ?></option>
+									<option value=""><?php echo __('Select Option', 'wadi-survey') ?></option>
 
 									<?php
 									foreach ($survey_item['dropdown_answer'] as $dropdownAnswer) {
