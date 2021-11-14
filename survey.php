@@ -64,7 +64,7 @@ if ( ! function_exists( 'ws_fs' ) ) {
                 ),
                 'has_affiliation'     => 'selected',
                 'menu'                => array(
-                    'first-path'     => 'survey-admin.php',
+                    'first-path'     => 'admin.php?page=wadi-survey-account',
                 ),
                 // Set the SDK to work in a sandbox mode (for development & testing).
                 // IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
