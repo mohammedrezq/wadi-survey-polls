@@ -1,6 +1,14 @@
 <?php
+/**
+ * Check if String contains substring // https://stackoverflow.com/questions/66519169/call-to-undefined-function-str-contains-php
+ */
 
-
+if (!function_exists('str_contains')) {
+    function str_contains(string $haystack, string $needle): bool
+    {
+        return '' === $needle || false !== strpos($haystack, $needle);
+    }
+}
 function export_survey_results_to_csv() {
     
     // not empty
@@ -60,7 +68,6 @@ function export_survey_results_to_csv() {
         
     }
 
-    
     // Filling CSV File
 
     $output_handle = @fopen( 'php://output', 'w' ); //phpcs:ignore
@@ -83,25 +90,23 @@ function export_survey_results_to_csv() {
 
             $v_new=json_decode($arr,true);
 
-            
-
-            // $lead_array['name'] = $v_new;
             foreach ($v_new as $key => $item) {
-                array_push($lead_array['answers'], $item['value']);
+                if (str_contains($item['value'], 'wadi_image_pick_')) {
+                    $image_picked_id = str_replace('wadi_image_pick_', '', $item['value']);
+                    wp_get_attachment_url($image_picked_id);
+                    array_push($lead_array['answers'], wp_get_attachment_url($image_picked_id));
+                } else {
+                    array_push($lead_array['answers'], $item['value']);
+                }
             }
         }
 
- 
 
         $surveysQuestions[] = array(
             'User' => $lead_array['user'],
             'Survey' => $lead_array['survey'],
             'Answers' => $lead_array['answers'],
         );
-        
-        // echo '<pre>';
-        // print_r($surveysQuestions['User']);
-        // echo '</pre>';
         
     }
 
@@ -122,16 +127,16 @@ function export_survey_results_to_csv() {
     
         return $result;
     }
+
     foreach ( $surveysQuestions as $row ) {
 
         if(!isset($row['User'])) {
             $row['User'] = 'Visitor';
         }
         
-
-
-        $lead_array = (array) $row; // Cast the Object to an array
+     $lead_array = (array) $row; // Cast the Object to an array
         $nArr = array_flatten($lead_array);
+        
         // Add row to file
         fputcsv( $output_handle, $nArr );
     }
