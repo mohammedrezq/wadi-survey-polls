@@ -125,12 +125,6 @@ require_once PLUGIN_PATH . 'includes/class-survey-db.php';
 require_once PLUGIN_PATH . 'includes/class-wadi-admin-menus.php';
 
 /**
- * Add Single Survey Submissions Page
- */
-
-// require_once PLUGIN_PATH . 'includes/single-submissions-survey.php';
-
-/**
  * Enqueue Wadi Survey Scripts and Styles
  */
 
@@ -281,24 +275,6 @@ function poll_shortcode_column_head_content($column_name, $post_ID)
     }
 }
 
-/* Filter the single_template with our custom function*/
-// add_filter('single_template', 'poll_post_type_template');
-
-// function poll_post_type_template($template)
-// {
-
-//     global $post;
-
-//     /* Checks for survey template by post type */
-//     if ($post->post_type == 'wadi-poll') {
-//         if (file_exists(PLUGIN_PATH . '/single-wadi-poll.php')) {
-//             return PLUGIN_PATH . '/single-wadi-poll.php';
-//         }
-//     }
-
-//     return $template;
-// }
-
 
 add_filter('single_template', 'override_single_template');
 function override_single_template($single_template)
@@ -314,21 +290,3 @@ function override_single_template($single_template)
     return $single_template;
 }
 
-
-/**
- * Wadi Survey Uninstall Wadi Survey
- *
- * @since 1.0.0
- */
-
-register_uninstall_hook(__FILE__, 'wadi_survey_uninstall');
-
-function wadi_survey_uninstall()
-{
-    global $wpdb;
-    $table_wadi_survey_submissions = $wpdb->prefix . 'wadi_survey_submissions';
-    $wpdb->query("DROP TABLE IF EXISTS {$table_wadi_survey_submissions}");
-
-    $table_wadi_poll_submissions = $wpdb->prefix . 'wadi_poll_submissions';
-    $wpdb->query("DROP TABLE IF EXISTS {$table_wadi_poll_submissions}");
-}
