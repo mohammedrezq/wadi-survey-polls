@@ -1,54 +1,55 @@
 <?php
 
 /**
- * Plugin Name:       Survey
- * Plugin URI:        https://example.com/plugins/the-basics/
+ * Plugin Name:       Wadi Survey
+ * Plugin URI:        https://www.wadiweb.com
  * Description:       Handle the basics with this plugin.
  * Version:           1.0.0
  * Requires at least: 5.2
  * Requires PHP:      7.2
- * Author:            Mohammed Rezq
- * Author URI:        https://author.example.com/
+ * Author:            Wadi Web
+ * Author URI:        https://www.wadiweb.com
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Update URI:        https://example.com/my-plugin/
+ * Update URI:        https://www.wadiweb.com
  * Text Domain:       wadi-survey
  * Domain Path:       /languages
  */
 /*
-Survey is free software: you can redistribute it and/or modify
+Wadi Survey is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
 any later version.
 
-Survey is distributed in the hope that it will be useful,
+Wadi Survey is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with Survey. If not, see https://www.gnu.org/licenses/gpl-3.0.en.html.
+along with Wadi Survey. If not, see https://www.gnu.org/licenses/gpl-3.0.en.html.
  */
 
 if (! defined('ABSPATH')) {
     exit;
 }
 
-if ( ! function_exists( 'ws_fs' ) ) {
+if (! function_exists('ws_fs')) {
     // Create a helper function for easy SDK access.
-    function ws_fs() {
+    function ws_fs()
+    {
         global $ws_fs;
 
-        if ( ! isset( $ws_fs ) ) {
+        if (! isset($ws_fs)) {
             // Activate multisite network integration.
-            if ( ! defined( 'WP_FS__PRODUCT_9304_MULTISITE' ) ) {
-                define( 'WP_FS__PRODUCT_9304_MULTISITE', true );
+            if (! defined('WP_FS__PRODUCT_9304_MULTISITE')) {
+                define('WP_FS__PRODUCT_9304_MULTISITE', true);
             }
 
             // Include Freemius SDK.
             require_once dirname(__FILE__) . '/freemius/start.php';
 
-            $ws_fs = fs_dynamic_init( array(
+            $ws_fs = fs_dynamic_init(array(
                 'id'                  => '9304',
                 'slug'                => 'wadi-survey',
                 'type'                => 'plugin',
@@ -69,7 +70,7 @@ if ( ! function_exists( 'ws_fs' ) ) {
                 // Set the SDK to work in a sandbox mode (for development & testing).
                 // IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
                 'secret_key'          => 'sk_3yV{a7t>G5-7Um#&@8X<$.IGB-hXU',
-            ) );
+            ));
         }
 
         return $ws_fs;
@@ -78,7 +79,7 @@ if ( ! function_exists( 'ws_fs' ) ) {
     // Init Freemius.
     ws_fs();
     // Signal that SDK was initiated.
-    do_action( 'ws_fs_loaded' );
+    do_action('ws_fs_loaded');
 }
 
  /**
@@ -311,4 +312,23 @@ function override_single_template($single_template)
     }
 
     return $single_template;
+}
+
+
+/**
+ * Wadi Survey Uninstall Wadi Survey
+ *
+ * @since 1.0.0
+ */
+
+register_uninstall_hook(__FILE__, 'wadi_survey_uninstall');
+
+function wadi_survey_uninstall()
+{
+    global $wpdb;
+    $table_wadi_survey_submissions = $wpdb->prefix . 'wadi_survey_submissions';
+    $wpdb->query("DROP TABLE IF EXISTS {$table_wadi_survey_submissions}");
+
+    $table_wadi_poll_submissions = $wpdb->prefix . 'wadi_poll_submissions';
+    $wpdb->query("DROP TABLE IF EXISTS {$table_wadi_poll_submissions}");
 }
