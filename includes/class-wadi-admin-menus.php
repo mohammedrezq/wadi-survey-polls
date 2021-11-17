@@ -21,8 +21,8 @@ class WadiAdminMenus
 
         // Freemius 
 
-        add_action('admin_menu', array($this, 'register_freemius_upgrade_page'));
-        add_action('admin_menu', array($this, 'register_freemius_settings_page'));
+        // add_action('admin_menu', array($this, 'register_freemius_settings_page'));
+        // add_action('admin_menu', array($this, 'register_freemius_upgrade_page'));
     }
 
     /**
@@ -187,32 +187,32 @@ class WadiAdminMenus
     // }
 
     // Freemius Upgrade
-    public function register_freemius_upgrade_page()
-    {
-        add_submenu_page(
-            'survey-admin.php',
-            esc_html__('Upgrade', 'wadi-survey'),
-            esc_html__('Upgrade', 'wadi-survey'),
-            'manage_options',
-            'admin.php?page=wadi-survey-pricing',
-            '',
-            200
-        );
-    }
+    // public function register_freemius_upgrade_page()
+    // {
+    //     add_submenu_page(
+    //         'survey-admin.php',
+    //         esc_html__('Upgrade', 'wadi-survey'),
+    //         esc_html__('Upgrade', 'wadi-survey'),
+    //         'manage_options',
+    //         'admin.php?page=wadi-survey-pricing',
+    //         '',
+    //         200
+    //     );
+    // }
 
-    // Freemius settings
-    public function register_freemius_settings_page()
-    {
-        add_submenu_page(
-            'survey-admin.php',
-            esc_html__('Settings', 'wadi-survey'),
-            esc_html__('Settings', 'wadi-survey'),
-            'manage_options',
-            'admin.php?page=wadi-survey-account',
-            '',
-            0
-        );
-    }
+    // // Freemius settings
+    // public function register_freemius_settings_page()
+    // {
+    //     add_submenu_page(
+    //         'survey-admin.php',
+    //         esc_html__('Settings', 'wadi-survey'),
+    //         esc_html__('Settings', 'wadi-survey'),
+    //         'manage_options',
+    //         'admin.php?page=wadi-survey-account',
+    //         '',
+    //         0
+    //     );
+    // }
 }
 
 new WadiAdminMenus;

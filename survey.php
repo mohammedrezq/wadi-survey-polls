@@ -34,143 +34,147 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-if (! function_exists('ws_fs')) {
-    // Create a helper function for easy SDK access.
-    function ws_fs()
-    {
-        global $ws_fs;
-
-        if (! isset($ws_fs)) {
-            // Activate multisite network integration.
-            if (! defined('WP_FS__PRODUCT_9304_MULTISITE')) {
-                define('WP_FS__PRODUCT_9304_MULTISITE', true);
+if (function_exists('ws_fs')) {
+    ws_fs()->set_basename(true, __FILE__);
+} else {
+    if ( ! function_exists( 'ws_fs' ) ) {
+        // Create a helper function for easy SDK access.
+        function ws_fs() {
+            global $ws_fs;
+    
+            if ( ! isset( $ws_fs ) ) {
+                // Activate multisite network integration.
+                if ( ! defined( 'WP_FS__PRODUCT_9304_MULTISITE' ) ) {
+                    define( 'WP_FS__PRODUCT_9304_MULTISITE', true );
+                }
+    
+                // Include Freemius SDK.
+                require_once dirname(__FILE__) . '/freemius/start.php';
+    
+                $ws_fs = fs_dynamic_init( array(
+                    'id'                  => '9304',
+                    'slug'                => 'wadi-survey',
+                    'premium_slug'        => 'wadi-survey-pro',
+                    'type'                => 'plugin',
+                    'public_key'          => 'pk_81546581cee0f44b8175e04b18816',
+                    'is_premium'          => true,
+                    'premium_suffix'      => 'pro',
+                    // If your plugin is a serviceware, set this option to false.
+                    'has_premium_version' => true,
+                    'has_addons'          => false,
+                    'has_paid_plans'      => true,
+                    'trial'               => array(
+                        'days'               => 14,
+                        'is_require_payment' => true,
+                    ),
+                    'has_affiliation'     => 'selected',
+                    'menu'                => array(
+                        'first-path'     => 'edit.php?post_type=wadi-survey',
+                    ),
+                    // Set the SDK to work in a sandbox mode (for development & testing).
+                    // IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
+                    'secret_key'          => 'sk_BRsA~Q8yZ&kRLoo)9x8P-CqCbj4fe',
+                ) );
             }
-
-            // Include Freemius SDK.
-            require_once dirname(__FILE__) . '/freemius/start.php';
-
-            $ws_fs = fs_dynamic_init(array(
-                'id'                  => '9304',
-                'slug'                => 'wadi-survey',
-                'type'                => 'plugin',
-                'public_key'          => 'pk_81546581cee0f44b8175e04b18816',
-                'is_premium'          => true,
-                // If your plugin is a serviceware, set this option to false.
-                'has_premium_version' => true,
-                'has_addons'          => false,
-                'has_paid_plans'      => true,
-                'trial'               => array(
-                    'days'               => 14,
-                    'is_require_payment' => true,
-                ),
-                'has_affiliation'     => 'selected',
-                'menu'                => array(
-                    'first-path'     => 'admin.php?page=wadi-survey-account',
-                ),
-                // Set the SDK to work in a sandbox mode (for development & testing).
-                // IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
-                'secret_key'          => 'sk_3yV{a7t>G5-7Um#&@8X<$.IGB-hXU',
-            ));
+    
+            return $ws_fs;
         }
-
-        return $ws_fs;
+    
+        // Init Freemius.
+        ws_fs();
+        // Signal that SDK was initiated.
+        do_action( 'ws_fs_loaded' );
     }
 
-    // Init Freemius.
-    ws_fs();
-    // Signal that SDK was initiated.
-    do_action('ws_fs_loaded');
-}
+    /**
+     * Define Paths
+     */
 
- /**
-  * Define Paths
-  */
+    define('PLUGIN_PATH', plugin_dir_path(__FILE__));
 
-define('PLUGIN_PATH', plugin_dir_path(__FILE__));
-
-/**
- * Register Task Post Type
- */
+    /**
+     * Register Task Post Type
+     */
 
 
-require_once PLUGIN_PATH . 'includes/class-posttypes.php';
+    require_once PLUGIN_PATH . 'includes/class-posttypes.php';
 
-/**
- * Add in custom fields.
- */
-require_once PLUGIN_PATH . 'includes/class-wadi-backend.php';
+    /**
+     * Add in custom fields.
+     */
+    require_once PLUGIN_PATH . 'includes/class-wadi-backend.php';
 
-/**
- * Add Survey Shortcode
- */
+    /**
+     * Add Survey Shortcode
+     */
 
-require_once PLUGIN_PATH . 'includes/survey-shortcode.php';
+    require_once PLUGIN_PATH . 'includes/survey-shortcode.php';
 
-/**
- * Add Poll Shortcode
- */
+    /**
+     * Add Poll Shortcode
+     */
 
-require_once PLUGIN_PATH . 'includes/poll-shortcode.php';
+    require_once PLUGIN_PATH . 'includes/poll-shortcode.php';
 
-/**
- * Add Survey Database Table
- */
+    /**
+     * Add Survey Database Table
+     */
 
-require_once PLUGIN_PATH . 'includes/class-survey-db.php';
+    require_once PLUGIN_PATH . 'includes/class-survey-db.php';
 
-/**
- * Add Survey submenu page
- */
+    /**
+     * Add Survey submenu page
+     */
 
-require_once PLUGIN_PATH . 'includes/class-wadi-admin-menus.php';
+    require_once PLUGIN_PATH . 'includes/class-wadi-admin-menus.php';
 
-/**
- * Enqueue Wadi Survey Scripts and Styles
- */
+    /**
+     * Enqueue Wadi Survey Scripts and Styles
+     */
 
-require_once PLUGIN_PATH . 'includes/class-wadi-survey-enqueue.php';
+    require_once PLUGIN_PATH . 'includes/class-wadi-survey-enqueue.php';
 
 
 
-/**
- * Add Single Survey CSV Export
- */
+    /**
+     * Add Single Survey CSV Export
+     */
 
-require_once PLUGIN_PATH . 'includes/survey-csv.php';
+    require_once PLUGIN_PATH . 'includes/survey-csv.php';
 
-/**
- * Add Single Poll CSV Export
- */
+    /**
+     * Add Single Poll CSV Export
+     */
 
-require_once PLUGIN_PATH . 'includes/poll-csv.php';
+    require_once PLUGIN_PATH . 'includes/poll-csv.php';
 
-/**
- * Disable Gutenberg on Survey Custom Post Type
- */
-add_filter('use_block_editor_for_post_type', 'survey_disable_gutenberg', 10, 2);
-function survey_disable_gutenberg($current_status, $post_type)
-{
-    // Use your post type key instead of 'product'
-    if ($post_type === 'wadi-survey') {
-        return false;
+    /**
+     * Disable Gutenberg on Survey Custom Post Type
+     */
+    add_filter('use_block_editor_for_post_type', 'survey_disable_gutenberg', 10, 2);
+    function survey_disable_gutenberg($current_status, $post_type)
+    {
+        // Use your post type key instead of 'product'
+        if ($post_type === 'wadi-survey') {
+            return false;
+        }
+        return $current_status;
     }
-    return $current_status;
-}
 
-/**
- * Add Shortcode to Survey Custom Post Type Column
- */
-add_filter('manage_wadi-survey_posts_columns', 'shortcode_survey_columns_head');
+    /**
+     * Add Shortcode to Survey Custom Post Type Column
+     */
+    add_filter('manage_wadi-survey_posts_columns', 'shortcode_survey_columns_head');
 
-function shortcode_survey_columns_head($defaults)
-{
-    $defaults['shortcode']  = 'Shortcode';
-    return $defaults;
-}
+    function shortcode_survey_columns_head($defaults)
+    {
+        $defaults['shortcode']  = 'Shortcode';
+        return $defaults;
+    }
 
-add_action('manage_wadi-survey_posts_custom_column', 'survey_shortcode_column_head_content', 10, 2);
-function survey_shortcode_column_head_content($column_name, $post_ID)
-{
+    add_action('manage_wadi-survey_posts_custom_column', 'survey_shortcode_column_head_content', 10, 2);
+    function survey_shortcode_column_head_content($column_name, $post_ID)
+    {
 
 
     /**
@@ -178,8 +182,8 @@ function survey_shortcode_column_head_content($column_name, $post_ID)
      *
      * Script to copy shortcode on click
      */
-    if ('shortcode' === $column_name) {
-        echo '<script type="text/javascript">
+        if ('shortcode' === $column_name) {
+            echo '<script type="text/javascript">
         /* Get the text field */
 
         window.addEventListener("DOMContentLoaded", (event) => {
@@ -204,40 +208,40 @@ function survey_shortcode_column_head_content($column_name, $post_ID)
         </script>
         ';
 
-        echo '<input class="wadi_survey_shortcode" type="text" readonly="" value="[wadi-survey id=&quot;' . $post_ID . '&quot;]">';
+            echo '<input class="wadi_survey_shortcode" type="text" readonly="" value="[wadi-survey id=&quot;' . $post_ID . '&quot;]">';
+        }
     }
-}
 
 
 
-/**
- * Disable Gutenberg on Poll Custom Post Type
- */
-add_filter('use_block_editor_for_post_type', 'poll_disable_gutenberg', 10, 2);
-function poll_disable_gutenberg($current_status, $post_type)
-{
-    // Use your post type key instead of 'product'
-    if ($post_type === 'wadi-poll') {
-        return false;
+    /**
+     * Disable Gutenberg on Poll Custom Post Type
+     */
+    add_filter('use_block_editor_for_post_type', 'poll_disable_gutenberg', 10, 2);
+    function poll_disable_gutenberg($current_status, $post_type)
+    {
+        // Use your post type key instead of 'product'
+        if ($post_type === 'wadi-poll') {
+            return false;
+        }
+        return $current_status;
     }
-    return $current_status;
-}
 
 
-/**
- * Add Shortcode to Poll Custom Post Type Column
- */
-add_filter('manage_wadi-poll_posts_columns', 'shortcode_poll_columns_head');
+    /**
+     * Add Shortcode to Poll Custom Post Type Column
+     */
+    add_filter('manage_wadi-poll_posts_columns', 'shortcode_poll_columns_head');
 
-function shortcode_poll_columns_head($defaults)
-{
-    $defaults['shortcode']  = 'Shortcode';
-    return $defaults;
-}
+    function shortcode_poll_columns_head($defaults)
+    {
+        $defaults['shortcode']  = 'Shortcode';
+        return $defaults;
+    }
 
-add_action('manage_wadi-poll_posts_custom_column', 'poll_shortcode_column_head_content', 10, 2);
-function poll_shortcode_column_head_content($column_name, $post_ID)
-{
+    add_action('manage_wadi-poll_posts_custom_column', 'poll_shortcode_column_head_content', 10, 2);
+    function poll_shortcode_column_head_content($column_name, $post_ID)
+    {
 
 
     /**
@@ -245,8 +249,8 @@ function poll_shortcode_column_head_content($column_name, $post_ID)
      *
      * Script to copy shortcode on click
      */
-    if ('shortcode' === $column_name) {
-        echo '<script type="text/javascript">
+        if ('shortcode' === $column_name) {
+            echo '<script type="text/javascript">
         /* Get the text field */
 
         window.addEventListener("DOMContentLoaded", (event) => {
@@ -271,22 +275,22 @@ function poll_shortcode_column_head_content($column_name, $post_ID)
         </script>
         ';
 
-        echo '<input class="wadi_poll_shortcode" type="text" readonly="" value="[wadi-poll id=&quot;' . $post_ID . '&quot;]">';
-    }
-}
-
-
-add_filter('single_template', 'override_single_template');
-function override_single_template($single_template)
-{
-    global $post;
-
-    $file = PLUGIN_PATH .'single-'. $post->post_type .'.php';
-
-    if (file_exists($file)) {
-        $single_template = $file;
+            echo '<input class="wadi_poll_shortcode" type="text" readonly="" value="[wadi-poll id=&quot;' . $post_ID . '&quot;]">';
+        }
     }
 
-    return $single_template;
-}
 
+    add_filter('single_template', 'override_single_template');
+    function override_single_template($single_template)
+    {
+        global $post;
+
+        $file = PLUGIN_PATH .'single-'. $post->post_type .'.php';
+
+        if (file_exists($file)) {
+            $single_template = $file;
+        }
+
+        return $single_template;
+    }
+}
