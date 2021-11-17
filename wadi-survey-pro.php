@@ -146,11 +146,12 @@ if (function_exists('ws_fs')) {
 
     require_once PLUGIN_PATH . 'includes/survey-csv.php';
 
+
     /**
-     * Add Single Poll CSV Export
+     * Wadi Survey Uninstall
      */
 
-    require_once PLUGIN_PATH . 'includes/poll-csv.php';
+    require_once PLUGIN_PATH . 'includes/class-wadi-survey-uninstall.php';
 
     /**
      * Disable Gutenberg on Survey Custom Post Type
