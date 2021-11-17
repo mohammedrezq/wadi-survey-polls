@@ -1,13 +1,4 @@
 === Wadi Survey Pro ===
-Contributors: Mohammed Rezq
-Tags: survey, poll, wordpress survey plugin, wordpress poll plugin
-Donate link: https://www.wadiweb.com
-License: GPL v2 or later
-License URI: https://www.wadiweb.com
-
-
-
-=== Wadi Survey Pro ===
 Contributors: mohammedrezq
 Donate link: https://www.wadiweb.com
 Tags: survey, poll, survey plugin for WordPress, poll plugin for WordPress, wadi survey, wadi poll
