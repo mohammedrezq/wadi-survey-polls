@@ -151,7 +151,7 @@ if (function_exists('ws_fs')) {
      * Wadi Survey Uninstall
      */
 
-    require_once PLUGIN_PATH . 'includes/class-wadi-survey-uninstall.php';
+    // require_once PLUGIN_PATH . 'includes/class-wadi-survey-uninstall.php';
 
     /**
      * Disable Gutenberg on Survey Custom Post Type
@@ -298,4 +298,29 @@ if (function_exists('ws_fs')) {
 
         return $single_template;
     }
+    
+        // Not like register_uninstall_hook(), you do NOT have to use a static function.
+        ws_fs()->add_action('after_uninstall', 'wadi_survey_uninstall_fn');
+        function wadi_survey_uninstall_fn() {
+            global $wpdb;
+            $tableArray = [
+                $wpdb->prefix . 'wadi_survey_submissions',
+                $wpdb->prefix . 'wadi_poll_submissions'
+        
+           ];
+        
+            foreach ($tableArray as $tablename) {
+                $wpdb->query("DROP TABLE IF EXISTS $tablename");
+            }
+          
+            // Delete all Wadi Survey Post on install
+            $surveyPosts= get_posts(array('post_type'=>'wadi-survey','numberposts'=>-1));
+                foreach ($surveyPosts as $surveyPost) {
+                    wp_delete_post($surveyPost->ID, true);
+                }
+            $pollPosts= get_posts(array('post_type'=>'wadi-poll','numberposts'=>-1));
+                foreach ($pollPosts as $pollPost) {
+                    wp_delete_post($pollPost->ID, true);
+                }
+        }
 }
