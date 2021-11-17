@@ -82,12 +82,12 @@ class WadiEnqueue
         wp_enqueue_style(
             'boot-style_poll',
             'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css',
-            array(),
+            array(), '4.5.2', 'all'
         );
         wp_enqueue_style(
             'datatables_boot-style_poll',
             'https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css',
-            array(),
+            array(), '1.10.25', 'all'
         );
         wp_enqueue_script('jquery_poll_wadi', 'https://code.jquery.com/jquery-3.5.1.js', array(), '3.5.1', true);
         wp_enqueue_script('jquery_datatable_poll_wadi', 'https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js', array('jquery'), '1.10.25', true);
