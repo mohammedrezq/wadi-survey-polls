@@ -1,4 +1,7 @@
 <?php
+if (! defined('ABSPATH')) {
+    exit;
+}
 /**
  * Check if String contains substring // https://stackoverflow.com/questions/66519169/call-to-undefined-function-str-contains-php
  */

@@ -1,4 +1,7 @@
 <?php
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 $the_post_id =  get_the_ID();
 $the_current_user_id = get_current_user_id();
@@ -207,7 +210,7 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
 
                         <div class="custom-control custom-select">
                             <select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo $theQuestionCleaned; ?>">
-                                <option value=""><?php echo __('Select Option', 'wadi-survey') ?></option>
+                                <option value=""><?php echo __('Select Option', 'wadi-survey-pro') ?></option>
 
                         <?php
                         foreach($survey_item['dropdown_answer'] as $dropdownAnswer) {

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name:       Wadi Survey
+ * Plugin Name:       Wadi Survey Pro
  * Plugin URI:        https://www.wadiweb.com
  * Description:       Handle the basics with this plugin.
  * Version:           1.0.0
@@ -57,7 +57,7 @@ if (function_exists('ws_fs')) {
                     'premium_slug'        => 'wadi-survey-pro',
                     'type'                => 'plugin',
                     'public_key'          => 'pk_81546581cee0f44b8175e04b18816',
-                    'is_premium'          => true,
+                    'is_premium'          => false,
                     'premium_suffix'      => 'pro',
                     // If your plugin is a serviceware, set this option to false.
                     'has_premium_version' => true,
@@ -69,8 +69,12 @@ if (function_exists('ws_fs')) {
                     ),
                     'has_affiliation'     => 'selected',
                     'menu'                => array(
-                        'first-path'     => 'edit.php?post_type=wadi-survey',
+                        'first-path'     => 'plugins.php',
+                        'contact'        => true,
+                        'support'        => true,
+                        'account'        => true
                     ),
+                    'navigation'        => 'menu',
                     // Set the SDK to work in a sandbox mode (for development & testing).
                     // IMPORTANT: MAKE SURE TO REMOVE SECRET KEY BEFORE DEPLOYMENT.
                     'secret_key'          => 'sk_BRsA~Q8yZ&kRLoo)9x8P-CqCbj4fe',

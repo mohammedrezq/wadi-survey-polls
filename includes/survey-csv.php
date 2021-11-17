@@ -2,6 +2,9 @@
 /**
  * Check if String contains substring // https://stackoverflow.com/questions/66519169/call-to-undefined-function-str-contains-php
  */
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 if (!function_exists('str_contains')) {
     function str_contains(string $haystack, string $needle): bool

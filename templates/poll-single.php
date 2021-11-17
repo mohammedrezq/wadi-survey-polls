@@ -1,5 +1,8 @@
 <?php
 
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 $the_post_id =  get_the_ID();
 $the_current_user_id = get_current_user_id();

@@ -1,4 +1,9 @@
 <?php
+
+if (! defined('ABSPATH')) {
+    exit;
+}
+
 $the_post_id =  get_the_ID();
 $the_current_user_id = get_current_user_id();
 $redirect_url =  carbon_get_post_meta($the_post_id, 'wadi_survey_redirect_link');
@@ -202,7 +207,7 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
 
                         <div class="custom-control custom-select">
                             <select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo $theQuestionCleaned; ?>">
-                                <option value=""><?php echo __('Select Option', 'wadi-survey') ?></option>
+                                <option value=""><?php echo __('Select Option', 'wadi-survey-pro') ?></option>
 
                         <?php
                         foreach($survey_item['dropdown_answer'] as $dropdownAnswer) {

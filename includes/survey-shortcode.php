@@ -1,5 +1,7 @@
 <?php
-
+if (! defined('ABSPATH')) {
+    exit;
+}
 add_shortcode('wadi-survey', 'display_custom_post_type');
 
 function display_custom_post_type($atts)
@@ -228,7 +230,7 @@ function display_custom_post_type($atts)
 
 								<div class="custom-control custom-select">
 									<select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo $theQuestionCleaned; ?>">
-										<option value=""><?php echo __('Select Option', 'wadi-survey') ?></option>
+										<option value=""><?php echo __('Select Option', 'wadi-survey-pro') ?></option>
 
 										<?php
 										foreach ($survey_item['dropdown_answer'] as $dropdownAnswer) {
@@ -495,7 +497,7 @@ function display_custom_post_type($atts)
 
 							<div class="custom-control custom-select">
 								<select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo $theQuestionCleaned; ?>">
-									<option value=""><?php echo __('Select Option', 'wadi-survey') ?></option>
+									<option value=""><?php echo __('Select Option', 'wadi-survey-pro') ?></option>
 
 									<?php
 									foreach ($survey_item['dropdown_answer'] as $dropdownAnswer) {
@@ -764,7 +766,7 @@ function display_custom_post_type($atts)
 
 								<div class="custom-control custom-select">
 									<select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo $theQuestionCleaned; ?>">
-										<option value=""><?php echo __('Select Option', 'wadi-survey') ?></option>
+										<option value=""><?php echo __('Select Option', 'wadi-survey-pro') ?></option>
 
 										<?php
 										foreach ($survey_item['dropdown_answer'] as $dropdownAnswer) {
@@ -1030,7 +1032,7 @@ function display_custom_post_type($atts)
 
 							<div class="custom-control custom-select">
 								<select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo $theQuestionCleaned; ?>">
-									<option value=""><?php echo __('Select Option', 'wadi-survey') ?></option>
+									<option value=""><?php echo __('Select Option', 'wadi-survey-pro') ?></option>
 
 									<?php
 									foreach ($survey_item['dropdown_answer'] as $dropdownAnswer) {
