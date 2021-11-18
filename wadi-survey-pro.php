@@ -146,6 +146,12 @@ if (function_exists('ws_fs')) {
 
     require_once PLUGIN_PATH . 'includes/survey-csv.php';
 
+    /**
+     * Add Single Poll CSV Export
+     */
+
+    require_once PLUGIN_PATH . 'includes/poll-csv.php';
+
 
     /**
      * Wadi Survey Uninstall
