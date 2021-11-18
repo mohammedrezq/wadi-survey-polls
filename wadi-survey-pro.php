@@ -306,6 +306,7 @@ if (function_exists('ws_fs')) {
     }
     
         // Not like register_uninstall_hook(), you do NOT have to use a static function.
+        // Uninstall function from freemius to replace uninstall.php file in the root of the plugin
         ws_fs()->add_action('after_uninstall', 'wadi_survey_uninstall_fn');
         function wadi_survey_uninstall_fn() {
             global $wpdb;
