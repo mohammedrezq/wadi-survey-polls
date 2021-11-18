@@ -1,4 +1,7 @@
 <?php
+if (! defined('ABSPATH')) {
+    exit;
+}
 
 add_shortcode('wadi-poll', 'display_poll_post_type');
 

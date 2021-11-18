@@ -1,5 +1,8 @@
-<h1>Hello Poll Submissions</h1>
-
+<?php 
+if (! defined('ABSPATH')) {
+    exit;
+}
+?>
 <?php
 /**
  * Check if String contains substring // https://stackoverflow.com/questions/66519169/call-to-undefined-function-str-contains-php

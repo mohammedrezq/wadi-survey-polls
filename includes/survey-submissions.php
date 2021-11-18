@@ -1,4 +1,8 @@
-<h1>Hello TEST Submission Survey</h1>
+<?php
+if (! defined('ABSPATH')) {
+    exit;
+}
+?>
 
 <?php
 /**
