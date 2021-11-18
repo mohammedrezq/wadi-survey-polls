@@ -139,18 +139,19 @@ if (function_exists('ws_fs')) {
     require_once PLUGIN_PATH . 'includes/class-wadi-survey-enqueue.php';
 
 
+    if ( ws_fs()->is_premium() || ws_fs()->is_trial() ) {
+        /**
+         * Add Single Survey CSV Export
+         */
 
-    /**
-     * Add Single Survey CSV Export
-     */
+        require_once PLUGIN_PATH . 'includes/survey-csv.php';
 
-    require_once PLUGIN_PATH . 'includes/survey-csv.php';
+        /**
+         * Add Single Poll CSV Export
+         */
 
-    /**
-     * Add Single Poll CSV Export
-     */
-
-    require_once PLUGIN_PATH . 'includes/poll-csv.php';
+        require_once PLUGIN_PATH . 'includes/poll-csv.php';
+    }
 
 
     /**

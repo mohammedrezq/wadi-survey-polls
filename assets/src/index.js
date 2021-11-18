@@ -1,5 +1,4 @@
 import './styles/main.scss';
-import './surveyCSV';
 
 const surveySingle = () => {
 

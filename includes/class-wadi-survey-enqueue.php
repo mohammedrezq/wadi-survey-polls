@@ -8,9 +8,18 @@ class WadiEnqueue
         
         add_action('admin_enqueue_scripts', array($this, 'survey_backend_init'));
 
+        
         add_action('admin_enqueue_scripts', array($this, 'survey_backend_init_single'));
-
+        
         add_action('admin_enqueue_scripts', array($this, 'poll_backend_init_single'));
+        
+        if (ws_fs()->is_premium() || ws_fs()->is_trial()) {
+
+            add_action('admin_enqueue_scripts', array($this, 'poll_js_csv_fn'));
+
+            add_action('admin_enqueue_scripts', array($this, 'survey_js_csv_fn'));
+            
+        }
 
         add_action('admin_enqueue_scripts', array($this, 'poll_backend_init'));
         
@@ -68,6 +77,21 @@ class WadiEnqueue
         wp_enqueue_style('survey_styles', plugins_url('assets/dist/main.css', realpath(__DIR__)), false, '1.0.0', 'all');
         wp_enqueue_script('survey_js_backend', plugins_url('assets/dist/main.js', realpath(__DIR__)), array('jquery'), '1.0.0', true);
     }
+
+    /**
+     * Script for Survey CSV
+     */
+    
+    public function survey_js_csv_fn($hook)
+    {
+        if ('admin_page_single_survey' != $hook) {
+            return;
+        }
+
+        if (ws_fs()->is_premium() || ws_fs()->is_trial()) {
+            wp_enqueue_script('survey_js_csv', plugins_url('assets/dist/survey-csv.js', realpath(__DIR__)), array('jquery'), '1.0.0', true);
+        }
+    }
     
     /**
      * Scripts and Styles for Poll Single Table
@@ -94,6 +118,21 @@ class WadiEnqueue
         wp_enqueue_script('datatable_bootstrap_poll_wadi', 'https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js', array('jquery'), '1.10.25', true);
         wp_enqueue_style('poll_single_styles', plugins_url('assets/dist/poll-admin.css', realpath(__DIR__)), false, '1.0.0', 'all');
         wp_enqueue_script('poll_single_js_backend', plugins_url('assets/dist/poll-admin.js', realpath(__DIR__)), array('jquery'), '1.0.0', true);
+    }
+
+
+    /**
+     * Script for Survey CSV
+     */
+    
+    public function poll_js_csv_fn($hook)
+    {
+        if ('admin_page_single_poll' != $hook) {
+            return;
+        }
+        if (ws_fs()->is_premium() || ws_fs()->is_trial()) {
+            wp_enqueue_script('poll_js_csv', plugins_url('assets/dist/poll-csv.js', realpath(__DIR__)), array('jquery'), '1.0.0', true);
+        }
     }
     
     public function wadi_survey()

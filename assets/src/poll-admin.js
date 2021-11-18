@@ -1,5 +1,4 @@
 import './styles/poll-main.scss';
-import './pollCSV';
 
 const pollSingle = () => {
 
