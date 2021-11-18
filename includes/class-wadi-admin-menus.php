@@ -36,8 +36,8 @@ class WadiAdminMenus
     {
 
         add_menu_page(
-            __('Wadi Survey', 'wadi-survey-pro'),
-            'Wadi Survey',
+            esc_html__('Wadi Survey', 'wadi-survey-pro'),
+            esc_html__('Wadi Survey', 'wadi-survey-pro'),
             'manage_options',
             'survey-admin.php',
             '',

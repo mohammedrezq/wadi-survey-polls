@@ -37,15 +37,15 @@ $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
 
 <div class="wrap" id="wadi_poll_submissions">
     <div style="display:flex;justify-content:space-between;margin-bottom:30px;">
-        <h2>Users Poll Submissions</h2>
+        <h2><?php esc_html_e('Users Poll Submissions', 'wadi-survey-pro'); ?></h2>
     </div>
 
     <table class="table" id="poll_table">
         <thead>
             <tr>
-                <th scope="col">User</th>
-                <th scope="col">Poll</th>
-                <th scope="col lg-col">Poll/Answers</th>
+                <th scope="col"><?php esc_html_e('User', 'wadi-survey-pro'); ?></th>
+                <th scope="col"><?php esc_html_e('Poll', 'wadi-survey-pro'); ?></th>
+                <th scope="col lg-col"><?php esc_html_e('Poll Question/Answer', 'wadi-survey-pro'); ?></th>
             </tr>
         </thead>
         <tbody>

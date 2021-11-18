@@ -35,15 +35,15 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
 ?>
 <div class="wrap" id="wadi_survey_submissions">
     <div style="display:flex;justify-content:space-between;margin-bottom:30px;">
-        <h2>Users Survey Submissions</h2>
+        <h2><?php esc_html_e('Users Survey Submissions', 'wadi-survey-pro'); ?></h2>
     </div>
 
     <table class="table" id="survey_table">
         <thead>
             <tr>
-                <th scope="col">User</th>
-                <th scope="col">Survey</th>
-                <th scope="col lg-col">Survey/Answers</th>
+                <th scope="col"><?php esc_html_e('User', 'wadi-survey-pro'); ?></th>
+                <th scope="col"><?php esc_html_e('Survey', 'wadi-survey-pro'); ?></th>
+                <th scope="col lg-col"><?php esc_html_e('Survey/Answers', 'wadi-survey-pro'); ?></th>
             </tr>
         </thead>
         <tbody>

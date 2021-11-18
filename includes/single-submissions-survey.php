@@ -42,16 +42,16 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
 ?>
 <div style="display:flex;justify-content:space-between;margin-bottom:30px;">
         <h2>Survey Submissions</h2>
-        <button id="export_btn" class="button-primary" data-survey="<?php echo $surveyID; ?>">Export to CSV</button>
+        <button id="export_btn" class="button-primary" data-survey="<?php echo $surveyID; ?>"><?php esc_html_e('Export to CSV', 'wadi-survey-pro'); ?></button>
     </div>
 <table id="single_survey_table" class="table table-striped table-bordered wadi_survey_table">
     <thead>
         <tr>
             <th>
-                User ID
+                <?php esc_html_e('User ID', 'wadi-survey-pro'); ?>
             </th>
             <th>
-                Survey
+                <?php esc_html_e('Survey', 'wadi-survey-pro'); ?>
             </th>
             
                 <?php
@@ -109,7 +109,7 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
                         <?php
                     } else {
                         ?>
-                        <td><span>Visitor</span></td>
+                        <td><span><?php esc_html_e('Visitor', 'wadi-survey-pro'); ?></span></td>
                             <?php
                     } ?> 
                     <td>

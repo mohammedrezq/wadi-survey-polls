@@ -115,7 +115,7 @@ function display_custom_post_type($atts)
 								<table>
 									<thead>
 										<tr>
-											<th><?php echo __('Questions') ?></th>
+											<th><?php esc_html_e('Questions', 'wadi-survey-pro'); ?></th>
 											<?php
 											foreach ($matrix_answers_row_head as $theadAnswer) {
 												$thAnswer = $theadAnswer['matrix_answer_text'];
@@ -766,7 +766,7 @@ function display_custom_post_type($atts)
 
 								<div class="custom-control custom-select">
 									<select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo $theQuestionCleaned; ?>">
-										<option value=""><?php echo __('Select Option', 'wadi-survey-pro') ?></option>
+										<option value=""><?php esc_html_e('Select Option', 'wadi-survey-pro') ?></option>
 
 										<?php
 										foreach ($survey_item['dropdown_answer'] as $dropdownAnswer) {
@@ -830,7 +830,7 @@ function display_custom_post_type($atts)
 				?>
 
 			</div>
-			<button type="submit" class="wadi_survey_submit">Submit</button>
+			<button type="submit" class="wadi_survey_submit"><?php esc_html_e('Submit', 'wadi-survey-pro'); ?></button>
 		</form>
 		<input type="hidden" data-survey-finish-message='<?php echo $survey_finish_message; ?>' 
 		data-redirect-time="<?php echo $redirect_time; ?>" data-survey-already-taken-message='<?php echo $survey_already_taken_message; ?>' class="redirect_url" data-redirect-url='<?php echo $redirect_url; ?>' />
@@ -916,7 +916,7 @@ function display_custom_post_type($atts)
 								<table>
 									<thead>
 										<tr>
-											<th><?php echo __('Questions') ?></th>
+											<th><?php esc_html_e('Questions', 'wadi-survey-pro'); ?></th>
 											<?php
 											foreach ($matrix_answers_row_head as $theadAnswer) {
 												$thAnswer = $theadAnswer['matrix_answer_text'];
@@ -1098,8 +1098,8 @@ function display_custom_post_type($atts)
 
 			<div style="overflow:auto;">
 				<div class="multistep_naviation" style="float:right;">
-					<button type="button" id="prevBtn">Previous</button>
-					<button type="button" id="nextBtn">Next</button>
+					<button type="button" id="prevBtn"><?php esc_html_e('Previous', 'wadi-survey-pro'); ?></button>
+					<button type="button" id="nextBtn"><?php esc_html_e('Next', 'wadi-survey-pro'); ?></button>
 				</div>
 			</div>
 		</form>
