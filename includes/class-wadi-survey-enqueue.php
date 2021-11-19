@@ -19,6 +19,10 @@ class WadiEnqueue
 
             add_action('admin_enqueue_scripts', array($this, 'survey_js_csv_fn'));
             
+        } else {
+            add_action('admin_enqueue_scripts', array($this, 'poll_tooltip_fn'));
+
+            add_action('admin_enqueue_scripts', array($this, 'survey_tooltip_fn'));
         }
 
         add_action('admin_enqueue_scripts', array($this, 'poll_backend_init'));
@@ -133,6 +137,36 @@ class WadiEnqueue
         if (ws_fs()->is_premium() || ws_fs()->is_trial()) {
             wp_enqueue_script('poll_js_csv', plugins_url('assets/dist/poll-csv.js', realpath(__DIR__)), array('jquery'), '1.0.0', true);
         }
+    }
+
+    
+    /**
+     * Script for Single Poll Tooltip
+     */
+    
+    public function poll_tooltip_fn($hook)
+    {
+        if ('admin_page_single_poll' != $hook) {
+            return;
+        }
+        
+        wp_enqueue_script('poll_js_tooltip', plugins_url('assets/dist/wadi-tooltip.js', realpath(__DIR__)), array('jquery'), time(), true);
+        wp_enqueue_style('poll_css_tooltip', plugins_url('assets/dist/wadi-tooltip.css', realpath(__DIR__)), false, time(), 'all');
+
+    }
+    /**
+     * Script for Single Poll Tooltip
+     */
+    
+    public function survey_tooltip_fn($hook)
+    {
+        if ('admin_page_single_survey' != $hook) {
+            return;
+        }
+        
+        wp_enqueue_script('survey_js_tooltip', plugins_url('assets/dist/wadi-tooltip.js', realpath(__DIR__)), array('jquery'), time(), true);
+        wp_enqueue_style('survey_css_tooltip', plugins_url('assets/dist/wadi-tooltip.css', realpath(__DIR__)), false, time(), 'all');
+        
     }
     
     public function wadi_survey()
