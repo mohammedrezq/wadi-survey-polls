@@ -23,7 +23,7 @@ $surveyID = $_GET['survey_id'];
 $survey_query = $wpdb->prepare("SELECT
 *
 FROM
-$wpdb_table WHERE survey_id=$surveyID");
+$wpdb_table WHERE survey_id=%s", $surveyID);
 
 
 $query_results = $wpdb->get_results($survey_query, ARRAY_A);
@@ -33,7 +33,7 @@ $query_results = $wpdb->get_results($survey_query, ARRAY_A);
 $survey_ids = $wpdb->prepare("SELECT
         DISTINCT user_id, survey_id
         FROM
-        $wpdb_table WHERE survey_id=$surveyID");
+        $wpdb_table WHERE survey_id=%s", $surveyID);
 
 $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
 
@@ -42,16 +42,16 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
 ?>
 <div style="display:flex;justify-content:space-between;margin-bottom:30px;">
         <h2>Survey Submissions</h2>
-        <button id="export_btn" class="button-primary" data-survey="<?php echo $surveyID; ?>">Export to CSV</button>
+        <button id="export_btn" class="button-primary" data-survey="<?php echo $surveyID; ?>"><?php esc_html_e('Export to CSV', 'wadi-survey-pro'); ?></button>
     </div>
 <table id="single_survey_table" class="table table-striped table-bordered wadi_survey_table">
     <thead>
         <tr>
             <th>
-                User ID
+                <?php esc_html_e('User ID', 'wadi-survey-pro'); ?>
             </th>
             <th>
-                Survey
+                <?php esc_html_e('Survey', 'wadi-survey-pro'); ?>
             </th>
             
                 <?php
@@ -83,7 +83,7 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
         $answers_query = $wpdb->prepare("SELECT
         questions_answers, user_id
         FROM
-        $wpdb_table WHERE survey_id=$surveyID");
+        $wpdb_table WHERE survey_id=%s", $surveyID);
 
         $answers_query_results = $wpdb->get_results($answers_query, ARRAY_A);
 
@@ -109,7 +109,7 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
                         <?php
                     } else {
                         ?>
-                        <td><span>Visitor</span></td>
+                        <td><span><?php esc_html_e('Visitor', 'wadi-survey-pro'); ?></span></td>
                             <?php
                     } ?> 
                     <td>

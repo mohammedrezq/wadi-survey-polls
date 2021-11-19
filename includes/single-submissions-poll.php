@@ -23,7 +23,7 @@ $pollID = $_GET['poll_id'];
 $poll_query = $wpdb->prepare("SELECT
 *
 FROM
-$wpdb_table WHERE poll_id=$pollID");
+$wpdb_table WHERE poll_id=%s", $pollID);
 
 
 $query_results = $wpdb->get_results($poll_query, ARRAY_A);
@@ -33,7 +33,7 @@ $query_results = $wpdb->get_results($poll_query, ARRAY_A);
 $poll_ids = $wpdb->prepare("SELECT
         DISTINCT user_id, poll_id
         FROM
-        $wpdb_table WHERE poll_id=$pollID");
+        $wpdb_table WHERE poll_id=%s", $pollID);
 
 $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
 
@@ -42,16 +42,16 @@ $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
 ?>
 <div style="display:flex;justify-content:space-between;margin-bottom:30px;">
         <h2>Poll Submissions</h2>
-        <button id="export_btn" class="button-primary" data-poll="<?php echo $pollID; ?>">Export to CSV</button>
+        <button id="export_btn" class="button-primary" data-poll="<?php echo $pollID; ?>"><?php esc_html_e('Export to CSV', 'wadi-survey-pro'); ?></button>
     </div>
 <table id="single_poll_table" class="table table-striped table-bordered wadi_poll_table">
     <thead>
         <tr>
             <th>
-                User ID
+            <?php esc_html_e('User', 'wadi-survey-pro'); ?>
             </th>
             <th>
-                Poll
+            <?php esc_html_e('Poll', 'wadi-survey-pro'); ?>
             </th>
             
                 <?php
@@ -83,7 +83,7 @@ $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
         $answers_query = $wpdb->prepare("SELECT
         questions_answers, user_id
         FROM
-        $wpdb_table WHERE poll_id=$pollID");
+        $wpdb_table WHERE poll_id=%s", $pollID);
 
         $answers_query_results = $wpdb->get_results($answers_query, ARRAY_A);
 
@@ -110,7 +110,7 @@ $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
                     } 
                     else {
                         ?>
-                        <td><span>Visitor</span></td>
+                        <td><span><?php esc_html_e('Visitor', 'wadi-survey-pro'); ?></span></td>
                             <?php
                     } 
                     ?>  

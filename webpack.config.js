@@ -21,6 +21,8 @@ const entry = {
     'survey': [__dirname + `/${ assetsFolder }/src/survey.js`],
     'multistep-survey': [__dirname + `/${ assetsFolder }/src/multistep-survey.js`],
     'poll-admin': [__dirname + `/${ assetsFolder }/src/poll-admin.js`],
+    'poll-csv': [__dirname + `/${ assetsFolder }/src/pollCSV.js`],
+    'survey-csv': [__dirname + `/${ assetsFolder }/src/surveyCSV.js`],
 }
 const mainDistentation = path.resolve(
 	__dirname,

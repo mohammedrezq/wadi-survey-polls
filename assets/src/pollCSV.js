@@ -1,4 +1,4 @@
-const exportSurveryCSV = () => {
+const exportPollCSV = () => {
     const pollSingleSubmissionsPage = document.querySelector(
       ".admin_page_single_poll"
     );
@@ -53,5 +53,5 @@ const exportSurveryCSV = () => {
         });
     }
   };
-  exportSurveryCSV();
+  exportPollCSV();
   

@@ -139,18 +139,19 @@ if (function_exists('ws_fs')) {
     require_once PLUGIN_PATH . 'includes/class-wadi-survey-enqueue.php';
 
 
+    if ( ws_fs()->is_premium() || ws_fs()->is_trial() ) {
+        /**
+         * Add Single Survey CSV Export
+         */
 
-    /**
-     * Add Single Survey CSV Export
-     */
+        require_once PLUGIN_PATH . 'includes/survey-csv.php';
 
-    require_once PLUGIN_PATH . 'includes/survey-csv.php';
+        /**
+         * Add Single Poll CSV Export
+         */
 
-    /**
-     * Add Single Poll CSV Export
-     */
-
-    require_once PLUGIN_PATH . 'includes/poll-csv.php';
+        require_once PLUGIN_PATH . 'includes/poll-csv.php';
+    }
 
 
     /**
@@ -306,6 +307,7 @@ if (function_exists('ws_fs')) {
     }
     
         // Not like register_uninstall_hook(), you do NOT have to use a static function.
+        // Uninstall function from freemius to replace uninstall.php file in the root of the plugin
         ws_fs()->add_action('after_uninstall', 'wadi_survey_uninstall_fn');
         function wadi_survey_uninstall_fn() {
             global $wpdb;

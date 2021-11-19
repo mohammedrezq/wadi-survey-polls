@@ -18,34 +18,34 @@ if (!function_exists('str_contains')) {
 global $wpdb;
 $wpdb_table = $wpdb->prefix . 'wadi_poll_submissions';
 
-$poll_query = $wpdb->prepare("SELECT
+// $poll_query = $wpdb->prepare();
+
+$query_results = $wpdb->get_results("SELECT
 *
 FROM
-$wpdb_table");
+$wpdb_table", ARRAY_A);
 
-$query_results = $wpdb->get_results($poll_query, ARRAY_A);
+// $poll_ids = $wpdb->prepare();
 
-$poll_ids = $wpdb->prepare("SELECT
-        DISTINCT user_id, poll_id
-        FROM
-        $wpdb_table");
-
-$query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
+$query_poll_ids = $wpdb->get_results("SELECT
+DISTINCT user_id, poll_id
+FROM
+$wpdb_table", ARRAY_A);
 
 
 ?>
 
 <div class="wrap" id="wadi_poll_submissions">
     <div style="display:flex;justify-content:space-between;margin-bottom:30px;">
-        <h2>Users Poll Submissions</h2>
+        <h2><?php esc_html_e('Users Poll Submissions', 'wadi-survey-pro'); ?></h2>
     </div>
 
     <table class="table" id="poll_table">
         <thead>
             <tr>
-                <th scope="col">User</th>
-                <th scope="col">Poll</th>
-                <th scope="col lg-col">Poll/Answers</th>
+                <th scope="col"><?php esc_html_e('User', 'wadi-survey-pro'); ?></th>
+                <th scope="col"><?php esc_html_e('Poll', 'wadi-survey-pro'); ?></th>
+                <th scope="col lg-col"><?php esc_html_e('Poll Question/Answer', 'wadi-survey-pro'); ?></th>
             </tr>
         </thead>
         <tbody>
@@ -81,7 +81,7 @@ $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
                     "SELECT DISTINCT
                          questions_answers
                          FROM
-                         $wpdb_table WHERE user_id=$theUserId AND poll_id=$thePollId "
+                         $wpdb_table WHERE user_id=$theUserId AND poll_id=%s ", $thePollId
                 );
 
                 $query_poll_answers = $wpdb->get_results($poll_answers, ARRAY_A); ?>

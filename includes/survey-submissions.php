@@ -18,32 +18,29 @@ if (!function_exists('str_contains')) {
 global $wpdb;
 $wpdb_table = $wpdb->prefix . 'wadi_survey_submissions';
 
-$survey_query = $wpdb->prepare("SELECT
+$query_results = $wpdb->get_results("SELECT
 *
 FROM
-$wpdb_table");
+$wpdb_table", ARRAY_A);
 
-$query_results = $wpdb->get_results($survey_query, ARRAY_A);
 
-$survey_ids = $wpdb->prepare("SELECT
-        DISTINCT user_id, survey_id
-        FROM
-        $wpdb_table");
-
-$query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
+$query_survey_ids = $wpdb->get_results("SELECT
+DISTINCT user_id, survey_id
+FROM
+$wpdb_table", ARRAY_A);
 
 ?>
 <div class="wrap" id="wadi_survey_submissions">
     <div style="display:flex;justify-content:space-between;margin-bottom:30px;">
-        <h2>Users Survey Submissions</h2>
+        <h2><?php esc_html_e('Users Survey Submissions', 'wadi-survey-pro'); ?></h2>
     </div>
 
     <table class="table" id="survey_table">
         <thead>
             <tr>
-                <th scope="col">User</th>
-                <th scope="col">Survey</th>
-                <th scope="col lg-col">Survey/Answers</th>
+                <th scope="col"><?php esc_html_e('User', 'wadi-survey-pro'); ?></th>
+                <th scope="col"><?php esc_html_e('Survey', 'wadi-survey-pro'); ?></th>
+                <th scope="col lg-col"><?php esc_html_e('Survey/Answers', 'wadi-survey-pro'); ?></th>
             </tr>
         </thead>
         <tbody>
@@ -77,7 +74,7 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
                     "SELECT DISTINCT
                          questions_answers
                          FROM
-                         $wpdb_table WHERE user_id=$theUserId AND survey_id=$theSurveyId "
+                         $wpdb_table WHERE user_id=$theUserId AND survey_id=%s ", $theSurveyId
                 );
 
                 $query_survey_answers = $wpdb->get_results($survey_answers, ARRAY_A); ?>
@@ -85,8 +82,7 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
                     </td>
                     <td>
                     <?php foreach ($query_survey_answers as $survey_item) {
-                    $surveyQArr=str_replace('\\', '', $survey_item);
-                        ?>
+                    $surveyQArr=str_replace('\\', '', $survey_item); ?>
                     <div style="border:2px solid #ccc; padding: 12px; margin-bottom: 12px;">
                         <?php
                         
