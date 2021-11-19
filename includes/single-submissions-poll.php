@@ -23,7 +23,7 @@ $pollID = $_GET['poll_id'];
 $poll_query = $wpdb->prepare("SELECT
 *
 FROM
-$wpdb_table WHERE poll_id=$pollID");
+$wpdb_table WHERE poll_id=%s", $pollID);
 
 
 $query_results = $wpdb->get_results($poll_query, ARRAY_A);
@@ -33,7 +33,7 @@ $query_results = $wpdb->get_results($poll_query, ARRAY_A);
 $poll_ids = $wpdb->prepare("SELECT
         DISTINCT user_id, poll_id
         FROM
-        $wpdb_table WHERE poll_id=$pollID");
+        $wpdb_table WHERE poll_id=%s", $pollID);
 
 $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
 
@@ -83,7 +83,7 @@ $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
         $answers_query = $wpdb->prepare("SELECT
         questions_answers, user_id
         FROM
-        $wpdb_table WHERE poll_id=$pollID");
+        $wpdb_table WHERE poll_id=%s", $pollID);
 
         $answers_query_results = $wpdb->get_results($answers_query, ARRAY_A);
 

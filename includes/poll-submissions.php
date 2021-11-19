@@ -18,19 +18,19 @@ if (!function_exists('str_contains')) {
 global $wpdb;
 $wpdb_table = $wpdb->prefix . 'wadi_poll_submissions';
 
-$poll_query = $wpdb->prepare("SELECT
+// $poll_query = $wpdb->prepare();
+
+$query_results = $wpdb->get_results("SELECT
 *
 FROM
-$wpdb_table");
+$wpdb_table", ARRAY_A);
 
-$query_results = $wpdb->get_results($poll_query, ARRAY_A);
+// $poll_ids = $wpdb->prepare();
 
-$poll_ids = $wpdb->prepare("SELECT
-        DISTINCT user_id, poll_id
-        FROM
-        $wpdb_table");
-
-$query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
+$query_poll_ids = $wpdb->get_results("SELECT
+DISTINCT user_id, poll_id
+FROM
+$wpdb_table", ARRAY_A);
 
 
 ?>
@@ -81,7 +81,7 @@ $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
                     "SELECT DISTINCT
                          questions_answers
                          FROM
-                         $wpdb_table WHERE user_id=$theUserId AND poll_id=$thePollId "
+                         $wpdb_table WHERE user_id=$theUserId AND poll_id=%s ", $thePollId
                 );
 
                 $query_poll_answers = $wpdb->get_results($poll_answers, ARRAY_A); ?>
