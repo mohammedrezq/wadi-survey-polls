@@ -23,7 +23,7 @@ $surveyID = $_GET['survey_id'];
 $survey_query = $wpdb->prepare("SELECT
 *
 FROM
-$wpdb_table WHERE survey_id=$surveyID");
+$wpdb_table WHERE survey_id=%s", $surveyID);
 
 
 $query_results = $wpdb->get_results($survey_query, ARRAY_A);
@@ -33,7 +33,7 @@ $query_results = $wpdb->get_results($survey_query, ARRAY_A);
 $survey_ids = $wpdb->prepare("SELECT
         DISTINCT user_id, survey_id
         FROM
-        $wpdb_table WHERE survey_id=$surveyID");
+        $wpdb_table WHERE survey_id=%s", $surveyID);
 
 $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
 
@@ -83,7 +83,7 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
         $answers_query = $wpdb->prepare("SELECT
         questions_answers, user_id
         FROM
-        $wpdb_table WHERE survey_id=$surveyID");
+        $wpdb_table WHERE survey_id=%s", $surveyID);
 
         $answers_query_results = $wpdb->get_results($answers_query, ARRAY_A);
 

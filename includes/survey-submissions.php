@@ -18,19 +18,16 @@ if (!function_exists('str_contains')) {
 global $wpdb;
 $wpdb_table = $wpdb->prefix . 'wadi_survey_submissions';
 
-$survey_query = $wpdb->prepare("SELECT
+$query_results = $wpdb->get_results("SELECT
 *
 FROM
-$wpdb_table");
+$wpdb_table", ARRAY_A);
 
-$query_results = $wpdb->get_results($survey_query, ARRAY_A);
 
-$survey_ids = $wpdb->prepare("SELECT
-        DISTINCT user_id, survey_id
-        FROM
-        $wpdb_table");
-
-$query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
+$query_survey_ids = $wpdb->get_results("SELECT
+DISTINCT user_id, survey_id
+FROM
+$wpdb_table", ARRAY_A);
 
 ?>
 <div class="wrap" id="wadi_survey_submissions">
@@ -77,7 +74,7 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
                     "SELECT DISTINCT
                          questions_answers
                          FROM
-                         $wpdb_table WHERE user_id=$theUserId AND survey_id=$theSurveyId "
+                         $wpdb_table WHERE user_id=$theUserId AND survey_id=%s ", $theSurveyId
                 );
 
                 $query_survey_answers = $wpdb->get_results($survey_answers, ARRAY_A); ?>
@@ -85,8 +82,7 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
                     </td>
                     <td>
                     <?php foreach ($query_survey_answers as $survey_item) {
-                    $surveyQArr=str_replace('\\', '', $survey_item);
-                        ?>
+                    $surveyQArr=str_replace('\\', '', $survey_item); ?>
                     <div style="border:2px solid #ccc; padding: 12px; margin-bottom: 12px;">
                         <?php
                         
