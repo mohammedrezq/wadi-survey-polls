@@ -23,6 +23,7 @@ const entry = {
     'poll-admin': [__dirname + `/${ assetsFolder }/src/poll-admin.js`],
     'poll-csv': [__dirname + `/${ assetsFolder }/src/pollCSV.js`],
     'survey-csv': [__dirname + `/${ assetsFolder }/src/surveyCSV.js`],
+    'wadi-tooltip': [__dirname + `/${ assetsFolder }/src/tooltip.js`],
 }
 const mainDistentation = path.resolve(
 	__dirname,

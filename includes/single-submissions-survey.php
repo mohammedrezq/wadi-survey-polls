@@ -42,7 +42,19 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
 ?>
 <div style="display:flex;justify-content:space-between;margin-bottom:30px;">
         <h2>Survey Submissions</h2>
-        <button id="export_btn" class="button-primary" data-survey="<?php echo $surveyID; ?>"><?php esc_html_e('Export to CSV', 'wadi-survey-pro'); ?></button>
+        <?php  if (ws_fs()->is_premium() || ws_fs()->is_trial()) {
+            ?>
+            <button id="export_btn" class="button-primary" data-survey="<?php echo $surveyID; ?>"><?php esc_html_e('Export to CSV', 'wadi-survey-pro'); ?></button>
+            
+        <?php } else {
+
+            ?><?php
+            echo '<div class="csv_free_container">
+                <button id="export_btn" class="button-primary" data-survey="'.$surveyID.'">Export to CSV</button>
+                <div class="tooltip_text">Upgarde to enable Single Survey/Poll table Export</div>
+            </div>'; ?>
+            <?php
+        }?>
     </div>
 <table id="single_survey_table" class="table table-striped table-bordered wadi_survey_table">
     <thead>
