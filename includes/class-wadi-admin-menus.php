@@ -36,8 +36,8 @@ class WadiAdminMenus
     {
 
         add_menu_page(
-            esc_html__('Wadi Survey', 'wadi-survey-pro'),
-            esc_html__('Wadi Survey', 'wadi-survey-pro'),
+            esc_html__('Wadi Survey', 'wadi-survey'),
+            esc_html__('Wadi Survey', 'wadi-survey'),
             'manage_options',
             'survey-admin.php',
             '',
@@ -52,7 +52,7 @@ class WadiAdminMenus
      */
     // public function my_custom_menu_page()
     // {
-    //     esc_html_e('<h1>Admin Page Test</h1>', 'wadi-survey-pro');  
+    //     esc_html_e('<h1>Admin Page Test</h1>', 'wadi-survey');  
     // }
 
     /**
@@ -71,8 +71,8 @@ class WadiAdminMenus
     {
         add_submenu_page(
             'survey-admin.php',
-            esc_html__('Survey Submissions', 'wadi-survey-pro'),
-            esc_html__('Survey Submissions', 'wadi-survey-pro'),
+            esc_html__('Survey Submissions', 'wadi-survey'),
+            esc_html__('Survey Submissions', 'wadi-survey'),
             'manage_options',
             'survey_submissions',
             array($this, 'wadi_survey_submissions_callback'),
@@ -96,8 +96,8 @@ class WadiAdminMenus
     {
         add_submenu_page(
             null,
-            esc_html__('Single Survey Submissions', 'wadi-survey-pro'),
-            esc_html__('Single Survey Submissions', 'wadi-survey-pro'),
+            esc_html__('Single Survey Submissions', 'wadi-survey'),
+            esc_html__('Single Survey Submissions', 'wadi-survey'),
             'manage_options',
             'single_survey',
             array($this, 'wadi_survey_submissions_callback_single'),
@@ -143,8 +143,8 @@ class WadiAdminMenus
     {
         add_submenu_page(
             'survey-admin.php',
-            esc_html__('Poll Submissions', 'wadi-survey-pro'),
-            esc_html__('Poll Submissions', 'wadi-survey-pro'),
+            esc_html__('Poll Submissions', 'wadi-survey'),
+            esc_html__('Poll Submissions', 'wadi-survey'),
             'manage_options',
             'poll_submissions',
             array($this, 'wadi_poll_submissions_callback'),
@@ -171,8 +171,8 @@ class WadiAdminMenus
     {
         add_submenu_page(
             null,
-            esc_html__('Single Poll Submissions', 'wadi-survey-pro'),
-            esc_html__('Single Poll Submissions', 'wadi-survey-pro'),
+            esc_html__('Single Poll Submissions', 'wadi-survey'),
+            esc_html__('Single Poll Submissions', 'wadi-survey'),
             'manage_options',
             'single_poll',
             array($this, 'wadi_poll_submissions_callback_single'),
@@ -191,8 +191,8 @@ class WadiAdminMenus
     {
         add_submenu_page(
             'survey-admin.php',
-            esc_html__('Upgrade', 'wadi-survey-pro'),
-            esc_html__('Upgrade', 'wadi-survey-pro'),
+            esc_html__('Upgrade', 'wadi-survey'),
+            esc_html__('Upgrade', 'wadi-survey'),
             'manage_options',
             'admin.php?page=wadi-survey-pricing',
             '',
@@ -205,8 +205,8 @@ class WadiAdminMenus
     {
         add_submenu_page(
             'survey-admin.php',
-            esc_html__('Settings', 'wadi-survey-pro'),
-            esc_html__('Settings', 'wadi-survey-pro'),
+            esc_html__('Settings', 'wadi-survey'),
+            esc_html__('Settings', 'wadi-survey'),
             'manage_options',
             'admin.php?page=wadi-survey-account',
             '',

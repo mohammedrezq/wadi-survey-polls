@@ -44,7 +44,7 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
         <h2>Survey Submissions</h2>
         <?php  if (ws_fs()->is_premium() || ws_fs()->is_trial()) {
             ?>
-            <button id="export_btn" class="button-primary" data-survey="<?php echo $surveyID; ?>"><?php esc_html_e('Export to CSV', 'wadi-survey-pro'); ?></button>
+            <button id="export_btn" class="button-primary" data-survey="<?php echo $surveyID; ?>"><?php esc_html_e('Export to CSV', 'wadi-survey'); ?></button>
             
         <?php } else {
 
@@ -60,10 +60,10 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
     <thead>
         <tr>
             <th>
-                <?php esc_html_e('User ID', 'wadi-survey-pro'); ?>
+                <?php esc_html_e('User ID', 'wadi-survey'); ?>
             </th>
             <th>
-                <?php esc_html_e('Survey', 'wadi-survey-pro'); ?>
+                <?php esc_html_e('Survey', 'wadi-survey'); ?>
             </th>
             
                 <?php
@@ -121,7 +121,7 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
                         <?php
                     } else {
                         ?>
-                        <td><span><?php esc_html_e('Visitor', 'wadi-survey-pro'); ?></span></td>
+                        <td><span><?php esc_html_e('Visitor', 'wadi-survey'); ?></span></td>
                             <?php
                     } ?> 
                     <td>
