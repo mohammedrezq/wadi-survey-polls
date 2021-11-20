@@ -15,7 +15,7 @@
  * Text Domain:       wadi-survey
  * Domain Path:       /languages
  * 
- * @fs_premium_only /includes/survey-csv.php, /includes/poll-csv.php
+ * @fs_premium_only /includes/survey-csv.php, /includes/poll-csv.php, /assets/dist/poll-csv.js, /assets/dist/survey-csv.js, /assets/src/surveyCSV.js, /assets/src/pollCSV.js
  */
 /*
 Wadi Survey is free software: you can redistribute it and/or modify
