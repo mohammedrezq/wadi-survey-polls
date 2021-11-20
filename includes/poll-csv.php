@@ -5,7 +5,7 @@
  /**
   * Only Premium users can download Poll CSV
   */
-if ( ws_fs()->is_premium() || ws_fs()->is_trial() ) {
+if ( ws_fs()->is_premium() ) {
     /**
      * Check if String contains substring // https://stackoverflow.com/questions/66519169/call-to-undefined-function-str-contains-php
      */
