@@ -42,7 +42,7 @@ $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
 ?>
 <div style="display:flex;justify-content:space-between;margin-bottom:30px;">
         <h2>Poll Submissions</h2>
-        <?php  if (ws_fs()->is_premium() || ws_fs()->is_trial()) {
+        <?php  if (ws_fs()->is_premium()) {
             ?>
             <button id="export_btn" class="button-primary" data-poll="<?php echo $pollID; ?>"><?php esc_html_e('Export to CSV', 'wadi-survey'); ?></button>
             

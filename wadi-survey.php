@@ -65,10 +65,6 @@ if (function_exists('ws_fs')) {
                     'has_premium_version' => true,
                     'has_addons'          => false,
                     'has_paid_plans'      => true,
-                    'trial'               => array(
-                        'days'               => 14,
-                        'is_require_payment' => true,
-                    ),
                     'has_affiliation'     => 'selected',
                     'menu'                => array(
                         'first-path'     => 'plugins.php',
@@ -142,7 +138,7 @@ if (function_exists('ws_fs')) {
 
 
     if (ws_fs()->is__premium_only()) {
-        if (ws_fs()->is_premium() || ws_fs()->is_trial()) {
+        if (ws_fs()->is_premium()) {
             /**
              * Add Single Survey CSV Export
              */

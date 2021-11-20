@@ -14,7 +14,7 @@ class WadiEnqueue
         add_action('admin_enqueue_scripts', array($this, 'poll_backend_init_single'));
         
         if (ws_fs()->is__premium_only()) {
-            if (ws_fs()->is_premium() || ws_fs()->is_trial()) {
+            if (ws_fs()->is_premium()) {
                 add_action('admin_enqueue_scripts', array($this, 'poll_js_csv_fn__premium_only'));
 
                 add_action('admin_enqueue_scripts', array($this, 'survey_js_csv_fn__premium_only'));
@@ -93,7 +93,7 @@ class WadiEnqueue
             return;
         }
 
-        if (ws_fs()->is_premium() || ws_fs()->is_trial()) {
+        if (ws_fs()->is_premium()) {
             wp_enqueue_script('survey_js_csv', plugins_url('assets/dist/survey-csv.js', realpath(__DIR__)), array('jquery'), '1.0.0', true);
         }
     }
@@ -135,7 +135,7 @@ class WadiEnqueue
         if ('admin_page_single_poll' != $hook) {
             return;
         }
-        if (ws_fs()->is_premium() || ws_fs()->is_trial()) {
+        if (ws_fs()->is_premium()) {
             wp_enqueue_script('poll_js_csv', plugins_url('assets/dist/poll-csv.js', realpath(__DIR__)), array('jquery'), '1.0.0', true);
         }
     }
