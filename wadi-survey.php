@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name:       Wadi Survey Pro
+ * Plugin Name:       Wadi Survey
  * Plugin URI:        https://www.wadiweb.com
  * Description:       Handle the basics with this plugin.
  * Version:           1.0.0
