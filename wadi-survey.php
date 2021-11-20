@@ -14,6 +14,8 @@
  * Update URI:        https://www.wadiweb.com
  * Text Domain:       wadi-survey
  * Domain Path:       /languages
+ * 
+ * @fs_premium_only /includes/survey-csv.php, /includes/poll-csv.php
  */
 /*
 Wadi Survey is free software: you can redistribute it and/or modify
@@ -139,20 +141,21 @@ if (function_exists('ws_fs')) {
     require_once PLUGIN_PATH . 'includes/class-wadi-survey-enqueue.php';
 
 
-    if ( ws_fs()->is_premium() || ws_fs()->is_trial() ) {
-        /**
-         * Add Single Survey CSV Export
-         */
+    if (ws_fs()->is__premium_only()) {
+        if (ws_fs()->is_premium() || ws_fs()->is_trial()) {
+            /**
+             * Add Single Survey CSV Export
+             */
 
-        require_once PLUGIN_PATH . 'includes/survey-csv.php';
+            require_once PLUGIN_PATH . 'includes/survey-csv.php';
 
-        /**
-         * Add Single Poll CSV Export
-         */
+            /**
+             * Add Single Poll CSV Export
+             */
 
-        require_once PLUGIN_PATH . 'includes/poll-csv.php';
+            require_once PLUGIN_PATH . 'includes/poll-csv.php';
+        }
     }
-
 
     /**
      * Wadi Survey Uninstall
@@ -290,6 +293,9 @@ if (function_exists('ws_fs')) {
             echo '<input class="wadi_poll_shortcode" type="text" readonly="" value="[wadi-poll id=&quot;' . $post_ID . '&quot;]">';
         }
     }
+
+
+
 
 
     add_filter('single_template', 'override_single_template');

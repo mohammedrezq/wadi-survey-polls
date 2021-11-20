@@ -13,17 +13,18 @@ class WadiEnqueue
         
         add_action('admin_enqueue_scripts', array($this, 'poll_backend_init_single'));
         
-        if (ws_fs()->is_premium() || ws_fs()->is_trial()) {
+        if (ws_fs()->is__premium_only()) {
+            if (ws_fs()->is_premium() || ws_fs()->is_trial()) {
+                add_action('admin_enqueue_scripts', array($this, 'poll_js_csv_fn__premium_only'));
 
-            add_action('admin_enqueue_scripts', array($this, 'poll_js_csv_fn'));
-
-            add_action('admin_enqueue_scripts', array($this, 'survey_js_csv_fn'));
-            
+                add_action('admin_enqueue_scripts', array($this, 'survey_js_csv_fn__premium_only'));
+            }
         } else {
             add_action('admin_enqueue_scripts', array($this, 'poll_tooltip_fn'));
-
+    
             add_action('admin_enqueue_scripts', array($this, 'survey_tooltip_fn'));
         }
+
 
         add_action('admin_enqueue_scripts', array($this, 'poll_backend_init'));
         
@@ -86,7 +87,7 @@ class WadiEnqueue
      * Script for Survey CSV
      */
     
-    public function survey_js_csv_fn($hook)
+    public function survey_js_csv_fn__premium_only($hook)
     {
         if ('admin_page_single_survey' != $hook) {
             return;
@@ -129,7 +130,7 @@ class WadiEnqueue
      * Script for Survey CSV
      */
     
-    public function poll_js_csv_fn($hook)
+    public function poll_js_csv_fn__premium_only($hook)
     {
         if ('admin_page_single_poll' != $hook) {
             return;
