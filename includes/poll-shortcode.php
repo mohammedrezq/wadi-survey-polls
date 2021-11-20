@@ -331,7 +331,7 @@ function display_poll_post_type($atts)
                 <?php
         } ?>
             </div>
-            <button type="submit" class="wadi_poll_submit"><?php esc_html_e('Submit', 'wadi-survey-pro'); ?></button>
+            <button type="submit" class="wadi_poll_submit"><?php esc_html_e('Submit', 'wadi-survey'); ?></button>
             
             </form>
             <input type="hidden" data-poll-finish-message='<?php echo $poll_finish_message; ?>' data-poll-already-taken-message='<?php echo $poll_already_taken_message; ?>' class="poll_redirect_url" data-poll-redirect-time='<?php echo $poll_redirect_time; ?>' data-poll-redirect-url='<?php echo $poll_redirect_url; ?>' />

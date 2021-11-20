@@ -44,7 +44,7 @@ $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
         <h2>Poll Submissions</h2>
         <?php  if (ws_fs()->is_premium() || ws_fs()->is_trial()) {
             ?>
-            <button id="export_btn" class="button-primary" data-poll="<?php echo $pollID; ?>"><?php esc_html_e('Export to CSV', 'wadi-survey-pro'); ?></button>
+            <button id="export_btn" class="button-primary" data-poll="<?php echo $pollID; ?>"><?php esc_html_e('Export to CSV', 'wadi-survey'); ?></button>
             
         <?php } else {
 
@@ -60,10 +60,10 @@ $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
     <thead>
         <tr>
             <th>
-            <?php esc_html_e('User', 'wadi-survey-pro'); ?>
+            <?php esc_html_e('User', 'wadi-survey'); ?>
             </th>
             <th>
-            <?php esc_html_e('Poll', 'wadi-survey-pro'); ?>
+            <?php esc_html_e('Poll', 'wadi-survey'); ?>
             </th>
             
                 <?php
@@ -122,7 +122,7 @@ $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
                     } 
                     else {
                         ?>
-                        <td><span><?php esc_html_e('Visitor', 'wadi-survey-pro'); ?></span></td>
+                        <td><span><?php esc_html_e('Visitor', 'wadi-survey'); ?></span></td>
                             <?php
                     } 
                     ?>  
