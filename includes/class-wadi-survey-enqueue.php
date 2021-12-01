@@ -74,11 +74,11 @@ class WadiEnqueue
             return;
         }
         
-        wp_enqueue_style('boot-style_3', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css', array(), '4.5.2', 'all');
-        wp_enqueue_style('datatables_boot-style_3', 'https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css', array(), '1.10.25', 'all');
+        wp_enqueue_style('boot-style_3', plugins_url('assets/scripts/bootstrap.min.css', realpath(__DIR__)), array(), '4.5.2', 'all');
+        wp_enqueue_style('datatables_boot-style_3', plugins_url('assets/scripts/dataTables.bootstrap4.min.css', realpath(__DIR__)), array(), '1.10.25', 'all');
         wp_enqueue_script('jquery_wadi', 'https://code.jquery.com/jquery-3.5.1.js', array(), '3.5.1', true);
-        wp_enqueue_script('jquery_datatable_wadi', 'https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js', array('jquery'), '1.10.25', true);
-        wp_enqueue_script('datatable_bootstrap_wadi', 'https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js', array('jquery'), '1.10.25', true);
+        wp_enqueue_script('jquery_datatable_wadi', plugins_url('assets/scripts/jquery.dataTables.min.js', realpath(__DIR__)), array('jquery'), '1.10.25', true);
+        wp_enqueue_script('datatable_bootstrap_wadi', plugins_url('assets/scripts/dataTables.bootstrap4.min.js', realpath(__DIR__)), array('jquery'), '1.10.25', true);
         wp_enqueue_style('survey_styles', plugins_url('assets/dist/main.css', realpath(__DIR__)), false, '1.0.0', 'all');
         wp_enqueue_script('survey_js_backend', plugins_url('assets/dist/main.js', realpath(__DIR__)), array('jquery'), '1.0.0', true);
     }
