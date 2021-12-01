@@ -19,10 +19,6 @@ class WadiAdminMenus
 
         add_action('admin_menu', array($this, 'register_poll_submissions_menu_single'));
 
-        // Freemius 
-
-        add_action('admin_menu', array($this, 'register_freemius_upgrade_page'));
-        add_action('admin_menu', array($this, 'register_freemius_settings_page'));
     }
 
     /**
@@ -46,14 +42,6 @@ class WadiAdminMenus
         );
     }
 
- 
-    /**
-     * Display a custom menu page
-     */
-    // public function my_custom_menu_page()
-    // {
-    //     esc_html_e('<h1>Admin Page Test</h1>', 'wadi-survey');  
-    // }
 
     /**
      * Add Survey Submission Submenu
@@ -180,39 +168,6 @@ class WadiAdminMenus
         );
     }
 
-    // public function wadi_survey_upgrade() {
-    //     if ( ws_fs()->is_not_paying() ) {
-    //        return ws_fs()->get_upgrade_url();
-    //     }
-    // }
-
-    // Freemius Upgrade
-    public function register_freemius_upgrade_page()
-    {
-        add_submenu_page(
-            'survey-admin.php',
-            esc_html__('Upgrade', 'wadi-survey'),
-            esc_html__('Upgrade', 'wadi-survey'),
-            'manage_options',
-            'admin.php?page=wadi-survey-pricing',
-            '',
-            200
-        );
-    }
-
-    // Freemius settings
-    public function register_freemius_settings_page()
-    {
-        add_submenu_page(
-            'survey-admin.php',
-            esc_html__('Settings', 'wadi-survey'),
-            esc_html__('Settings', 'wadi-survey'),
-            'manage_options',
-            'admin.php?page=wadi-survey-account',
-            '',
-            0
-        );
-    }
 }
 
 new WadiAdminMenus;

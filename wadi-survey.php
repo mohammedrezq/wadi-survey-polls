@@ -66,11 +66,9 @@ if (function_exists('ws_fs')) {
                     'has_addons'          => false,
                     'has_paid_plans'      => true,
                     'has_affiliation'     => 'selected',
-                    'menu'                => array(
-                        'first-path'     => 'plugins.php',
-                        'contact'        => true,
-                        'support'        => true,
-                        'account'        => true
+                    'menu' => array(
+                        'slug'       => 'survey-admin.php',
+                        'first-path' => 'edit.php?post_type=wadi-survey'
                     ),
                     'navigation'        => 'menu',
                     // Set the SDK to work in a sandbox mode (for development & testing).
