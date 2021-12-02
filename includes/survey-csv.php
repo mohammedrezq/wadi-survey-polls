@@ -7,7 +7,7 @@ if (! defined('ABSPATH')) {
   * Only Premium users can download Survey CSV
   */
 
-if ( ws_fs()->is_premium() ) {
+if (ws_fs()->is_premium()) {
 
 /**
  * Check if String contains substring // https://stackoverflow.com/questions/66519169/call-to-undefined-function-str-contains-php
@@ -56,8 +56,10 @@ if ( ws_fs()->is_premium() ) {
         
             $v_new=json_decode($surveyQArr, true);
 
-            foreach ($v_new as $key => $item) {
-                array_push($headers, $item['name']);
+            if (is_array($v_new) || is_object($v_new)) {
+                foreach ($v_new as $key => $item) {
+                    array_push($headers, $item['name']);
+                }
             }
         }
 
@@ -96,13 +98,15 @@ if ( ws_fs()->is_premium() ) {
             foreach ($surveyAnswersArr as $arr) {
                 $v_new=json_decode($arr, true);
 
-                foreach ($v_new as $key => $item) {
-                    if (str_contains($item['value'], 'wadi_image_pick_')) {
-                        $image_picked_id = str_replace('wadi_image_pick_', '', $item['value']);
-                        wp_get_attachment_url($image_picked_id);
-                        array_push($lead_array['answers'], wp_get_attachment_url($image_picked_id));
-                    } else {
-                        array_push($lead_array['answers'], $item['value']);
+                if (is_array($v_new) || is_object($v_new)) {
+                    foreach ($v_new as $key => $item) {
+                        if (str_contains($item['value'], 'wadi_image_pick_')) {
+                            $image_picked_id = str_replace('wadi_image_pick_', '', $item['value']);
+                            wp_get_attachment_url($image_picked_id);
+                            array_push($lead_array['answers'], wp_get_attachment_url($image_picked_id));
+                        } else {
+                            array_push($lead_array['answers'], $item['value']);
+                        }
                     }
                 }
             }
