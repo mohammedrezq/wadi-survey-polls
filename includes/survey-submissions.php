@@ -57,14 +57,14 @@ $wpdb_table", ARRAY_A);
                 <?php
                     if (isset($user_data->ID) && !empty($user_data)) {
                         ?>
-                        <td style="width: 25%"><a href="<?php echo get_edit_user_link($user_data->ID); ?>" target="_blank"><?php echo $user_data->display_name; ?></a></td>
+                        <td style="width: 25%"><a href="<?php echo esc_url(get_edit_user_link($user_data->ID)); ?>" target="_blank"><?php esc_attr_e($user_data->display_name); ?></a></td>
                         <?php
                     } else {
                         ?>
                         <td style="width: 25%"><span>Visitor</span></td>
                             <?php
                     } ?>                    <td style="width: 25%">
-                        <a href='<?php echo site_url()."/wp-admin/admin.php?page=single_survey&survey_id=$surveyId" ?>' target="_blank"><?php echo get_the_title($surveyId); ?></a>
+                        <a href='<?php echo esc_url(site_url()."/wp-admin/admin.php?page=single_survey&survey_id=$surveyId"); ?>' target="_blank"><?php esc_html_e(get_the_title($surveyId)); ?></a>
                     </td>
                     <?php
                     $theUserId = $single_result['user_id'];
@@ -90,19 +90,22 @@ $wpdb_table", ARRAY_A);
                         $v_new=json_decode($arr, true);
 
                         foreach ($v_new as $key => $item) {
-                            echo "<strong>" . $item['name'] ."</strong>".'<br /><br />';
+                            echo wp_kses_post("<strong>" . $item['name'] ."</strong>".'<br /><br />');
                             if (isset($item['value'])) {
                                 if (str_contains($item['value'], 'wadi_image_pick_')) {
                                     $image_picked_id = str_replace('wadi_image_pick_', '', $item['value']);
                                     echo wp_get_attachment_image($image_picked_id) . '<br /><br />' . wp_get_attachment_url($image_picked_id).'<br /><br />';
                                 } else {
-                                    echo $item['value'].'<br /><br />';
+                                    echo wp_kses_post($item['value'].'<br /><br />');
                                 }
                             }
                         }
                     }
-                    echo "</div>";
-                } ?>
+                    ?>
+                   </div>
+                   <?php
+                } 
+                ?>
                 </td>
                 </tr>
             <?php
