@@ -11,19 +11,19 @@ if (!function_exists('str_contains')) {
         return '' === $needle || false !== strpos($haystack, $needle);
     }
 }
+$pollID = intval((int)$_GET['poll_id']);
 
-if(!empty( $_GET['poll_id']) ) {
+if(!empty( $pollID ) ) {
 
     global $wpdb;
 $wpdb_table = $wpdb->prefix . 'wadi_poll_submissions';
 
-$pollID = $_GET['poll_id'];
 
 
 $poll_query = $wpdb->prepare("SELECT
 *
 FROM
-$wpdb_table WHERE poll_id=%s", $pollID);
+$wpdb_table WHERE poll_id=%d", $pollID);
 
 
 $query_results = $wpdb->get_results($poll_query, ARRAY_A);
@@ -33,7 +33,7 @@ $query_results = $wpdb->get_results($poll_query, ARRAY_A);
 $poll_ids = $wpdb->prepare("SELECT
         DISTINCT user_id, poll_id
         FROM
-        $wpdb_table WHERE poll_id=%s", $pollID);
+        $wpdb_table WHERE poll_id=%d", $pollID);
 
 $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
 
@@ -68,21 +68,24 @@ $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
             
                 <?php
 
-                foreach ($query_results[0] as $poll_item) {
+                if(isset($query_results[0])) {
 
-                    $pollQArr=str_replace('\\','', $poll_item);
-
-                    
-                    $v_new=json_decode($pollQArr,true);
-
-                    if(isset($v_new) && is_array($v_new) || is_object($v_new)) {
-                        foreach ($v_new as $item) {
-                            echo "<th class='question_th'>";
-                            echo $item['name'];
-                            echo "</th>";
-                        }
-                    }
+                    foreach ($query_results[0] as $poll_item) {
+    
+                        $pollQArr=str_replace('\\','', $poll_item);
+    
                         
+                        $v_new=json_decode($pollQArr,true);
+    
+                        if(isset($v_new) && is_array($v_new) || is_object($v_new)) {
+                            foreach ($v_new as $item) {
+                                echo "<th class='question_th'>";
+                                echo $item['name'];
+                                echo "</th>";
+                            }
+                        }
+                            
+                    }
                 }
                 ?>
             
@@ -95,7 +98,7 @@ $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
         $answers_query = $wpdb->prepare("SELECT
         questions_answers, user_id
         FROM
-        $wpdb_table WHERE poll_id=%s", $pollID);
+        $wpdb_table WHERE poll_id=%d", $pollID);
 
         $answers_query_results = $wpdb->get_results($answers_query, ARRAY_A);
 
@@ -105,12 +108,8 @@ $query_poll_ids = $wpdb->get_results($poll_ids, ARRAY_A);
         $user_data = get_userdata($single_result['user_id']);
         $pollId = $single_result['poll_id'];
         $PollPermalink = get_edit_post_link($pollId);
-        ?>
-
-<?php
-
-            }        
-            foreach ($answers_query_results as $poll_item) { 
+    }        
+        foreach ($answers_query_results as $poll_item) {
                 $user_data = get_userdata($poll_item['user_id']);
                 ?>
                 <tr>
