@@ -59,7 +59,7 @@ if (function_exists('ws_fs')) {
                     'premium_slug'        => 'wadi-survey-pro',
                     'type'                => 'plugin',
                     'public_key'          => 'pk_81546581cee0f44b8175e04b18816',
-                    'is_premium'          => false,
+                    'is_premium'          => true,
                     'premium_suffix'      => 'pro',
                     // If your plugin is a serviceware, set this option to false.
                     'has_premium_version' => true,

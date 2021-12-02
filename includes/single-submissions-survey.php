@@ -11,19 +11,17 @@ if (!function_exists('str_contains')) {
         return '' === $needle || false !== strpos($haystack, $needle);
     }
 }
-
+$surveyID = intval((int)$_GET['survey_id']);
 if(!empty( $_GET['survey_id']) ) {
 
     global $wpdb;
 $wpdb_table = $wpdb->prefix . 'wadi_survey_submissions';
 
-$surveyID = $_GET['survey_id'];
-
 
 $survey_query = $wpdb->prepare("SELECT
 *
 FROM
-$wpdb_table WHERE survey_id=%s", $surveyID);
+$wpdb_table WHERE survey_id=%d", $surveyID);
 
 
 $query_results = $wpdb->get_results($survey_query, ARRAY_A);
@@ -33,7 +31,7 @@ $query_results = $wpdb->get_results($survey_query, ARRAY_A);
 $survey_ids = $wpdb->prepare("SELECT
         DISTINCT user_id, survey_id
         FROM
-        $wpdb_table WHERE survey_id=%s", $surveyID);
+        $wpdb_table WHERE survey_id=%d", $surveyID);
 
 $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
 
@@ -67,22 +65,24 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
             </th>
             
                 <?php
+                if(isset($query_results[0])) {
 
-                foreach ($query_results[0] as $survey_item) {
-
-                    $surveyQArr=str_replace('\\','', $survey_item);
-
-                    
-                    $v_new=json_decode($surveyQArr,true);
-
-                    if(isset($v_new) && is_array($v_new) || is_object($v_new)) {
-                        foreach ($v_new as $item) {
-                            echo "<th class='question_th'>";
-                            echo $item['name'];
-                            echo "</th>";
-                        }
-                    }
+                    foreach ($query_results[0] as $survey_item) {
+    
+                        $surveyQArr=str_replace('\\','', $survey_item);
+    
                         
+                        $v_new=json_decode($surveyQArr,true);
+    
+                        if(isset($v_new) && is_array($v_new) || is_object($v_new)) {
+                            foreach ($v_new as $item) {
+                                echo "<th class='question_th'>";
+                                echo $item['name'];
+                                echo "</th>";
+                            }
+                        }
+                            
+                    }
                 }
                 ?>
             
@@ -95,7 +95,7 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
         $answers_query = $wpdb->prepare("SELECT
         questions_answers, user_id
         FROM
-        $wpdb_table WHERE survey_id=%s", $surveyID);
+        $wpdb_table WHERE survey_id=%d", $surveyID);
 
         $answers_query_results = $wpdb->get_results($answers_query, ARRAY_A);
 
