@@ -70,50 +70,55 @@ class WadiSurveyDB
 	public function getSurveyData()
 	{
 		global $wpdb;
-		$data = $_POST['data'];
-		$survey_time =  current_time('mysql', true);
+        if (isset($_POST['data']) && !empty($_POST['data'])) {
+            $userID = intval($_POST['data']['user_id']);
+            $surveyID = intval($_POST['data']['survey_id']);
+            $surveyData = sanitize_text_field($_POST['data']['surveyData']);
+			
+            $survey_time =  current_time('mysql', true);
 
-		$table_name = $wpdb->prefix . 'wadi_survey_submissions';
+            $table_name = $wpdb->prefix . 'wadi_survey_submissions';
 
 
-		$existedRow = $wpdb->get_var(
-			$wpdb->prepare(
-				"SELECT id FROM " . $table_name . "
+            $existedRow = $wpdb->get_var(
+                $wpdb->prepare(
+                "SELECT id FROM " . $table_name . "
 				WHERE user_id = %d AND survey_id = %d LIMIT 1",
-				$data['user_id'],
-				$data['survey_id']
-			)
-		);
+                $userID,
+                $surveyID
+            )
+            );
 
 
-		$allow_multiple_responses =  carbon_get_post_meta($data['survey_id'], 'wadi_survey_multiple_responses');
+            $allow_multiple_responses =  carbon_get_post_meta($surveyID, 'wadi_survey_multiple_responses');
 
 
-		if (!isset($existedRow) && $allow_multiple_responses != TRUE) {
+            if (!isset($existedRow) && $allow_multiple_responses != true) {
+                $wpdb->insert(
+                    $table_name,
+                    array(
+                    'time' => $survey_time,
+                    'user_id' => $userID,
+                    'survey_id' => $surveyID,
+                    'questions_answers' => $surveyData,
+                )
+                );
+            } elseif ($allow_multiple_responses == true) {
+                $wpdb->insert(
+                    $table_name,
+                    array(
+                    'time' => $survey_time,
+                    'user_id' => $userID,
+                    'survey_id' => $surveyID,
+                    'questions_answers' => $surveyData,
+                )
+                );
+            }
 
-
-			$wpdb->insert(
-				$table_name,
-				array(
-					'time' => $survey_time,
-					'user_id' => $data['user_id'],
-					'survey_id' => $data['survey_id'],
-					'questions_answers' => $data['surveyData'],
-				)
-			);
-		} elseif ($allow_multiple_responses == TRUE) {
-			$wpdb->insert(
-				$table_name,
-				array(
-					'time' => $survey_time,
-					'user_id' => $data['user_id'],
-					'survey_id' => $data['survey_id'],
-					'questions_answers' => $data['surveyData'],
-				)
-			);
+            wp_die();
+        } else {
+			die();
 		}
-
-		wp_die();
 	}
 
 
