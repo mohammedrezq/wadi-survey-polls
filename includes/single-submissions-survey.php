@@ -42,15 +42,15 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
         <h2>Survey Submissions</h2>
         <?php  if (ws_fs()->is_premium()) {
             ?>
-            <button id="export_btn" class="button-primary" data-survey="<?php echo $surveyID; ?>"><?php esc_html_e('Export to CSV', 'wadi-survey'); ?></button>
+            <button id="export_btn" class="button-primary" data-survey="<?php echo esc_attr($surveyID); ?>"><?php esc_html_e('Export to CSV', 'wadi-survey'); ?></button>
             
         <?php } else {
 
             ?><?php
-            echo '<div class="csv_free_container">
+            echo wp_kses_post('<div class="csv_free_container">
                 <button id="export_btn" class="button-primary" data-survey="'.$surveyID.'">Export to CSV</button>
                 <div class="tooltip_text">Upgarde to enable Single Survey/Poll table Export</div>
-            </div>'; ?>
+            </div>'); ?>
             <?php
         }?>
     </div>
@@ -76,9 +76,9 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
     
                         if(isset($v_new) && is_array($v_new) || is_object($v_new)) {
                             foreach ($v_new as $item) {
-                                echo "<th class='question_th'>";
-                                echo $item['name'];
-                                echo "</th>";
+                                echo wp_kses_post("<th class='question_th'>");
+                                echo esc_attr($item['name']);
+                                echo wp_kses_post("</th>");
                             }
                         }
                             
@@ -117,7 +117,7 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
                     <?php
                     if (isset($user_data->ID)) {
                         ?>
-                        <td><a href="<?php echo get_edit_user_link($user_data->ID); ?>" target="_blank"><?php echo $user_data->display_name; ?></a></td>
+                        <td><a href="<?php echo esc_url(get_edit_user_link($user_data->ID)); ?>" target="_blank"><?php esc_attr_e($user_data->display_name); ?></a></td>
                         <?php
                     } else {
                         ?>
@@ -125,7 +125,7 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
                             <?php
                     } ?> 
                     <td>
-                    <a href='<?php echo $SurveyPermalink; ?>' target="_blank"><?php echo get_the_title($surveyId); ?></a>
+                    <a href='<?php echo esc_url($SurveyPermalink); ?>' target="_blank"><?php esc_html_e(get_the_title($surveyId)); ?></a>
                     </td>
                     <?php
 
@@ -143,21 +143,23 @@ $query_survey_ids = $wpdb->get_results($survey_ids, ARRAY_A);
                     if(isset($v_new) && is_array($v_new) || is_object($v_new)) {
                         foreach ($v_new as $key => $item) {
                             
-                            echo "<td class='answer_th'>";
+                            echo wp_kses_post("<td class='answer_th'>");
                             if(str_contains($item['value'], 'wadi_image_pick_')){
                                 $image_picked_id = str_replace('wadi_image_pick_', '', $item['value']);
-                                echo wp_get_attachment_image($image_picked_id) . '<br /><br />' . wp_get_attachment_url($image_picked_id).'<br /><br />';
+                                echo wp_kses_post(wp_get_attachment_image($image_picked_id) . '<br /><br />' . wp_get_attachment_url($image_picked_id).'<br /><br />');
                             } else {
-                                echo $item['value'];
+                                echo esc_attr($item['value']);
                             }
 
-                            echo "</td>";
+                            echo wp_kses_post("</td>");
                         }
                     }
                 
             }
         }
-        echo "</tr>";
+        ?>
+        </tr>
+        <?php
         ?>
 
 

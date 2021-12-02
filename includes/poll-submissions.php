@@ -100,7 +100,7 @@ $wpdb_table", ARRAY_A);
                                 if (isset($item['value'])) {
                                     if (str_contains($item['value'], 'poll_wadi_image_pick_')) {
                                         $image_picked_id = str_replace('poll_wadi_image_pick_', '', $item['value']);
-                                        echo wp_get_attachment_image($image_picked_id) . '<br /><br />' . wp_get_attachment_url($image_picked_id).'<br /><br />';
+                                        echo wp_kses_post(wp_get_attachment_image($image_picked_id) . '<br /><br />' . wp_get_attachment_url($image_picked_id).'<br /><br />');
                                     } else {
                                         echo wp_kses_post($item['value'].'<br /><br />');
                                     }
