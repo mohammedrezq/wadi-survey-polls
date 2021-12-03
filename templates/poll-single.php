@@ -163,4 +163,4 @@ $allow_multiple_responses_poll =  carbon_get_post_meta($the_post_id, 'wadi_poll_
     <button type="submit" class="wadi_poll_submit">Submit</button>
 
 </form>
-<input type="hidden" data-poll-finish-message='<?php echo $poll_finish_message; ?>' data-poll-already-taken-message='<?php echo $poll_already_taken_message; ?>' class="poll_redirect_url" data-poll-redirect-time='<?php echo $poll_redirect_time; ?>' data-poll-redirect-url='<?php echo $poll_redirect_url; ?>' />
+<input type="hidden" data-poll-finish-message='<?php echo wp_kses_post($poll_finish_message); ?>' data-poll-already-taken-message='<?php echo wp_kses_post($poll_already_taken_message); ?>' class="poll_redirect_url" data-poll-redirect-time='<?php echo esc_attr($poll_redirect_time); ?>' data-poll-redirect-url='<?php echo esc_attr($poll_redirect_url); ?>' />
