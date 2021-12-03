@@ -14,9 +14,9 @@ $redirect_time =  carbon_get_post_meta($the_post_id, 'wadi_survey_settimeout');
 
 ?>
 
-<form  id="multistep_survey" method="POST" class="survey_multistep_container" data-survey-id="<?php echo $the_post_id; ?>" 
-data-user-id="<?php echo $the_current_user_id; ?>"
-data-post-type="<?php echo get_post_type($the_post_id); ?>"
+<form  id="multistep_survey" method="POST" class="survey_multistep_container" data-survey-id="<?php echo esc_attr($the_post_id); ?>" 
+data-user-id="<?php echo esc_attr($the_current_user_id); ?>"
+data-post-type="<?php echo esc_attr(get_post_type($the_post_id)); ?>"
 >
     <?php
     $survey_items = carbon_get_post_meta(get_the_ID(), 'survey_items');
@@ -29,13 +29,15 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
             if ($survey_item['select_survey_question_type'] == 'single_choice') {
     ?>
             <div class="single_question_container tab">
-                <div class="single_question"><?php echo $survey_item['single_question']; ?></div>
+                <div class="single_question">
+                    <?php echo wp_kses_post($survey_item['single_question']); ?>
+                </div>
                 <?php
                 foreach ($survey_item['single_answers'] as $single_answer) {
                 ?>
                     <div class="survey_single_question survey_custom_control">
-                        <input type="radio" id="customRadio_<?php echo $single_answer['single_text_answers']; ?>" value="<?php echo $single_answer['single_text_answers']; ?>" name="<?php echo $survey_item['single_question']; ?>" class="custom-control-input">
-                        <label class="survey_single_question_label" for="customRadio_<?php echo $single_answer['single_text_answers']; ?>"><?php echo $single_answer['single_text_answers']; ?></label>
+                        <input type="radio" id="customRadio_<?php echo esc_html(wp_strip_all_tags($single_answer['single_text_answers'])); ?>" value="<?php echo esc_html($single_answer['single_text_answers']); ?>" name="<?php echo esc_attr(wp_strip_all_tags($survey_item['single_question'])); ?>" class="custom-control-input">
+                        <label class="survey_single_question_label" for="customRadio_<?php echo esc_html(wp_strip_all_tags($single_answer['single_text_answers'])); ?>"><?php echo wp_kses_post($single_answer['single_text_answers']); ?></label>
                     </div>
 
                 <?php
@@ -60,9 +62,11 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                 
                 
                 ?>
-                <div class="multiple_question_container tab" id="<?php echo $theQuestionCleaned; ?>">
-                    <div class="multiple_choices_question"><?php echo $multiple_question; ?></div>
-                    <input type="hidden" class="multiple_choice_question_answers" name="<?php echo $multiple_question_cleanup; ?>" value="" />
+                <div class="multiple_question_container tab" id="<?php echo esc_attr($theQuestionCleaned); ?>">
+                    <div class="multiple_choices_question">
+                        <?php echo wp_kses_post($multiple_question); ?>
+                    </div>
+                    <input type="hidden" class="multiple_choice_question_answers" name="<?php echo esc_html(wp_strip_all_tags($multiple_question_cleanup)); ?>" value="" />
                 <?php
                 foreach ($survey_item['multiple_answers'] as $multiple_text_answers) {
                     $available_multiple_answers = $multiple_text_answers['multiple_text_answers'];
@@ -70,11 +74,12 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
 
                 ?>
                         <div class="custom-control custom-radio">
-                            <input type="checkbox" id="customCheckbox_<?php echo $available_multiple_answers; ?>" data-answer="<?php echo $available_multiple_answers; ?>" data-question="<?php echo $multiple_question_cleanup; ?>" class="custom-control-input">
-                            <label class="custom-control-label" for="customCheckbox_<?php echo $available_multiple_answers; ?>"><?php echo $available_multiple_answers; ?></label>
+                            <input type="checkbox" id="customCheckbox_<?php echo esc_html(wp_strip_all_tags($available_multiple_answers)); ?>" data-answer="<?php echo esc_html($available_multiple_answers); ?>" data-question="<?php echo esc_html($multiple_question_cleanup); ?>" class="custom-control-input">
+                            <label class="custom-control-label" for="customCheckbox_<?php echo esc_html(wp_strip_all_tags($available_multiple_answers)); ?>"><?php echo wp_kses_post($available_multiple_answers); ?></label>
                         </div>
                         <?php
-                }?>
+                }
+                ?>
                 </div>
                 <?php
             }
@@ -88,18 +93,18 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                 $matrix_questions_row_head = $survey_item['matrix_questions_array'];
                 ?>
                 <div class="matrix_question_container tab">
-                    <div class="matrix_statement"><?php echo $matrix_question_statement; ?></div>
+                    <div class="matrix_statement"><?php echo wp_kses_post($matrix_question_statement); ?></div>
                     <div class="matrix_table_container">
                         <table>
                             <thead>
                                 <tr>
-                                    <th><?php echo __('Questions') ?></th>
+                                    <th><?php echo esc_attr__('Questions', 'wadi-survey') ?></th>
                                     <?php
                                     foreach ($matrix_answers_row_head as $theadAnswer) {
                                         $thAnswer = $theadAnswer['matrix_answer_text'];
                                     ?>
     
-                                        <th><?php echo $thAnswer; ?></th>
+                                        <th><?php echo wp_kses_post($thAnswer); ?></th>
                                     <?php } ?>
                                 </tr>
                             </thead>
@@ -109,13 +114,13 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                                 for ($i = 0; $i < $length; $i++) {
                                 ?>
                                     <tr>
-                                        <th><?php echo $matrix_questions_row_head[$i]['matrix_text_questions']; ?></th>
+                                        <th><?php echo wp_kses_post($matrix_questions_row_head[$i]['matrix_text_questions']); ?></th>
                                         <?php
                                         foreach ($matrix_answers_row_head as $answers) {
                                             $theAnswers = $answers['matrix_answer_text'];
                                         ?>
                                             <td>
-                                                <input type='radio' id="id_<?php echo $theAnswers ?>" class='radio_input' name="<?php echo $matrix_questions_row_head[$i]['matrix_text_questions']; ?>" value="<?php echo $theAnswers ?>" />
+                                                <input type='radio' id="id_<?php echo esc_html(wp_strip_all_tags($theAnswers)); ?>" class='radio_input' name="<?php echo esc_html(wp_strip_all_tags($matrix_questions_row_head[$i]['matrix_text_questions'])); ?>" value="<?php echo esc_html(wp_strip_all_tags($theAnswers)); ?>" />
                                             </td>
                                         <?php
                                         }
@@ -137,10 +142,10 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
             if ($survey_item['select_survey_question_type'] == 'textarea') { ?>
                 <div class="textarea_question_container tab">
                     <div class="textarea_question survey_question">
-                        <?php echo $survey_item['textarea_question']; ?>
+                        <?php echo wp_kses_post($survey_item['textarea_question']); ?>
                     </div>
                     <div class="survey_textarea_answer textarea_answer">
-                        <textarea id="customText" name="<?php echo $survey_item['textarea_question']; ?>" rows="3" col="30"></textarea>
+                        <textarea id="customText" name="<?php echo esc_html(wp_strip_all_tags($survey_item['textarea_question'])); ?>" rows="3" col="30"></textarea>
                     </div>
 
                 </div>
@@ -156,14 +161,14 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                 ?>
                 <div class="rating_scale_container tab">
 
-                    <div class="rating_scale_question"><?php echo $survey_item['rating_question']; ?></div>
-                    <div class="rating_scale_answer_container" data-start-rating-scale-range="<?php echo $survey_item['rating_question_number_1']; ?>" data-end-rating-scale-range="<?php echo $survey_item['rating_question_number_2']; ?>">
+                    <div class="rating_scale_question"><?php echo wp_kses_post($survey_item['rating_question']); ?></div>
+                    <div class="rating_scale_answer_container" data-start-rating-scale-range="<?php echo esc_html($survey_item['rating_question_number_1']); ?>" data-end-rating-scale-range="<?php echo esc_html($survey_item['rating_question_number_2']); ?>">
                         <div class="rating_scale_answer_text_container">
                             <div class="rating_scale_question_starting">
-                                <?php echo $survey_item['rating_scale_question_starting'] ?>
+                                <?php echo esc_attr($survey_item['rating_scale_question_starting']); ?>
                             </div>
                             <div class="rating_scale_question_ending">
-                                <?php echo $survey_item['rating_scale_question_ending'] ?>
+                                <?php echo esc_attr($survey_item['rating_scale_question_ending']); ?>
                             </div>
                         </div>
                         <?php
@@ -175,8 +180,8 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                         for($i = $starting; $i<= $ending; $i++) {
                             ?>
                             <li class="rating_scale_item">
-                                <input type='radio' id="id_<?php echo $i ?>" class='radio_input' name="<?php echo $survey_item['rating_question']; ?>" value="<?php echo $i; ?>" />
-                                <label id="rating_scale_label" for="id_<?php echo $i ?>"><?php echo $i; ?></label>
+                                <input type='radio' id="id_<?php echo esc_attr($i); ?>" class='radio_input' name="<?php echo esc_html(wp_strip_all_tags($survey_item['rating_question'])); ?>" value="<?php echo esc_attr($i); ?>" />
+                                <label id="rating_scale_label" for="id_<?php echo esc_attr($i); ?>"><?php echo esc_attr($i); ?></label>
                             </li>
                             <?php
                         }
@@ -205,12 +210,12 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                 ?>
                 <div class="dropdown_question_container tab">
                     <div class="dropdown_question">
-                        <?php echo $survey_item['dropdown_question']; ?>
+                        <?php echo wp_kses_post($survey_item['dropdown_question']); ?>
                     </div>
 
                         <div class="custom-control custom-select">
-                            <select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo $theQuestionCleaned; ?>">
-                                <option value=""><?php echo __('Select Option', 'wadi-survey') ?></option>
+                            <select name="<?php echo $dropdownQuestion; ?>" id="id_<?php echo esc_html($theQuestionCleaned); ?>">
+                                <option value=""><?php echo esc_attr__('Select Option', 'wadi-survey') ?></option>
 
                         <?php
                         foreach($survey_item['dropdown_answer'] as $dropdownAnswer) {
@@ -218,7 +223,7 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                             $dropdownAnswerAvailable = $dropdownAnswer['dropdown_text_answers'];
                             $theDropdownAnswerCleanup = trim(preg_replace('/\s+/', '', $dropdownAnswerAvailable));               
                             ?>
-                                <option value="<?php echo $dropdownAnswerAvailable; ?>"><?php echo $dropdownAnswerAvailable; ?></option>
+                                <option value="<?php echo esc_html(wp_strip_all_tags($dropdownAnswerAvailable)); ?>"><?php echo esc_attr($dropdownAnswerAvailable); ?></option>
                             <?php
                             }
                             ?>
@@ -245,8 +250,8 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                 
                 ?>
                 <div class="image_question_radio_container tab">
-                    <div class="image_picking_question" id="<?php echo $theImageQuestionCleaned;?>">
-                        <?php echo $image_pick_question; ?>
+                    <div class="image_picking_question" id="<?php echo esc_html(wp_strip_all_tags($theImageQuestionCleaned));?>">
+                        <?php echo wp_kses_post($image_pick_question); ?>
                     </div>
                     <div class="images_answers_container">
                         <ul class="image_question_answers">
@@ -254,8 +259,8 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                             foreach($images_answers as $image_answer) {
                                 ?>
                                 <li>
-                                    <input type="radio" name="<?php echo $image_pick_question; ?>" value="wadi_image_pick_<?php echo $image_answer['image_radio_answer']; ?>" id="<?php echo $image_answer['image_radio_answer']; ?>">
-                                    <label for="<?php echo $image_answer['image_radio_answer']; ?>"><?php echo wp_get_attachment_image($image_answer['image_radio_answer']); ?></label>
+                                    <input type="radio" name="<?php echo esc_html(wp_strip_all_tags($image_pick_question)); ?>" value="wadi_image_pick_<?php echo esc_attr($image_answer['image_radio_answer']); ?>" id="<?php echo esc_attr($image_answer['image_radio_answer']); ?>">
+                                    <label for="<?php echo esc_attr($image_answer['image_radio_answer']); ?>"><?php echo wp_kses_post(wp_get_attachment_image($image_answer['image_radio_answer'])); ?></label>
                                 </li>               
                                 <?php
                                 
@@ -276,9 +281,9 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
 
 <div style="overflow:auto;">
   <div class="multistep_naviation" style="float:right;">
-    <button type="button" id="prevBtn">Previous</button>
-    <button type="button" id="nextBtn">Next</button>
+    <button type="button" id="prevBtn"><?php esc_attr_e('Previous', 'wadi-survey'); ?></button>
+    <button type="button" id="nextBtn"><?php esc_attr_e('Next', 'wadi-survey'); ?></button>
   </div>
 </div>
 </form>
-<input type="hidden" data-survey-finish-message='<?php echo $survey_finish_message; ?>' data-redirect-time="<?php echo $redirect_time; ?>" data-survey-already-taken-message='<?php echo $survey_already_taken_message; ?>' class="redirect_url" data-redirect-url='<?php echo $redirect_url; ?>' />
+<input type="hidden" data-survey-finish-message='<?php echo wp_kses_post($survey_finish_message); ?>' data-redirect-time="<?php echo esc_attr($redirect_time); ?>" data-survey-already-taken-message='<?php echo wp_kses_post($survey_already_taken_message); ?>' class="redirect_url" data-redirect-url='<?php echo esc_attr($redirect_url); ?>' />

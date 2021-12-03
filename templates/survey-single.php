@@ -13,9 +13,9 @@ $survey_already_taken_message =  carbon_get_post_meta($the_post_id, 'wadi_survey
 $redirect_time =  carbon_get_post_meta($the_post_id, 'wadi_survey_settimeout');
 
 ?>
-<form method="POST" class="survey_container" data-survey-id="<?php echo $the_post_id; ?>" 
-data-user-id="<?php echo $the_current_user_id; ?>"
-data-post-type="<?php echo get_post_type($the_post_id); ?>"
+<form method="POST" class="survey_container" data-survey-id="<?php echo esc_attr($the_post_id); ?>" 
+data-user-id="<?php echo esc_attr($the_current_user_id); ?>"
+data-post-type="<?php echo esc_attr(get_post_type($the_post_id)); ?>"
 >
 <div class="survey_questions_conatiner">
     <?php
@@ -35,8 +35,8 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                 foreach ($survey_item['single_answers'] as $single_answer) {
                 ?>
                     <div class="survey_single_question survey_custom_control">
-                        <input type="radio" id="customRadio_<?php echo esc_html($single_answer['single_text_answers']); ?>" value="<?php echo esc_html($single_answer['single_text_answers']); ?>" name="<?php echo esc_attr(wp_strip_all_tags($survey_item['single_question'])); ?>" class="custom-control-input">
-                        <label class="survey_single_question_label" for="customRadio_<?php echo esc_html($single_answer['single_text_answers']); ?>"><?php echo wp_kses_post($single_answer['single_text_answers']); ?></label>
+                        <input type="radio" id="customRadio_<?php echo esc_html(wp_strip_all_tags($single_answer['single_text_answers'])); ?>" value="<?php echo esc_html($single_answer['single_text_answers']); ?>" name="<?php echo esc_attr(wp_strip_all_tags($survey_item['single_question'])); ?>" class="custom-control-input">
+                        <label class="survey_single_question_label" for="customRadio_<?php echo esc_html(wp_strip_all_tags($single_answer['single_text_answers'])); ?>"><?php echo wp_kses_post($single_answer['single_text_answers']); ?></label>
                     </div>
 
                 <?php
@@ -91,7 +91,7 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                     <table>
                         <thead>
                             <tr>
-                                <th><?php echo esc_attr__('Questions') ?></th>
+                                <th><?php echo esc_attr__('Questions','wadi-survey') ?></th>
                                 <?php
                                 foreach ($matrix_answers_row_head as $theadAnswer) {
                                     $thAnswer = $theadAnswer['matrix_answer_text'];
@@ -214,7 +214,7 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                             $dropdownAnswerAvailable = $dropdownAnswer['dropdown_text_answers'];
                             $theDropdownAnswerCleanup = trim(preg_replace('/\s+/', '', $dropdownAnswerAvailable));               
                             ?>
-                                <option value="<?php echo esc_html(wp_strip_all_tags($dropdownAnswerAvailable)); ?>"><?php echo wp_kses_post($dropdownAnswerAvailable); ?></option>
+                                <option value="<?php echo esc_html(wp_strip_all_tags($dropdownAnswerAvailable)); ?>"><?php echo esc_attr($dropdownAnswerAvailable); ?></option>
                             <?php
                             }
                             ?>
@@ -241,8 +241,8 @@ data-post-type="<?php echo get_post_type($the_post_id); ?>"
                 
                 ?>
                 <div class="image_question_radio_container">
-                    <div class="image_picking_question" id="<?php echo esc_html($theImageQuestionCleaned);?>">
-                        <?php echo $image_pick_question; ?>
+                    <div class="image_picking_question" id="<?php echo esc_html(wp_strip_all_tags($theImageQuestionCleaned));?>">
+                        <?php echo wp_kses_post($image_pick_question); ?>
                     </div>
                     <div class="images_answers_container">
                         <ul class="image_question_answers">
