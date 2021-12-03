@@ -38,7 +38,7 @@ $allow_multiple_responses_poll =  carbon_get_post_meta($the_post_id, 'wadi_poll_
                     ?>
                     <div class="poll_single_question poll_custom_control">
                         <input type="radio" id="customRadio_<?php echo esc_html($poll_single_answer['poll_single_text_answers']); ?>" value="<?php echo esc_html($poll_single_answer['poll_single_text_answers']); ?>" name="<?php echo esc_attr(wp_strip_all_tags($poll_single_question)); ?>" class="custom-control-input">
-                        <label class="poll_single_question_label" for="customRadio_<?php echo $poll_single_answer['poll_single_text_answers']; ?>"><?php echo esc_html($poll_single_answer['poll_single_text_answers']); ?></label>
+                        <label class="poll_single_question_label" for="customRadio_<?php echo esc_html($poll_single_answer['poll_single_text_answers']); ?>"><?php echo wp_kses_post($poll_single_answer['poll_single_text_answers']); ?></label>
                     </div>
 
                 <?php
@@ -160,7 +160,7 @@ $allow_multiple_responses_poll =  carbon_get_post_meta($the_post_id, 'wadi_poll_
 
         ?>
     </div>
-    <button type="submit" class="wadi_poll_submit">Submit</button>
+    <button type="submit" class="wadi_poll_submit"><?php echo esc_attr__('Submit', 'wadi-survey') ?></button>
 
 </form>
 <input type="hidden" data-poll-finish-message='<?php echo wp_kses_post($poll_finish_message); ?>' data-poll-already-taken-message='<?php echo wp_kses_post($poll_already_taken_message); ?>' class="poll_redirect_url" data-poll-redirect-time='<?php echo esc_attr($poll_redirect_time); ?>' data-poll-redirect-url='<?php echo esc_attr($poll_redirect_url); ?>' />
