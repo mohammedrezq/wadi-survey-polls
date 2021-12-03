@@ -40,7 +40,7 @@ function display_poll_post_type($atts)
     if (!isset($existedRow)) {
         ?>
         
-        <form method="POST" class="poll_container" data-poll-id="<?php echo $the_post_id; ?>" data-user-id="<?php echo $the_current_user_id; ?>" data-post-type="<?php echo get_post_type($the_post_id); ?>">
+        <form method="POST" class="poll_container" data-poll-id="<?php echo esc_attr($the_post_id); ?>" data-user-id="<?php echo esc_attr($the_current_user_id); ?>" data-post-type="<?php echo esc_attr(get_post_type($the_post_id)); ?>">
 
             <div class="poll_questions_conatiner">
 
@@ -56,7 +56,7 @@ function display_poll_post_type($atts)
 
                     <div class="poll_single_question_container">
                         <div class="wadi_poll_single_question">
-                            <?php echo $poll_single_question; ?>
+                            <?php echo wp_kses_post($poll_single_question); ?>
                         </div>
 
                         <?php
@@ -64,8 +64,8 @@ function display_poll_post_type($atts)
                         foreach ($poll_single_answers as $poll_single_answer) {
                             ?>
                             <div class="poll_single_question poll_custom_control">
-                                <input type="radio" id="customRadio_<?php echo $poll_single_answer['poll_single_text_answers']; ?>" value="<?php echo $poll_single_answer['poll_single_text_answers']; ?>" name="<?php echo $poll_single_question; ?>" class="custom-control-input">
-                                <label class="poll_single_question_label" for="customRadio_<?php echo $poll_single_answer['poll_single_text_answers']; ?>"><?php echo $poll_single_answer['poll_single_text_answers']; ?></label>
+                                <input type="radio" id="customRadio_<?php echo esc_attr(wp_strip_all_tags($poll_single_answer['poll_single_text_answers'])); ?>" value="<?php echo esc_html($poll_single_answer['poll_single_text_answers']); ?>" name="<?php echo esc_attr(wp_strip_all_tags($poll_single_question)); ?>" class="custom-control-input">
+                                <label class="poll_single_question_label" for="customRadio_<?php echo esc_attr(wp_strip_all_tags($poll_single_answer['poll_single_text_answers'])); ?>"><?php echo wp_kses_post($poll_single_answer['poll_single_text_answers']); ?></label>
                             </div>
 
                         <?php
@@ -88,16 +88,18 @@ function display_poll_post_type($atts)
             $theQuestionCleaned = preg_replace('/[^A-Za-z0-9\-]/', '', $theQuestionCleaned);
             $theQuestionCleaned = preg_replace('/[?]/', '', $theQuestionCleaned);
             // End of cleaning up the question to be multiple container ID?>
-                    <div class="poll_multiple_container" id="<?php echo $theQuestionCleaned ?>">
-                        <div class="poll_multiple_choices_question"><?php echo $poll_multi_answer_question; ?></div>
-                        <input type="hidden" class="poll_multiple_choice_question_answers" name="<?php echo $multiple_question_cleanup; ?>" value="" />
+                    <div class="poll_multiple_container" id="<?php echo esc_html($theQuestionCleaned); ?>">
+                        <div class="poll_multiple_choices_question">
+                            <?php echo wp_kses_post($poll_multi_answer_question); ?>
+                        </div>
+                        <input type="hidden" class="poll_multiple_choice_question_answers" name="<?php echo esc_html(wp_strip_all_tags($multiple_question_cleanup)); ?>" value="" />
                         <?php
                         foreach ($poll_multiple_answers as $multiple_text_answers) {
                             $available_multiple_answers = $multiple_text_answers['poll_multiple_text_answers'];
                             $theAnswerCleanup = trim(preg_replace('/\s+/', '', $available_multiple_answers)); ?>
                             <div class="custom-control custom-radio">
-                                <input type="checkbox" id="poll_customCheckbox_<?php echo $available_multiple_answers; ?>" data-answer="<?php echo $available_multiple_answers; ?>" data-question="<?php echo $multiple_question_cleanup; ?>" class="poll_custom-control-input">
-                                <label class="poll_custom-control-label" for="poll_customCheckbox_<?php echo $available_multiple_answers; ?>"><?php echo $available_multiple_answers; ?></label>
+                                <input type="checkbox" id="poll_customCheckbox_<?php echo esc_html($available_multiple_answers); ?>" data-answer="<?php echo esc_html($available_multiple_answers); ?>" data-question="<?php echo esc_html(wp_strip_all_tags($multiple_question_cleanup)); ?>" class="poll_custom-control-input">
+                                <label class="poll_custom-control-label" for="poll_customCheckbox_<?php echo esc_html($available_multiple_answers); ?>"><?php echo wp_kses_post($available_multiple_answers); ?></label>
                             </div>
                         <?php
                         } ?>
@@ -116,14 +118,14 @@ function display_poll_post_type($atts)
             $rating_scale_ending_text = carbon_get_post_meta($the_post_id, 'rating_scale_question_ending'); ?>
                     <div class="poll_rating_scale_container">
 
-                        <div class="rating_scale_question"><?php echo $rating_question; ?></div>
-                        <div class="poll_rating_scale_answer_container" data-start-rating-scale-range="<?php echo $start_rating_scale_range; ?>" data-end-rating-scale-range="<?php echo $end_rating_scale_range; ?>">
+                        <div class="rating_scale_question"><?php echo wp_kses_post($rating_question); ?></div>
+                        <div class="poll_rating_scale_answer_container" data-start-rating-scale-range="<?php echo esc_html($start_rating_scale_range); ?>" data-end-rating-scale-range="<?php echo esc_html($end_rating_scale_range); ?>">
                             <div class="rating_scale_answer_text_container">
                                 <div class="rating_scale_question_starting">
-                                    <?php echo $rating_scale_starting_text; ?>
+                                    <?php echo esc_attr($rating_scale_starting_text); ?>
                                 </div>
                                 <div class="rating_scale_question_ending">
-                                    <?php echo $rating_scale_ending_text; ?>
+                                    <?php echo esc_attr($rating_scale_ending_text); ?>
                                 </div>
                             </div>
                             <?php
@@ -133,9 +135,9 @@ function display_poll_post_type($atts)
                                 <?php
                                 for ($i = $starting; $i <= $ending; $i++) {
                                     ?>
-                                    <li class="poll_rating_scale_item rating_range_item_<?php echo $i; ?>">
-                                        <input type='radio' id="id_<?php echo $i ?>" class='radio_input' name="<?php echo $rating_question; ?>" value="<?php echo $i; ?>" />
-                                        <label id="rating_scale_label" for="id_<?php echo $i ?>"><?php echo $i; ?></label>
+                                    <li class="poll_rating_scale_item rating_range_item_<?php echo esc_attr($i); ?>">
+                                        <input type='radio' id="id_<?php echo esc_attr($i) ?>" class='radio_input' name="<?php echo esc_html(wp_strip_all_tags($rating_question)); ?>" value="<?php echo esc_attr($i); ?>" />
+                                        <label id="rating_scale_label" for="id_<?php echo esc_attr($i) ?>"><?php echo esc_attr($i); ?></label>
                                     </li>
                                 <?php
                                 } ?>
@@ -161,8 +163,8 @@ function display_poll_post_type($atts)
             // Poll Image Radio Question Answers
             $images_answers = carbon_get_post_meta($the_post_id, 'poll_images_answers'); ?>
                 <div class="poll_image_question_radio_container">
-                    <div class="poll_image_picking_question" id="<?php echo $theImageQuestionCleaned; ?>">
-                        <?php echo $image_pick_question; ?>
+                    <div class="poll_image_picking_question" id="<?php echo esc_html(wp_strip_all_tags($theImageQuestionCleaned)); ?>">
+                        <?php echo wp_kses_post($image_pick_question); ?>
                     </div>
                     <div class="poll_images_answers_container">
                         <ul class="poll_image_question_answers">
@@ -170,8 +172,8 @@ function display_poll_post_type($atts)
                             foreach ($images_answers as $image_answer) {
                                 ?>
                                 <li>
-                                    <input type="radio" name="<?php echo $image_pick_question; ?>" value="poll_wadi_image_pick_<?php echo $image_answer['poll_image_radio_answer']; ?>" id="<?php echo $image_answer['poll_image_radio_answer']; ?>">
-                                    <label for="<?php echo $image_answer['poll_image_radio_answer']; ?>"><?php echo wp_get_attachment_image($image_answer['poll_image_radio_answer']); ?></label>
+                                    <input type="radio" name="<?php echo esc_html(wp_strip_all_tags($image_pick_question)); ?>" value="poll_wadi_image_pick_<?php echo esc_html($image_answer['poll_image_radio_answer']); ?>" id="<?php echo esc_html($image_answer['poll_image_radio_answer']); ?>">
+                                    <label for="<?php echo esc_html($image_answer['poll_image_radio_answer']); ?>"><?php echo wp_kses_post(wp_get_attachment_image($image_answer['poll_image_radio_answer'])); ?></label>
                                 </li>               
                                 <?php
                             } ?>
@@ -182,163 +184,165 @@ function display_poll_post_type($atts)
                 <?php
         } ?>
             </div>
-            <button type="submit" class="wadi_poll_submit">Submit</button>
+            <button type="submit" class="wadi_poll_submit"><?php echo esc_attr__('Submit', 'wadi-survey'); ?></button>
 
         </form>
-        <input type="hidden" data-poll-finish-message='<?php echo $poll_finish_message; ?>' data-poll-already-taken-message='<?php echo $poll_already_taken_message; ?>' data-poll-redirect-time='<?php echo $poll_redirect_time; ?>' class="poll_redirect_url" data-poll-redirect-url='<?php echo $poll_redirect_url; ?>' />
+        <input type="hidden" data-poll-finish-message='<?php echo wp_kses_post($poll_finish_message); ?>' data-poll-already-taken-message='<?php echo wp_kses_post($poll_already_taken_message); ?>' data-poll-redirect-time='<?php echo esc_attr($poll_redirect_time); ?>' class="poll_redirect_url" data-poll-redirect-url='<?php echo esc_attr($poll_redirect_url); ?>' />
     <?php
     } elseif ($allow_multiple_responses_poll == true) {
         ?>
-    <form method="POST" class="poll_container" data-poll-id="<?php echo $the_post_id; ?>" data-user-id="<?php echo $the_current_user_id; ?>" data-post-type="<?php echo get_post_type($the_post_id); ?>">
+            <form method="POST" class="poll_container" data-poll-id="<?php echo esc_attr($the_post_id); ?>" data-user-id="<?php echo esc_attr($the_current_user_id); ?>" data-post-type="<?php echo esc_attr(get_post_type($the_post_id)); ?>">
 
-            <div class="poll_questions_conatiner">
+                <div class="poll_questions_conatiner">
 
-                <?php
-                $poll_question_type = carbon_get_post_meta($the_post_id, 'select_poll_question_type');
+                    <?php
+                    $poll_question_type = carbon_get_post_meta($the_post_id, 'select_poll_question_type');
 
-        /**
-         * Poll Single Choice Questions
-         */
-        if ($poll_question_type === 'poll_single_choice') {
-            $poll_single_question = carbon_get_post_meta($the_post_id, 'poll_single_question');
-            $poll_single_answers = carbon_get_post_meta($the_post_id, 'poll_single_answers'); ?>
+                /**
+                * Poll Single Choice Questions
+                */
+                if ($poll_question_type === 'poll_single_choice') {
+                $poll_single_question = carbon_get_post_meta($the_post_id, 'poll_single_question');
+                $poll_single_answers = carbon_get_post_meta($the_post_id, 'poll_single_answers'); ?>
 
-                    <div class="poll_single_question_container">
-                        <div class="wadi_poll_single_question">
-                            <?php echo $poll_single_question; ?>
-                        </div>
-                
-                        <?php
-
-                        foreach ($poll_single_answers as $poll_single_answer) {
-                            ?>
-                            <div class="poll_single_question poll_custom_control">
-                                <input type="radio" id="customRadio_<?php echo $poll_single_answer['poll_single_text_answers']; ?>" value="<?php echo $poll_single_answer['poll_single_text_answers']; ?>" name="<?php echo $poll_single_question; ?>" class="custom-control-input">
-                                <label class="poll_single_question_label" for="customRadio_<?php echo $poll_single_answer['poll_single_text_answers']; ?>"><?php echo $poll_single_answer['poll_single_text_answers']; ?></label>
+                        <div class="poll_single_question_container">
+                            <div class="wadi_poll_single_question">
+                                <?php echo wp_kses_post($poll_single_question); ?>
                             </div>
-                        
-                        <?php
-                        } ?>
-                    </div>
-                <?php
-        }
-            
-        /**
-         * Muliple Choices Questions
-         */
-        if ($poll_question_type === 'poll_multiple_choices') {
-            $poll_multi_answer_question = carbon_get_post_meta($the_post_id, 'multiple_question');
-            $poll_multiple_answers = carbon_get_post_meta($the_post_id, 'poll_multiple_answers');
-                
-            //Cleaning Up the Question to be multiple container ID
-            $multiple_question_cleanup = strip_tags($poll_multi_answer_question);
-            $theQuestion =  preg_replace('/\s+/', '', $multiple_question_cleanup);
-            $theQuestionCleaned =  trim($theQuestion, " \t\n\r\0\x0B\xC2\xA0");
-            $theQuestionCleaned = preg_replace('/[^A-Za-z0-9\-]/', '', $theQuestionCleaned);
-            $theQuestionCleaned = preg_replace('/[?]/', '', $theQuestionCleaned);
-            // End of cleaning up the question to be multiple container ID?>
-                    <div class="poll_multiple_container" id="<?php echo $theQuestionCleaned ?>">
-                        <div class="poll_multiple_choices_question"><?php echo $poll_multi_answer_question; ?></div>
-                        <input type="hidden" class="poll_multiple_choice_question_answers" name="<?php echo $multiple_question_cleanup; ?>" value="" />
-                        <?php
-                        foreach ($poll_multiple_answers as $multiple_text_answers) {
-                            $available_multiple_answers = $multiple_text_answers['poll_multiple_text_answers'];
-                            $theAnswerCleanup = trim(preg_replace('/\s+/', '', $available_multiple_answers)); ?>
-                            <div class="custom-control custom-radio">
-                                <input type="checkbox" id="poll_customCheckbox_<?php echo $available_multiple_answers; ?>" data-answer="<?php echo $available_multiple_answers; ?>" data-question="<?php echo $multiple_question_cleanup; ?>" class="poll_custom-control-input">
-                                <label class="poll_custom-control-label" for="poll_customCheckbox_<?php echo $available_multiple_answers; ?>"><?php echo $available_multiple_answers; ?></label>
-                            </div>
-                        <?php
-                        } ?>
-                    </div>
-                    
-                <?php
-        }
-        /**
-         * Rating Scale Question
-         */
-        if ($poll_question_type === 'poll_rating_question') {
-            $rating_question = carbon_get_post_meta($the_post_id, 'rating_question');
-            $start_rating_scale_range = carbon_get_post_meta($the_post_id, 'rating_question_number_1');
-            $end_rating_scale_range = carbon_get_post_meta($the_post_id, 'rating_question_number_2');
-            $rating_scale_starting_text = carbon_get_post_meta($the_post_id, 'rating_scale_question_starting');
-            $rating_scale_ending_text = carbon_get_post_meta($the_post_id, 'rating_scale_question_ending'); ?>
-                    <div class="poll_rating_scale_container">
-                
-                        <div class="rating_scale_question"><?php echo $rating_question; ?></div>
-                        <div class="poll_rating_scale_answer_container" data-start-rating-scale-range="<?php echo $start_rating_scale_range; ?>" data-end-rating-scale-range="<?php echo $end_rating_scale_range; ?>">
-                            <div class="rating_scale_answer_text_container">
-                                <div class="rating_scale_question_starting">
-                                    <?php echo $rating_scale_starting_text; ?>
-                                </div>
-                                <div class="rating_scale_question_ending">
-                                    <?php echo $rating_scale_ending_text; ?>
-                                </div>
-                            </div>
+
                             <?php
-                            $starting = $start_rating_scale_range;
-            $ending = $end_rating_scale_range; ?>
-                            <ul class="rating_scale_answers">
-                                <?php
-                                for ($i = $starting; $i <= $ending; $i++) {
-                                    ?>
-                                    <li class="poll_rating_scale_item rating_range_item_<?php echo $i; ?>">
-                                        <input type='radio' id="id_<?php echo $i ?>" class='radio_input' name="<?php echo $rating_question; ?>" value="<?php echo $i; ?>" />
-                                        <label id="rating_scale_label" for="id_<?php echo $i ?>"><?php echo $i; ?></label>
-                                    </li>
-                                <?php
-                                } ?>
-                            </ul>
-                            
-                        </div>
-                    </div>
-                            
-                <?php
-        }
-            
-        /**
-         * Poll Radio Image Question (select radio image)
-         */
-        if ($poll_question_type === 'poll_radio_image_question') {
 
-                    // Poll Image Radio Question
-            $image_pick_question = carbon_get_post_meta($the_post_id, 'poll_image_pick_question');
-            $imageQuestionCleanup = trim(preg_replace('/\s+/', '', $image_pick_question));
-            $theImageQuestionCleaned =  trim($imageQuestionCleanup, " \t\n\r\0\x0B\xC2\xA0");
-            $theImageQuestionCleaned = preg_replace('/[^A-Za-z0-9\-]/', '', $imageQuestionCleanup);
-            $theImageQuestionCleaned = preg_replace('/[?]/', '', $imageQuestionCleanup);
-            // Poll Image Radio Question Answers
-            $images_answers = carbon_get_post_meta($the_post_id, 'poll_images_answers'); ?>
-                <div class="poll_image_question_radio_container">
-                    <div class="poll_image_picking_question" id="<?php echo $theImageQuestionCleaned; ?>">
-                        <?php echo $image_pick_question; ?>
-                    </div>
-                    <div class="poll_images_answers_container">
-                        <ul class="poll_image_question_answers">
-                            <?php
-                            foreach ($images_answers as $image_answer) {
+                            foreach ($poll_single_answers as $poll_single_answer) {
                                 ?>
-                                <li>
-                                    <input type="radio" name="<?php echo $image_pick_question; ?>" value="poll_wadi_image_pick_<?php echo $image_answer['poll_image_radio_answer']; ?>" id="<?php echo $image_answer['poll_image_radio_answer']; ?>">
-                                    <label for="<?php echo $image_answer['poll_image_radio_answer']; ?>"><?php echo wp_get_attachment_image($image_answer['poll_image_radio_answer']); ?></label>
-                                </li>               
-                                <?php
-                            } ?>
+                                <div class="poll_single_question poll_custom_control">
+                                    <input type="radio" id="customRadio_<?php echo esc_attr(wp_strip_all_tags($poll_single_answer['poll_single_text_answers'])); ?>" value="<?php echo esc_html($poll_single_answer['poll_single_text_answers']); ?>" name="<?php echo esc_attr(wp_strip_all_tags($poll_single_question)); ?>" class="custom-control-input">
+                                    <label class="poll_single_question_label" for="customRadio_<?php echo esc_attr(wp_strip_all_tags($poll_single_answer['poll_single_text_answers'])); ?>"><?php echo wp_kses_post($poll_single_answer['poll_single_text_answers']); ?></label>
+                                </div>
 
-                        </ul>
+                            <?php
+                            } ?>
+                        </div>
+                    <?php
+                }
+
+                /**
+                * Muliple Choices Questions
+                */
+                if ($poll_question_type === 'poll_multiple_choices') {
+                $poll_multi_answer_question = carbon_get_post_meta($the_post_id, 'multiple_question');
+                $poll_multiple_answers = carbon_get_post_meta($the_post_id, 'poll_multiple_answers');
+
+                //Cleaning Up the Question to be multiple container ID
+                $multiple_question_cleanup = strip_tags($poll_multi_answer_question);
+                $theQuestion =  preg_replace('/\s+/', '', $multiple_question_cleanup);
+                $theQuestionCleaned =  trim($theQuestion, " \t\n\r\0\x0B\xC2\xA0");
+                $theQuestionCleaned = preg_replace('/[^A-Za-z0-9\-]/', '', $theQuestionCleaned);
+                $theQuestionCleaned = preg_replace('/[?]/', '', $theQuestionCleaned);
+                // End of cleaning up the question to be multiple container ID?>
+                        <div class="poll_multiple_container" id="<?php echo esc_html($theQuestionCleaned); ?>">
+                            <div class="poll_multiple_choices_question">
+                                <?php echo wp_kses_post($poll_multi_answer_question); ?>
+                            </div>
+                            <input type="hidden" class="poll_multiple_choice_question_answers" name="<?php echo esc_html(wp_strip_all_tags($multiple_question_cleanup)); ?>" value="" />
+                            <?php
+                            foreach ($poll_multiple_answers as $multiple_text_answers) {
+                                $available_multiple_answers = $multiple_text_answers['poll_multiple_text_answers'];
+                                $theAnswerCleanup = trim(preg_replace('/\s+/', '', $available_multiple_answers)); ?>
+                                <div class="custom-control custom-radio">
+                                    <input type="checkbox" id="poll_customCheckbox_<?php echo esc_html($available_multiple_answers); ?>" data-answer="<?php echo esc_html($available_multiple_answers); ?>" data-question="<?php echo esc_html(wp_strip_all_tags($multiple_question_cleanup)); ?>" class="poll_custom-control-input">
+                                    <label class="poll_custom-control-label" for="poll_customCheckbox_<?php echo esc_html($available_multiple_answers); ?>"><?php echo wp_kses_post($available_multiple_answers); ?></label>
+                                </div>
+                            <?php
+                            } ?>
+                        </div>
+
+                    <?php
+                }
+                /**
+                * Rating Scale Question
+                */
+                if ($poll_question_type === 'poll_rating_question') {
+                $rating_question = carbon_get_post_meta($the_post_id, 'rating_question');
+                $start_rating_scale_range = carbon_get_post_meta($the_post_id, 'rating_question_number_1');
+                $end_rating_scale_range = carbon_get_post_meta($the_post_id, 'rating_question_number_2');
+                $rating_scale_starting_text = carbon_get_post_meta($the_post_id, 'rating_scale_question_starting');
+                $rating_scale_ending_text = carbon_get_post_meta($the_post_id, 'rating_scale_question_ending'); ?>
+                        <div class="poll_rating_scale_container">
+
+                            <div class="rating_scale_question"><?php echo wp_kses_post($rating_question); ?></div>
+                            <div class="poll_rating_scale_answer_container" data-start-rating-scale-range="<?php echo esc_html($start_rating_scale_range); ?>" data-end-rating-scale-range="<?php echo esc_html($end_rating_scale_range); ?>">
+                                <div class="rating_scale_answer_text_container">
+                                    <div class="rating_scale_question_starting">
+                                        <?php echo esc_attr($rating_scale_starting_text); ?>
+                                    </div>
+                                    <div class="rating_scale_question_ending">
+                                        <?php echo esc_attr($rating_scale_ending_text); ?>
+                                    </div>
+                                </div>
+                                <?php
+                                $starting = $start_rating_scale_range;
+                $ending = $end_rating_scale_range; ?>
+                                <ul class="rating_scale_answers">
+                                    <?php
+                                    for ($i = $starting; $i <= $ending; $i++) {
+                                        ?>
+                                        <li class="poll_rating_scale_item rating_range_item_<?php echo esc_attr($i); ?>">
+                                            <input type='radio' id="id_<?php echo esc_attr($i) ?>" class='radio_input' name="<?php echo esc_html(wp_strip_all_tags($rating_question)); ?>" value="<?php echo esc_attr($i); ?>" />
+                                            <label id="rating_scale_label" for="id_<?php echo esc_attr($i) ?>"><?php echo esc_attr($i); ?></label>
+                                        </li>
+                                    <?php
+                                    } ?>
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    <?php
+                }
+
+                /**
+                * Poll Radio Image Question (select radio image)
+                */
+                if ($poll_question_type === 'poll_radio_image_question') {
+                        
+                        // Poll Image Radio Question
+                $image_pick_question = carbon_get_post_meta($the_post_id, 'poll_image_pick_question');
+                $imageQuestionCleanup = trim(preg_replace('/\s+/', '', $image_pick_question));
+                $theImageQuestionCleaned =  trim($imageQuestionCleanup, " \t\n\r\0\x0B\xC2\xA0");
+                $theImageQuestionCleaned = preg_replace('/[^A-Za-z0-9\-]/', '', $imageQuestionCleanup);
+                $theImageQuestionCleaned = preg_replace('/[?]/', '', $imageQuestionCleanup);
+                // Poll Image Radio Question Answers
+                $images_answers = carbon_get_post_meta($the_post_id, 'poll_images_answers'); ?>
+                    <div class="poll_image_question_radio_container">
+                        <div class="poll_image_picking_question" id="<?php echo esc_html(wp_strip_all_tags($theImageQuestionCleaned)); ?>">
+                            <?php echo wp_kses_post($image_pick_question); ?>
+                        </div>
+                        <div class="poll_images_answers_container">
+                            <ul class="poll_image_question_answers">
+                                <?php
+                                foreach ($images_answers as $image_answer) {
+                                    ?>
+                                    <li>
+                                        <input type="radio" name="<?php echo esc_html(wp_strip_all_tags($image_pick_question)); ?>" value="poll_wadi_image_pick_<?php echo esc_html($image_answer['poll_image_radio_answer']); ?>" id="<?php echo esc_html($image_answer['poll_image_radio_answer']); ?>">
+                                        <label for="<?php echo esc_html($image_answer['poll_image_radio_answer']); ?>"><?php echo wp_kses_post(wp_get_attachment_image($image_answer['poll_image_radio_answer'])); ?></label>
+                                    </li>               
+                                    <?php
+                                } ?>
+
+                            </ul>
+                        </div>
                     </div>
+                    <?php
+                } ?>
                 </div>
-                <?php
-        } ?>
-            </div>
-            <button type="submit" class="wadi_poll_submit"><?php esc_html_e('Submit', 'wadi-survey'); ?></button>
-            
-            </form>
-            <input type="hidden" data-poll-finish-message='<?php echo $poll_finish_message; ?>' data-poll-already-taken-message='<?php echo $poll_already_taken_message; ?>' class="poll_redirect_url" data-poll-redirect-time='<?php echo $poll_redirect_time; ?>' data-poll-redirect-url='<?php echo $poll_redirect_url; ?>' />
+                <button type="submit" class="wadi_poll_submit"><?php echo esc_attr__('Submit', 'wadi-survey'); ?></button>
+
+                </form>
+                <input type="hidden" data-poll-finish-message='<?php echo wp_kses_post($poll_finish_message); ?>' data-poll-already-taken-message='<?php echo wp_kses_post($poll_already_taken_message); ?>' data-poll-redirect-time='<?php echo esc_attr($poll_redirect_time); ?>' class="poll_redirect_url" data-poll-redirect-url='<?php echo esc_attr($poll_redirect_url); ?>' />
                 <?php
     } elseif (isset($existedRow) && $allow_multiple_responses_poll == false) {
         ?>
-        		<p><?php echo $poll_already_taken_message; ?></p>
+        		<p><?php echo wp_kses_post($poll_already_taken_message); ?></p>
         <?php
     }
     return ob_get_clean();
