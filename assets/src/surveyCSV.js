@@ -9,7 +9,7 @@ const exportSurveryCSV = () => {
         const paramId = document.querySelector("#export_btn");
         const theId = paramId.dataset.survey;
         const data = {
-          action: "export_survey_results_to_csv",
+          action: "wadi_survey_export_survey_results_to_csv",
           paramId: theId,
         };
         jQuery.ajax({

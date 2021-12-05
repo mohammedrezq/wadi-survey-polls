@@ -15,7 +15,7 @@ if (ws_fs()->is_premium()) {
             return '' === $needle || false !== strpos($haystack, $needle);
         }
     }
-    function export_poll_results_to_csv()
+    function wadi_survey_export_poll_results_to_csv()
     {
     
     // not empty
@@ -148,5 +148,5 @@ if (ws_fs()->is_premium()) {
         fclose($output_handle); //phpcs:ignore
         die();
     }
-    add_action('wp_ajax_export_poll_results_to_csv', 'export_poll_results_to_csv');
+    add_action('wp_ajax_wadi_survey_export_poll_results_to_csv', 'wadi_survey_export_poll_results_to_csv');
 }

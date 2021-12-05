@@ -4,7 +4,7 @@ use Carbon_Fields\Container;
 use Carbon_Fields\Field;
 
 
-class SurveyBackend
+class WadiSurveyBackend
 {
 
 
@@ -547,4 +547,4 @@ class SurveyBackend
 }
 
 
-new SurveyBackend;
+new WadiSurveyBackend;
