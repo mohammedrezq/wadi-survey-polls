@@ -90,49 +90,49 @@ if (function_exists('ws_fs')) {
      * Define Paths
      */
 
-    define('PLUGIN_PATH', plugin_dir_path(__FILE__));
+    define('WADI_SURVEY_PLUGIN_PATH', plugin_dir_path(__FILE__));
 
     /**
      * Register Task Post Type
      */
 
 
-    require_once PLUGIN_PATH . 'includes/class-posttypes.php';
+    require_once WADI_SURVEY_PLUGIN_PATH . 'includes/class-posttypes.php';
 
     /**
      * Add in custom fields.
      */
-    require_once PLUGIN_PATH . 'includes/class-wadi-backend.php';
+    require_once WADI_SURVEY_PLUGIN_PATH . 'includes/class-wadi-backend.php';
 
     /**
      * Add Survey Shortcode
      */
 
-    require_once PLUGIN_PATH . 'includes/survey-shortcode.php';
+    require_once WADI_SURVEY_PLUGIN_PATH . 'includes/survey-shortcode.php';
 
     /**
      * Add Poll Shortcode
      */
 
-    require_once PLUGIN_PATH . 'includes/poll-shortcode.php';
+    require_once WADI_SURVEY_PLUGIN_PATH . 'includes/poll-shortcode.php';
 
     /**
      * Add Survey Database Table
      */
 
-    require_once PLUGIN_PATH . 'includes/class-survey-db.php';
+    require_once WADI_SURVEY_PLUGIN_PATH . 'includes/class-survey-db.php';
 
     /**
      * Add Survey submenu page
      */
 
-    require_once PLUGIN_PATH . 'includes/class-wadi-admin-menus.php';
+    require_once WADI_SURVEY_PLUGIN_PATH . 'includes/class-wadi-admin-menus.php';
 
     /**
      * Enqueue Wadi Survey Scripts and Styles
      */
 
-    require_once PLUGIN_PATH . 'includes/class-wadi-survey-enqueue.php';
+    require_once WADI_SURVEY_PLUGIN_PATH . 'includes/class-wadi-survey-enqueue.php';
 
 
     if (ws_fs()->is__premium_only()) {
@@ -141,13 +141,13 @@ if (function_exists('ws_fs')) {
              * Add Single Survey CSV Export
              */
 
-            require_once PLUGIN_PATH . 'includes/survey-csv.php';
+            require_once WADI_SURVEY_PLUGIN_PATH . 'includes/survey-csv.php';
 
             /**
              * Add Single Poll CSV Export
              */
 
-            require_once PLUGIN_PATH . 'includes/poll-csv.php';
+            require_once WADI_SURVEY_PLUGIN_PATH . 'includes/poll-csv.php';
         }
     }
 
@@ -155,7 +155,7 @@ if (function_exists('ws_fs')) {
      * Wadi Survey Uninstall
      */
 
-    // require_once PLUGIN_PATH . 'includes/class-wadi-survey-uninstall.php';
+    // require_once WADI_SURVEY_PLUGIN_PATH . 'includes/class-wadi-survey-uninstall.php';
 
     /**
      * Disable Gutenberg on Survey Custom Post Type
@@ -297,7 +297,7 @@ if (function_exists('ws_fs')) {
     {
         global $post;
 
-        $file = PLUGIN_PATH .'single-'. $post->post_type .'.php';
+        $file = WADI_SURVEY_PLUGIN_PATH .'single-'. $post->post_type .'.php';
 
         if (file_exists($file)) {
             $single_template = $file;
