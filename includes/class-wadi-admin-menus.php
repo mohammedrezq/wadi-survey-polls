@@ -1,6 +1,6 @@
 <?php
 
-class WadiAdminMenus
+class WadiSurveyAdminMenus
 {
 
     public function __construct()
@@ -170,4 +170,4 @@ class WadiAdminMenus
 
 }
 
-new WadiAdminMenus;
+new WadiSurveyAdminMenus;

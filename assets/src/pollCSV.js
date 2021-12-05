@@ -9,7 +9,7 @@ const exportPollCSV = () => {
           const paramPollId = document.querySelector("#export_btn");
           const theId = paramPollId.dataset.poll;
           const data = {
-            action: "export_poll_results_to_csv",
+            action: "wadi_survey_export_poll_results_to_csv",
             paramPollId: theId,
           };
           jQuery.ajax({

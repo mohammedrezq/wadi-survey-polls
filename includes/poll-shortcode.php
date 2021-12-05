@@ -3,9 +3,9 @@ if (! defined('ABSPATH')) {
     exit;
 }
 
-add_shortcode('wadi-poll', 'display_poll_post_type');
+add_shortcode('wadi-poll', 'wadi_survey_display_poll_post_type');
 
-function display_poll_post_type($atts)
+function wadi_survey_display_poll_post_type($atts)
 {
     $attributes = shortcode_atts(array(
         'id' => null,

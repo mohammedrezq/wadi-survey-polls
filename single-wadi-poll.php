@@ -39,11 +39,11 @@ $the_current_user_id = get_current_user_id();
 
 
     if (!isset($existedRow)) { // Check if poll item row exist in database
-        require_once PLUGIN_PATH . 'templates/poll-single.php';
+        require_once WADI_SURVEY_PLUGIN_PATH . 'templates/poll-single.php';
     } 
     elseif (isset($existedRow) && $allow_multiple_responses_poll == true) {
 
-        require_once PLUGIN_PATH . 'templates/poll-single.php';
+        require_once WADI_SURVEY_PLUGIN_PATH . 'templates/poll-single.php';
     } 
     elseif (isset($existedRow) && $allow_multiple_responses_poll == false) {
         ?>

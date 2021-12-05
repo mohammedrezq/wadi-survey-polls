@@ -1,6 +1,6 @@
 <?php
 
-class WadiPosttypes
+class WadiSurveyPostTypes
 {
 
     public function __construct()
@@ -128,4 +128,4 @@ class WadiPosttypes
     }
 }
 
-new WadiPosttypes;
+new WadiSurveyPostTypes;

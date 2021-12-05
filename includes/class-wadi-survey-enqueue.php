@@ -1,6 +1,6 @@
 <?php
 
-class WadiEnqueue
+class WadiSurveyEnqueue
 {
     public function __construct()
     {
@@ -191,4 +191,4 @@ class WadiEnqueue
     }
 }
 
-new WadiEnqueue;
+new WadiSurveyEnqueue;
